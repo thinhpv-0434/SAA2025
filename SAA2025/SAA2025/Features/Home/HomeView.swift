@@ -100,7 +100,7 @@ struct HomeView: View {
             AwardsOverviewView()
         }
         .navigationDestination(isPresented: $viewModel.navigateToAboutKudos) {
-            KudosOverviewView()
+            KudosOverviewViewContainer()
         }
         .navigationDestination(isPresented: $viewModel.navigateToSearch) {
             SearchView()

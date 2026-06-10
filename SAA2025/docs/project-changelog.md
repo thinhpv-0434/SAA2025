@@ -1,5 +1,47 @@
 # Project Changelog
 
+## [0.4.0] — 2026-06-10
+
+### [iOS] All Kudos screen implemented (Sun*Kudos_All Kudos — `j_a2GQWKDJ`)
+
+**Features added**
+- `KudosOverviewViewContainer` + `KudosOverviewView` — Container/presentational split matching `KudosTabViewContainer`/`KudosTabView` pattern; replaces prior "Coming soon" stub
+- `KudosOverviewViewModel` — `@MainActor ObservableObject`; loads `service.loadKudosFeed(page: 1, limit: 20, hashtagId: nil, departmentId: nil)` on appear; `toggleHeart(kudosId:)` with `isOwn` guard
+- Inline navigation header: `chevron.left` back button + "All Kudos" title (no `NavigationView` wrapper — matches design)
+- Reuses `SectionHeader` and `KudosCard(isCarouselVariant: false)` from Sun*Kudos components
+
+**Navigation wired**
+- `KudosTabView.swift:186` — "All Kudos" row navigates to `KudosOverviewViewContainer()`
+- `HomeView.swift:103` — Home kudos section "All Kudos" link navigates to `KudosOverviewViewContainer()`
+
+**Bug fix (alert dismiss)**
+- `KudosOverviewView`: alert dismiss binding was calling `onRetry()` on the Cancel button due to incorrect two-way binding. Replaced with separate `@State var showErrorAlert` + `.onChange(of: errorMessage)` to set flag. (Same bug exists pre-existing in `KudosTabView` — deferred.)
+
+**Process**
+- Build verified clean (no compile errors)
+
+**Known limitations / deferred**
+- Pagination beyond page 1 not implemented in UI
+- Alert-dismiss bug in `KudosTabView` (pre-existing, not in scope)
+
+---
+
+### [iOS] Critical path fix — Sun*Kudos feature path migration
+
+**Context**
+- Commit `2f0a7db` placed all 18 Sun*Kudos files at outer project root paths (`Features/Kudos/`, `Services/`, `Navigation/`). Xcode's `PBXFileSystemSynchronizedRootGroup` only tracks the inner `SAA2025/` folder. The entire Sun*Kudos feature was compiled-out dead code; the Kudos tab rendered the "Coming soon" stub despite the commit claiming the feature shipped.
+
+**Files migrated (18 total)**
+- `SAA2025/Features/Kudos/` — `KudosTabView.swift`, `KudosViewModel.swift`, `KudosFeedView.swift`, all 11 `Components/` files, all 5 `Models/` files
+- `SAA2025/Services/` — `KudosService.swift` (expanded to 9 endpoints), `KudosFixtures.swift`
+- `SAA2025/Navigation/MainTabView.swift` — was already correctly placed; confirmed in-scope
+
+**Impact**
+- Kudos tab now renders the fully implemented `KudosTabView` (carousel, filters, stats, spotlight, secret-box flow)
+- `KudosService` protocol expanded from 1 to 9 methods; `FakeKudosService` implements all 9; `KudosFixtures.swift` added as fixture data source
+
+---
+
 ## [0.1.0] — 2026-06-08
 
 ### [iOS] Login screen scaffolded from MoMorph design `8HGlvYGJWq`

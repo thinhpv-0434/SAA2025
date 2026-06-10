@@ -98,7 +98,8 @@ All services follow the same pattern: a `protocol` defines the contract; a `Fake
 |----------|--------------------|-----------|-----------------------|
 | `AuthService` | `FakeAuthService` | `signIn() async throws -> String` | GoogleSignIn-iOS SDK |
 | `AwardsService` | `FakeAwardsService` | `loadAwards() async throws -> [Award]` | REST awards endpoint |
-| `KudosService` | `FakeKudosService` | `loadKudos() async throws -> KudosInfo` | REST kudos endpoint |
+| `KudosService` | `FakeKudosService` | 9 endpoints: `loadKudos`, `loadHighlight`, `loadKudosFeed`, `loadHashtags`, `loadDepartments`, `loadKudosStats`, `loadTopRecipients`, `loadSpotlightCount`, `openNextSecretBox` | REST kudos endpoints |
+| `KudosFixtures` | — | Static fixture data for all `FakeKudosService` responses | — |
 | `NotificationsService` | `FakeNotificationsService` | `loadSummary() async throws -> NotificationSummary` | REST / WebSocket |
 | `TokenStore` | — | `ObservableObject`; persists `"auth.token"` to `UserDefaults` | Migrate to Keychain |
 | `Localizer` | — | `ObservableObject`; `t(_ key:)` looks up VN dict | Populate EN/JA dicts |
@@ -172,9 +173,18 @@ SAA2025/
 │   │   ├── AwardsOverviewView.swift  # stub
 │   │   └── AwardDetailView.swift     # stub (typed nav deferred)
 │   ├── Kudos/
-│   │   ├── KudosTabView.swift        # stub
-│   │   ├── KudosOverviewView.swift   # stub
-│   │   └── KudosFeedView.swift       # stub
+│   │   ├── KudosTabView.swift             # implemented (Sun*Kudos tab root)
+│   │   ├── KudosViewModel.swift           # @MainActor ObservableObject for KudosTabView
+│   │   ├── KudosOverviewView.swift        # implemented (All Kudos screen — j_a2GQWKDJ)
+│   │   ├── KudosOverviewViewModel.swift   # @MainActor ObservableObject for KudosOverviewView
+│   │   ├── KudosFeedView.swift            # stub
+│   │   ├── Components/                    # HashtagChip, HighlightCarousel, KudosCard,
+│   │   │                                  #   KudosFilterRow, KudosHeroSection,
+│   │   │                                  #   OpenSecretBoxButton, PersonalStatsBlock,
+│   │   │                                  #   SectionHeader, SendKudosButton,
+│   │   │                                  #   SpotlightBoard, TopRecipientsBlock
+│   │   └── Models/                        # Department, GiftRecipient, Hashtag,
+│   │                                      #   KudosHighlight, KudosStats
 │   ├── WriteKudo/
 │   │   └── WriteKudoView.swift       # stub
 │   ├── Profile/

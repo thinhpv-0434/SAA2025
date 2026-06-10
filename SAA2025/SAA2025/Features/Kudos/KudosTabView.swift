@@ -183,7 +183,7 @@ struct KudosTabView: View {
         .task { await viewModel.load() }
         .navigationDestination(isPresented: $viewModel.navigateToSendKudos) { WriteKudoView() }
         .navigationDestination(isPresented: $viewModel.navigateToKudosDetail) { KudosFeedView() }
-        .navigationDestination(isPresented: $viewModel.navigateToViewAll) { KudosOverviewView() }
+        .navigationDestination(isPresented: $viewModel.navigateToViewAll) { KudosOverviewViewContainer() }
         .sheet(isPresented: $viewModel.navigateToOpenSecretBox) {
             VStack(spacing: 12) {
                 Text("Secret Box")

@@ -57,6 +57,21 @@
 - Notifications panel with mark-as-read
 - Search screen content
 
+## Phase 7 — Sun*Kudos tab + All Kudos screen
+**Status: done**
+
+- **Critical path fix:** All 18 Sun*Kudos files created in commit `2f0a7db` were at outer paths (`Features/Kudos/`, `Services/`, `Navigation/`) outside `SAA2025/` — the folder Xcode's `PBXFileSystemSynchronizedRootGroup` tracks. Entire Kudos feature was dead code; Kudos tab rendered the "Coming soon" stub. All 18 files moved via `git mv` into inner `SAA2025/` paths this session.
+- **KudosTabView** (full implementation, commit `2f0a7db`): carousel, hashtag/department filters, stats block, spotlight board, secret-box flow, send kudos navigation
+- **KudosOverviewView** (All Kudos screen `j_a2GQWKDJ`): Container/presentational split; inline header with back-chevron + "All Kudos" title; reuses `SectionHeader` and `KudosCard(isCarouselVariant: false)`; paginated feed via `loadKudosFeed(page: 1, limit: 20)`; heart toggle with `isOwn` guard
+- **KudosOverviewViewModel**: `@MainActor ObservableObject`; `toggleHeart` guards against own kudos
+- Navigation wired: `KudosTabView` and `HomeView` both navigate to `KudosOverviewViewContainer`
+
+**Known limitations / deferred**
+- `KudosFeedView` remains a stub
+- Alert-dismiss binding bug in `KudosTabView` (pre-existing from `2f0a7db`) — `onRetry()` fires on Cancel tap; deferred follow-up
+- All service calls are still Fake implementations
+- Pagination beyond page 1 not implemented in UI
+
 ## Phase 6 — XCTest unit test target
 **Status: not started**
 
