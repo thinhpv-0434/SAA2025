@@ -43,7 +43,27 @@ final class Localizer: ObservableObject {
         "home.welcome": "Chào mừng đến SAA 2025",
         "home.logout": "Đăng xuất",
         "error.title": "Đăng nhập thất bại",
-        "error.message": "Vui lòng thử lại."
+        "error.message": "Vui lòng thử lại.",
+
+        // MARK: Kudos screen keys
+        "kudos.tagline": "Hệ thống ghi nhận và cảm ơn",
+        "kudos.send.placeholder": "Hôm nay, bạn muốn gửi kudos đến ai?",
+        "kudos.filter.hashtag": "Hashtag",
+        "kudos.filter.department": "Phòng ban",
+        "kudos.section.highlight": "HIGHLIGHT KUDOS",
+        "kudos.section.spotlight": "SPOTLIGHT BOARD",
+        "kudos.section.allKudos": "ALL KUDOS",
+        "kudos.section.topRecipients": "10 SUNNER NHẬN QUÀ MỚI NHẤT",
+        "kudos.stats.received": "Số Kudos bạn nhận được:",
+        "kudos.stats.sent": "Số Kudos bạn đã gửi:",
+        "kudos.stats.hearts": "Số tim bạn nhận được:",
+        "kudos.stats.boxOpened": "Số Secret Box bạn đã mở:",
+        "kudos.stats.boxUnopened": "Số Secret Box chưa mở:",
+        "kudos.btn.openBox": "Mở Secret Box",
+        "kudos.btn.copyLink": "Copy Link",
+        "kudos.btn.detail": "Xem chi tiết",
+        "kudos.btn.viewAll": "View all Kudos",
+        "kudos.search.placeholder": "Tìm kiếm"
     ]
 
     // Placeholder — translations deferred

@@ -19,7 +19,6 @@ struct MainTabView: View {
     var body: some View {
         TabView {
             NavigationStack {
-                // HomeViewContainer resolves @EnvironmentObject → HomeViewModel init
                 HomeViewContainer()
             }
             .tabItem {
@@ -34,7 +33,7 @@ struct MainTabView: View {
             }
 
             NavigationStack {
-                KudosTabView()
+                KudosTabViewContainer()
             }
             .tabItem {
                 Label("Kudos", systemImage: "heart.fill")
