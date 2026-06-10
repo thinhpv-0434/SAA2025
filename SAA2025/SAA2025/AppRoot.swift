@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - AppRoot
 
-/// Root entry point that routes between LoginView and HomeView
+/// Root entry point that routes between LoginView and MainTabView
 /// based on whether a token is present in TokenStore.
 struct AppRoot: View {
 
@@ -18,7 +18,7 @@ struct AppRoot: View {
     var body: some View {
         Group {
             if tokenStore.token != nil {
-                HomeView()
+                MainTabView()
                     .environmentObject(tokenStore)
             } else {
                 LoginView(tokenStore: tokenStore)
