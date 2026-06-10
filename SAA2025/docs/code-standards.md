@@ -104,6 +104,27 @@ Add new keys to the VN dict in `Localizer.swift` and leave EN/JA as empty-string
 - Wrap side effects that touch UI state in `Task { }` inside `@MainActor` context.
 - Use `defer { isLoading = false }` to guarantee state reset even on thrown errors.
 
+## Asset Toolchain: SVG → PDF via librsvg
+
+Vector assets from MoMorph are preferred in PDF format so Xcode can use `preserves-vector-representation: true` in the imageset. The toolchain is:
+
+1. Fetch the SVG via MoMorph MCP: `mcp__momorph__get_media_file convertType:"svg"`
+2. Convert to PDF using `rsvg-convert` (installed via `brew install librsvg`):
+
+```bash
+rsvg-convert -f pdf -o output.pdf input.svg
+```
+
+3. Place `output.pdf` into the imageset folder alongside `Contents.json`. Set `"universal"` scale and add `"preserves-vector-representation": true` to the image entry in `Contents.json`.
+
+This workflow was established during the Home screen plan (`260609-1002-ios-home`). `rsvg-convert` version in use: 2.62.3.
+
+**Fallback — PNG crop from preview.png**
+
+When the SVG path is unavailable (e.g., MoMorph returns "Frame not found" for the media file), fall back to cropping the target element from the MoMorph frame preview image. This yields a 1× raster — flag as a follow-up for Retina re-extraction. See "MoMorph Asset Import Gotcha" below for the full checklist that applies equally to PNG crops.
+
+The 4 Home screen imagesets (`TopTalentBadge`, `TopProjectBadge`, `TopInnovationBadge`, `KudosBanner`) were added using this PNG fallback — PDF re-extraction is a deferred follow-up.
+
 ## MoMorph Asset Import Gotcha
 
 When `mcp__momorph__get_media_files` returns URLs for both an INSTANCE node and its inner RECTANGLE child, the two assets are **not always equivalent**. The INSTANCE's exported asset may render only the inner image — wordmarks, text overlays, or Component-level decorations defined in the source Component (`componentId`) can be omitted.

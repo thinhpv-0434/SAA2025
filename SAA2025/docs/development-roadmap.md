@@ -35,23 +35,40 @@
 - Add `Localizable.strings` files as fallback for system locale
 
 ## Phase 5 — Home screen real content
-**Status: not started**
+**Status: done**
 
-- Fetch next MoMorph screen for Home dashboard design
-- Implement full Home screen via `momorph-implement-design` skill
-- Replace `HomeView` stub
+- MoMorph design `OuH1BUTYT0` implemented via `momorph-implement-design` skill
+- `MainTabView` (4-tab + per-tab `NavigationStack`) replaces the `HomeView` stub
+- Full Home screen: countdown, awards section, kudos section, FAB, 7 navigation destinations
+- `AwardsService`, `KudosService`, `NotificationsService` — protocol + Fake implementations
+- `LoadState<T>`, `ServiceError`, `Config` added as shared infrastructure
+- 4 new imagesets (PNG crops); SVG→PDF toolchain established for future vector assets
+- 11 destination stubs scaffolded (Awards, Kudos, Profile, Search, Notifications, AccessDenied, WriteKudo)
+- Reviewer score: 8.4 → green after fixes
+
+**Deferred follow-ups (backlog)**
+- PDF re-extraction for 4 Home imagesets (`TopTalentBadge`, `TopProjectBadge`, `TopInnovationBadge`, `KudosBanner`)
+- Re-extract Login plan assets (KeyvisualBG, SunAALogo, RootFurtherLogo, GoogleGLogo) as PDF
+- Award Detail typed navigation — `AwardDetailView(award:)` parameter currently unused
+- Pull-to-refresh on Home scroll view
+- Tab badge animations
+- Real awards / kudos / notifications API calls (replace Fake services)
+- Build out WriteKudo form fields and submission
+- Notifications panel with mark-as-read
+- Search screen content
 
 ## Phase 6 — XCTest unit test target
 **Status: not started**
 
 - Add XCTest target to `SAA2025.xcodeproj`
-- Implement 8 ViewModel unit test cases recommended by tester:
+- Implement ViewModel unit test cases (Login + Home):
   - `signIn()` success path stores token
   - `signIn()` failure sets `showError = true`
   - Double-tap prevention (`isLoading` guard)
-  - `TokenStore.save` persists value
-  - `TokenStore.clear` removes value
-  - `TokenStore.restore` reads persisted value on init
-  - `Localizer.t` returns VN string for known key
-  - `Localizer.t` returns key itself for unknown key (fallback)
-- UI automation tests remain manual (20 test cases in `test-cases.csv`)
+  - `TokenStore.save` / `clear` / `restore`
+  - `Localizer.t` returns VN string for known key; key itself for unknown
+  - `HomeViewModel.load()` success — `awardsState` and `kudosState` become `.loaded`
+  - `HomeViewModel.load()` unauthorized — `tokenStore.clear()` called
+  - `HomeViewModel` countdown tick — `remaining` decrements correctly
+  - 9 Home test cases flagged ⚠️ require error-injecting mock services
+- UI automation tests remain manual (test cases in plan CSVs)
