@@ -125,6 +125,41 @@ When the SVG path is unavailable (e.g., MoMorph returns "Frame not found" for th
 
 The 4 Home screen imagesets (`TopTalentBadge`, `TopProjectBadge`, `TopInnovationBadge`, `KudosBanner`) were added using this PNG fallback — PDF re-extraction is a deferred follow-up.
 
+## Shared Style-Token Enums
+
+Use a caseless `enum` (no instances, no `static let` class) to group related visual constants that multiple sub-components share within a feature. This avoids repetition and prevents the same magic number appearing in N files.
+
+```swift
+// In WriteKudoCard.swift — shared by WriteKudoMessageEditor, WriteKudoTitleField, etc.
+enum WriteKudoFieldStyle {
+    static let borderColor: Color = Color(red: 0x99/255.0, green: 0x8C/255.0, blue: 0x5F/255.0)
+    static let borderWidth: CGFloat = 0.447
+    static let cornerRadius: CGFloat = 3.574
+    static let labelColor: Color = ...
+    static let helperColor: Color = ...
+}
+```
+
+Keep the enum in the file closest to the primary consumer (e.g., the card/root view of a feature). Sub-components import it by name — no global Style file needed unless two features genuinely share the same tokens.
+
+## Identity-Wrapping Models for Mock-Pool ForEach Safety
+
+When a list item's natural identity key (e.g., an asset name string) is not unique — because a mock data pool is small and items cycle — wrap it in a dedicated model type that generates a `UUID` at creation time. This satisfies `Identifiable` without duplicate-id crashes in `ForEach`.
+
+```swift
+struct KudoImageAttachment: Identifiable, Hashable {
+    let id: UUID           // stable, generated once at init
+    let assetName: String  // may repeat across items
+
+    init(assetName: String, id: UUID = UUID()) {
+        self.id = id
+        self.assetName = assetName
+    }
+}
+```
+
+Use the same pattern any time a `ForEach` item source has non-unique string/int keys and the duplication is intentional (e.g., mock data, repeated placeholder images).
+
 ## MoMorph Asset Import Gotcha
 
 When `mcp__momorph__get_media_files` returns URLs for both an INSTANCE node and its inner RECTANGLE child, the two assets are **not always equivalent**. The INSTANCE's exported asset may render only the inner image — wordmarks, text overlays, or Component-level decorations defined in the source Component (`componentId`) can be omitted.

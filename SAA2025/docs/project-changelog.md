@@ -1,5 +1,38 @@
 # Project Changelog
 
+## [0.6.0] — 2026-06-11
+
+### feat(kudos): Write Kudo composer screen implemented
+
+**Features added**
+- `WriteKudoContainer` + `WriteKudoView` + `WriteKudoViewModel` — sheet-based composer; replaces prior "Coming soon" stub
+- `KudoDraft` domain model (`KudoDraft.swift`) — validated payload for submission; `KudoDraftLimits` enum centralises constraints (title ≤ 100, message ≤ 1000, hashtags ≤ 5, images ≤ 5)
+- `KudoImageAttachment` — wraps mock asset name with a stable `UUID` so `ForEach` renders duplicate names safely
+- `WriteKudoFixtures.swift` — static preview fixture data
+- 15 components: `WriteKudoNavBar`, `WriteKudoCard`, `WriteKudoTitleField`, `WriteKudoRecipientField`, `WriteKudoHashtagSection`, `WriteKudoImageSection`, `WriteKudoMessageEditor`, `WriteKudoAnonymousToggle`, `WriteKudoActionRow`, `WriteKudoFormatToolbar`, `WriteKudoSentToast`, `RecipientPickerSheet`, `HashtagPickerSheet`, `AwardsInfoSheet`, `FlowLayoutWriteKudo`
+
+**Service changes**
+- `KudosService` protocol extended with `loadRecipients() async throws -> [KudosUser]` and `submitKudo(_ draft: KudoDraft) async throws -> Bool`
+- `FakeKudosService` implements both new endpoints
+
+**Navigation wired**
+- `KudosTabView` — send-kudos button presents `WriteKudoContainer` as a sheet
+- `HomeView` — FAB / Send Kudos action presents `WriteKudoContainer` as a sheet
+
+**UX behaviour**
+- Cancel-confirm guard: confirmation only shown when form is dirty
+- `WriteKudoSentToast` shown on successful submission, then sheet dismissed
+
+**Process**
+- Build verified clean: iPhone 17 / iOS 26.1 BUILD SUCCEEDED
+
+**Known limitations / deferred**
+- `submitKudo` backed by `FakeKudosService` only — no real API call
+- Image attachment cycles a fixed mock asset pool; real photo picker deferred
+- Format toolbar (bold/italic/mention) is visual-only for v1
+
+---
+
 ## [0.5.0] — 2026-06-11
 
 ### [iOS] Kudo Detail screen implemented (View Kudo — `T0TR16k0vH`)

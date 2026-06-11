@@ -34,6 +34,12 @@ protocol KudosService {
 
     /// Open next unopened secret box. Returns success.
     func openNextSecretBox() async throws -> Bool
+
+    /// Recipient roster for the Write Kudo composer. Excludes current user.
+    func loadRecipients() async throws -> [KudosUser]
+
+    /// Submit a fully-validated kudo draft. v1 fake: succeeds after mockApiDelay.
+    func submitKudo(_ draft: KudoDraft) async throws -> Bool
 }
 
 // MARK: - FakeKudosService
@@ -103,6 +109,18 @@ final class FakeKudosService: KudosService {
     }
 
     func openNextSecretBox() async throws -> Bool {
+        try await Task.sleep(for: delay)
+        return true
+    }
+
+    // MARK: - Write Kudo composer
+
+    func loadRecipients() async throws -> [KudosUser] {
+        try await Task.sleep(for: delay)
+        return WriteKudoFixtures.allUsers.filter { $0.employeeCode != WriteKudoFixtures.currentUserCode }
+    }
+
+    func submitKudo(_ draft: KudoDraft) async throws -> Bool {
         try await Task.sleep(for: delay)
         return true
     }

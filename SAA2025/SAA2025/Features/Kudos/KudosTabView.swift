@@ -190,7 +190,9 @@ struct KudosTabView: View {
         .toolbar(.hidden, for: .navigationBar)
         .task { await viewModel.load() }
         .kudosCopiedToast(isVisible: showCopiedToast)
-        .navigationDestination(isPresented: $viewModel.navigateToSendKudos) { WriteKudoView() }
+        .navigationDestination(isPresented: $viewModel.navigateToSendKudos) {
+            WriteKudoContainer(onDismiss: { viewModel.navigateToSendKudos = false })
+        }
         .navigationDestination(item: $viewModel.selectedDetail) { detail in
             KudosDetailView(detail: detail, onBack: { viewModel.selectedDetail = nil })
         }

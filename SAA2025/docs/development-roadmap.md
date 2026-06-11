@@ -53,7 +53,6 @@
 - Pull-to-refresh on Home scroll view
 - Tab badge animations
 - Real awards / kudos / notifications API calls (replace Fake services)
-- Build out WriteKudo form fields and submission
 - Notifications panel with mark-as-read
 - Search screen content
 
@@ -85,6 +84,26 @@
 **Deferred follow-ups**
 - Like/share API calls (currently UI-only)
 - Real media loading for attached images grid
+
+## Phase 9 — Write Kudo composer screen
+**Status: done**
+
+- WriteKudo feature fully implemented, replacing the prior "Coming soon" `WriteKudoView` stub
+- `WriteKudoContainer` + `WriteKudoView` + `WriteKudoViewModel` — Container/presentational split; sheet-based presentation
+- 15 components: `WriteKudoNavBar`, `WriteKudoCard`, `WriteKudoTitleField`, `WriteKudoRecipientField`, `WriteKudoHashtagSection`, `WriteKudoImageSection`, `WriteKudoMessageEditor`, `WriteKudoAnonymousToggle`, `WriteKudoActionRow`, `WriteKudoFormatToolbar`, `WriteKudoSentToast`, `RecipientPickerSheet`, `HashtagPickerSheet`, `AwardsInfoSheet`, `FlowLayoutWriteKudo`
+- `KudoDraft` domain model with `KudoDraftLimits` (title ≤ 100, message ≤ 1000, hashtags ≤ 5, images ≤ 5)
+- `KudoImageAttachment` model: wraps asset name + stable `UUID` so `ForEach` handles mock-pool duplicates safely
+- `WriteKudoFixtures.swift` — static preview fixture data
+- `KudosService` protocol extended: `loadRecipients() async throws -> [KudosUser]` and `submitKudo(_ draft:) async throws -> Bool`; `FakeKudosService` implements both
+- Navigation wired: `KudosTabView` and `HomeView` both present `WriteKudoContainer` as a sheet
+- Cancel-confirm guard: sheet only shows confirmation if form is dirty (`isDirty` computed on ViewModel)
+- Success: `WriteKudoSentToast` displayed, sheet dismissed
+- Build verified clean: iPhone 17 / iOS 26.1
+
+**Known limitations / deferred**
+- `submitKudo` backed by `FakeKudosService` — no real API call
+- Image attachment is mock-only (cycles a fixed asset pool); real photo picker deferred
+- Format toolbar buttons (bold/italic/mention) are visual-only for v1
 
 ## Phase 6 — XCTest unit test target
 **Status: not started**

@@ -109,7 +109,7 @@ struct HomeView: View {
             NotificationsView()
         }
         .navigationDestination(isPresented: $viewModel.navigateToWriteKudo) {
-            WriteKudoView()
+            WriteKudoContainer(onDismiss: { viewModel.navigateToWriteKudo = false })
         }
         .navigationDestination(isPresented: $viewModel.navigateToKudosFeed) {
             KudosOverviewViewContainer()

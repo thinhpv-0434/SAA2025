@@ -98,7 +98,7 @@ All services follow the same pattern: a `protocol` defines the contract; a `Fake
 |----------|--------------------|-----------|-----------------------|
 | `AuthService` | `FakeAuthService` | `signIn() async throws -> String` | GoogleSignIn-iOS SDK |
 | `AwardsService` | `FakeAwardsService` | `loadAwards() async throws -> [Award]` | REST awards endpoint |
-| `KudosService` | `FakeKudosService` | 9 endpoints: `loadKudos`, `loadHighlight`, `loadKudosFeed`, `loadHashtags`, `loadDepartments`, `loadKudosStats`, `loadTopRecipients`, `loadSpotlightCount`, `openNextSecretBox` | REST kudos endpoints |
+| `KudosService` | `FakeKudosService` | 11 endpoints: `loadKudos`, `loadHighlight`, `loadKudosFeed`, `loadHashtags`, `loadDepartments`, `loadKudosStats`, `loadTopRecipients`, `loadSpotlightCount`, `openNextSecretBox`, `loadRecipients`, `submitKudo` | REST kudos endpoints |
 | `KudosFixtures` | — | Static fixture data for all `FakeKudosService` responses | — |
 | `NotificationsService` | `FakeNotificationsService` | `loadSummary() async throws -> NotificationSummary` | REST / WebSocket |
 | `TokenStore` | — | `ObservableObject`; persists `"auth.token"` to `UserDefaults` | Migrate to Keychain |
@@ -190,7 +190,18 @@ SAA2025/
 │   │   └── Models/                        # Department, GiftRecipient, Hashtag,
 │   │                                      #   KudosHighlight, KudosStats, KudoDetail
 │   ├── WriteKudo/
-│   │   └── WriteKudoView.swift       # stub
+│   │   ├── WriteKudoContainer.swift   # env-object bridge + sheet host
+│   │   ├── WriteKudoView.swift        # presentational composer
+│   │   ├── WriteKudoViewModel.swift   # @MainActor ObservableObject; isDirty guard; submit flow
+│   │   ├── Components/                # WriteKudoNavBar, WriteKudoCard, WriteKudoTitleField,
+│   │   │                              #   WriteKudoRecipientField, WriteKudoHashtagSection,
+│   │   │                              #   WriteKudoImageSection, WriteKudoMessageEditor,
+│   │   │                              #   WriteKudoAnonymousToggle, WriteKudoActionRow,
+│   │   │                              #   WriteKudoFormatToolbar, WriteKudoSentToast,
+│   │   │                              #   RecipientPickerSheet, HashtagPickerSheet,
+│   │   │                              #   AwardsInfoSheet, FlowLayoutWriteKudo
+│   │   └── Models/                    # KudoDraft, KudoDraftLimits, KudoImageAttachment,
+│   │                                  #   WriteKudoFixtures
 │   ├── Profile/
 │   │   └── ProfileTabView.swift      # stub
 │   ├── Search/
