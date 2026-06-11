@@ -21,6 +21,14 @@ struct KudosTabView: View {
 
     @StateObject private var viewModel: KudosViewModel = KudosViewModel()
     @State private var spotlightSearch: String = ""
+    @State private var showCopiedToast: Bool = false
+
+    // MARK: - Copy Link helper
+
+    private func copyLink(for card: KudosCardData) {
+        KudosClipboard.copy(kudoId: card.id)
+        KudosCopiedToastController.show($showCopiedToast)
+    }
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -60,8 +68,8 @@ struct KudosTabView: View {
                         get: { viewModel.currentHighlightIndex },
                         set: { viewModel.currentHighlightIndex = $0 }
                     ),
-                    onCopyLink: { _ in },
-                    onDetail: { _ in viewModel.navigateToKudosDetail = true },
+                    onCopyLink: { card in copyLink(for: card) },
+                    onDetail: { card in viewModel.openDetail(for: card) },
                     onHashtagTap: { tagName in
                         if let tag = viewModel.hashtags.first(where: { "#\($0.name)" == tagName }) {
                             Task { await viewModel.selectHashtag(tag) }
@@ -116,8 +124,8 @@ struct KudosTabView: View {
                         KudosCard(
                             card: card,
                             isCarouselVariant: false,
-                            onCopyLink: {},
-                            onDetail: { viewModel.navigateToKudosDetail = true },
+                            onCopyLink: { copyLink(for: card) },
+                            onDetail: { viewModel.openDetail(for: card) },
                             onHashtagTap: { tagName in
                                 if let tag = viewModel.hashtags.first(where: { "#\($0.name)" == tagName }) {
                                     Task { await viewModel.selectHashtag(tag) }
@@ -181,9 +189,14 @@ struct KudosTabView: View {
         }
         .toolbar(.hidden, for: .navigationBar)
         .task { await viewModel.load() }
+        .kudosCopiedToast(isVisible: showCopiedToast)
         .navigationDestination(isPresented: $viewModel.navigateToSendKudos) { WriteKudoView() }
-        .navigationDestination(isPresented: $viewModel.navigateToKudosDetail) { KudosFeedView() }
-        .navigationDestination(isPresented: $viewModel.navigateToViewAll) { KudosOverviewViewContainer() }
+        .navigationDestination(item: $viewModel.selectedDetail) { detail in
+            KudosDetailView(detail: detail, onBack: { viewModel.selectedDetail = nil })
+        }
+        .navigationDestination(isPresented: $viewModel.navigateToViewAll) {
+            KudosOverviewViewContainer(onDetail: { card in viewModel.openDetail(for: card) })
+        }
         .sheet(isPresented: $viewModel.navigateToOpenSecretBox) {
             VStack(spacing: 12) {
                 Text("Secret Box")

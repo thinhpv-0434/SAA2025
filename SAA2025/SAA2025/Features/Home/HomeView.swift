@@ -112,7 +112,7 @@ struct HomeView: View {
             WriteKudoView()
         }
         .navigationDestination(isPresented: $viewModel.navigateToKudosFeed) {
-            KudosFeedView()
+            KudosOverviewViewContainer()
         }
         .navigationDestination(isPresented: $viewModel.navigateToAccessDenied) {
             AccessDeniedView()

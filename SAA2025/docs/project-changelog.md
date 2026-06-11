@@ -1,5 +1,40 @@
 # Project Changelog
 
+## [0.5.0] — 2026-06-11
+
+### [iOS] Kudo Detail screen implemented (View Kudo — `T0TR16k0vH`)
+
+**Features added**
+- `KudosDetailView` — root screen; pushed via `.navigationDestination(item:)` binding on `KudosViewModel.selectedDetail`
+- `KudoDetail` domain model in `Models/KudoDetail.swift` — mapper from `KudosCardData`; `toggleLike()` helper; `isOwn` field added to guard self-like
+- `KudoDetailFixtures.swift` — static preview fixture data
+- 5 new components: `KudoSenderReceiverHighlight`, `KudoMessageBody`, `KudoAttachedImagesGrid`, `KudoDetailActionBar`, `KudoDetailNavBar`
+
+**ViewModel changes**
+- `KudosViewModel` — replaced `navigateToKudosDetail: Bool` boolean with `selectedDetail: KudoDetail?` and `openDetail(for:)` method; migrated `DispatchQueue.main.async` to structured `Task { }` per concurrency standards
+- Badge color logic corrected to resolve by tier
+
+**Navigation wired**
+- `KudosTabView` — carousel and feed card `onDetail` closures call `viewModel.openDetail(for:)`; `.navigationDestination(item: $viewModel.selectedDetail)` pushes `KudosDetailView`
+
+**Cleanup**
+- `KudosFeedView.swift` deleted — was a "Coming soon" stub that served only as the previous navigation target
+
+**Fixes applied in-task (Reviewer audit)**
+- Missing `isOwn` field on `KudoDetail` (BLOCKER)
+- Dead stored property removed
+- `DispatchQueue` → `Task` migration
+- Badge color resolved by tier
+
+**Process**
+- Build verified clean: iPhone 17 / iOS 26.1 BUILD SUCCEEDED
+
+**Known limitations / deferred**
+- Like/share actions are UI-only; no real API call
+- Attached images grid uses placeholder data; real media loading deferred
+
+---
+
 ## [0.4.0] — 2026-06-10
 
 ### [iOS] All Kudos screen implemented (Sun*Kudos_All Kudos — `j_a2GQWKDJ`)

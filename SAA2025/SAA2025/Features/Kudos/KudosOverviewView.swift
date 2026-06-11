@@ -11,9 +11,20 @@ import SwiftUI
 // MARK: - KudosOverviewViewContainer
 
 /// Thin wrapper that owns the ViewModel — mirrors `KudosTabViewContainer`.
+///
+/// IMPORTANT: detail navigation is NOT owned by this container. The hosting
+/// NavigationStack (e.g. `KudosTabView`) registers the single
+/// `navigationDestination(item:)` for `KudoDetail`. Two registrations of the
+/// same item-type on one stack cause SwiftUI to suppress the inner one — that
+/// is why `onDetail` is plumbed upward via a callback rather than handled here.
 struct KudosOverviewViewContainer: View {
 
+    /// Closure invoked when the user taps "Xem chi tiết" on a card.
+    /// The parent passes the tapped card up to the NavigationStack owner.
+    var onDetail: (KudosCardData) -> Void = { _ in }
+
     @StateObject private var viewModel: KudosOverviewViewModel = KudosOverviewViewModel()
+    @State private var showCopiedToast: Bool = false
 
     var body: some View {
         KudosOverviewView(
@@ -21,12 +32,16 @@ struct KudosOverviewViewContainer: View {
             isLoading: viewModel.state.isLoading && viewModel.cards.isEmpty,
             errorMessage: viewModel.state.error?.localizedDescription,
             onRetry: { Task { await viewModel.load() } },
-            onCopyLink: { _ in },
-            onDetail: { _ in },
+            onCopyLink: { card in
+                KudosClipboard.copy(kudoId: card.id)
+                KudosCopiedToastController.show($showCopiedToast)
+            },
+            onDetail: onDetail,
             onHashtagTap: { _ in },
             onHeartTap: { card in viewModel.toggleHeart(kudosId: card.id) }
         )
         .task { await viewModel.load() }
+        .kudosCopiedToast(isVisible: showCopiedToast)
     }
 }
 
@@ -115,28 +130,9 @@ struct KudosOverviewView: View {
 
     // MARK: - Header Bar
 
-    // mm:6891:15996 — back chevron + "All Kudos" title
+    // mm:6891:15996 — back chevron + "All Kudos" title (shared with KudosDetailView)
     private var headerBar: some View {
-        ZStack {
-            Text("All Kudos")
-                .font(.system(size: 17, weight: .semibold))
-                .foregroundColor(.white)
-
-            HStack {
-                Button { dismiss() } label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(width: 44, height: 44)
-                        .contentShape(Rectangle())
-                }
-                .buttonStyle(PlainButtonStyle())
-
-                Spacer()
-            }
-        }
-        .frame(height: 44)
-        .padding(.horizontal, 8)
+        KudosScreenHeaderBar(title: "All Kudos", onBack: { dismiss() })
     }
 
     // MARK: - Feed

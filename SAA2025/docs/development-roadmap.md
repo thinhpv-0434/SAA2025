@@ -67,10 +67,24 @@
 - Navigation wired: `KudosTabView` and `HomeView` both navigate to `KudosOverviewViewContainer`
 
 **Known limitations / deferred**
-- `KudosFeedView` remains a stub
 - Alert-dismiss binding bug in `KudosTabView` (pre-existing from `2f0a7db`) — `onRetry()` fires on Cancel tap; deferred follow-up
 - All service calls are still Fake implementations
 - Pagination beyond page 1 not implemented in UI
+
+## Phase 8 — Kudo Detail screen (View Kudo)
+**Status: done**
+
+- MoMorph design `T0TR16k0vH` implemented via `momorph-implement-design` skill
+- `KudosDetailView` pushed via `.navigationDestination(item: $viewModel.selectedDetail)` — no boolean flag
+- `KudoDetail` domain model: mapper from `KudosCardData`, `toggleLike()`, `isOwn` field
+- 5 components: `KudoSenderReceiverHighlight`, `KudoMessageBody`, `KudoAttachedImagesGrid`, `KudoDetailActionBar`, `KudoDetailNavBar`
+- `KudosViewModel` migrated: boolean nav flag replaced by `selectedDetail: KudoDetail?` + `openDetail(for:)`; `DispatchQueue` → structured `Task { }`; badge color resolved by tier
+- `KudosFeedView.swift` deleted (stub no longer needed as nav target)
+- Build verified clean: iPhone 17 / iOS 26.1
+
+**Deferred follow-ups**
+- Like/share API calls (currently UI-only)
+- Real media loading for attached images grid
 
 ## Phase 6 — XCTest unit test target
 **Status: not started**

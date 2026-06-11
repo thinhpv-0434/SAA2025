@@ -174,17 +174,21 @@ SAA2025/
 │   │   └── AwardDetailView.swift     # stub (typed nav deferred)
 │   ├── Kudos/
 │   │   ├── KudosTabView.swift             # implemented (Sun*Kudos tab root)
-│   │   ├── KudosViewModel.swift           # @MainActor ObservableObject for KudosTabView
+│   │   ├── KudosViewModel.swift           # @MainActor ObservableObject for KudosTabView; selectedDetail: KudoDetail? drives detail push
 │   │   ├── KudosOverviewView.swift        # implemented (All Kudos screen — j_a2GQWKDJ)
 │   │   ├── KudosOverviewViewModel.swift   # @MainActor ObservableObject for KudosOverviewView
-│   │   ├── KudosFeedView.swift            # stub
+│   │   ├── KudosDetailView.swift          # implemented (View Kudo detail screen — T0TR16k0vH)
+│   │   ├── KudoDetailFixtures.swift       # static preview fixture data for KudosDetailView
 │   │   ├── Components/                    # HashtagChip, HighlightCarousel, KudosCard,
 │   │   │                                  #   KudosFilterRow, KudosHeroSection,
 │   │   │                                  #   OpenSecretBoxButton, PersonalStatsBlock,
 │   │   │                                  #   SectionHeader, SendKudosButton,
-│   │   │                                  #   SpotlightBoard, TopRecipientsBlock
+│   │   │                                  #   SpotlightBoard, TopRecipientsBlock,
+│   │   │                                  #   KudoSenderReceiverHighlight, KudoMessageBody,
+│   │   │                                  #   KudoAttachedImagesGrid, KudoDetailActionBar,
+│   │   │                                  #   KudoDetailNavBar
 │   │   └── Models/                        # Department, GiftRecipient, Hashtag,
-│   │                                      #   KudosHighlight, KudosStats
+│   │                                      #   KudosHighlight, KudosStats, KudoDetail
 │   ├── WriteKudo/
 │   │   └── WriteKudoView.swift       # stub
 │   ├── Profile/

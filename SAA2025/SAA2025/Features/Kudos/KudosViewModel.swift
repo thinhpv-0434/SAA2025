@@ -38,9 +38,17 @@ final class KudosViewModel: ObservableObject {
     // MARK: - Navigation intents
 
     @Published var navigateToSendKudos: Bool = false
-    @Published var navigateToKudosDetail: Bool = false
+    /// Set to a non-nil `KudoDetail` to push the detail screen. Cleared on dismissal.
+    @Published var selectedDetail: KudoDetail?
     @Published var navigateToViewAll: Bool = false
     @Published var navigateToOpenSecretBox: Bool = false
+
+    // MARK: - Detail navigation
+
+    /// Open the Kudo detail screen for a given card.
+    func openDetail(for card: KudosCardData) {
+        selectedDetail = KudoDetail(from: card)
+    }
 
     // MARK: - Dependencies
 

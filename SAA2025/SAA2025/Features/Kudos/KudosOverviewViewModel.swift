@@ -21,6 +21,10 @@ final class KudosOverviewViewModel: ObservableObject {
     @Published private(set) var state: LoadState<Void> = .idle
     @Published private(set) var cards: [KudosCardData] = []
 
+    // Detail navigation is owned by the hosting NavigationStack (KudosTabView).
+    // Routing it locally would register a second `navigationDestination(item: KudoDetail)`
+    // in the same stack and SwiftUI would suppress the inner one.
+
     // MARK: - Dependencies
 
     private let service: KudosService
