@@ -35,7 +35,7 @@ struct WriteKudoAnonymousToggle: View {
 
                 Text("Gửi lời cám ơn và ghi nhận ẩn danh")
                     .font(.system(size: 13, weight: .regular))
-                    .foregroundColor(WriteKudoFieldStyle.labelColor)
+                    .foregroundColor(WriteKudoFieldStyle.helperColor)
 
                 Spacer()
             }

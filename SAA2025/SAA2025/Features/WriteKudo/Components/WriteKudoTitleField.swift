@@ -43,7 +43,7 @@ struct WriteKudoTitleField: View {
                     )
             }
 
-            // Helper text (per Figma)
+            // Helper text — Figma shows full-width, left-aligned to card content
             VStack(alignment: .leading, spacing: 2) {
                 Text("Ví dụ: Người truyền động lực cho tôi.")
                     .font(.system(size: 12, weight: .regular))
@@ -52,7 +52,6 @@ struct WriteKudoTitleField: View {
                     .font(.system(size: 12, weight: .regular))
                     .foregroundColor(WriteKudoFieldStyle.helperColor)
             }
-            .padding(.leading, 106)
         }
     }
 }

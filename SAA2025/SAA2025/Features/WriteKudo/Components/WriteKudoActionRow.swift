@@ -18,6 +18,7 @@ struct WriteKudoActionRow: View {
 
     private static let gold = Color(red: 0xFF / 255.0, green: 0xEA / 255.0, blue: 0x9E / 255.0)
     private static let border = Color(red: 0x99 / 255.0, green: 0x8C / 255.0, blue: 0x5F / 255.0)
+    private static let navy = Color(red: 0x00 / 255.0, green: 0x10 / 255.0, blue: 0x1A / 255.0)
 
     var body: some View {
         HStack(spacing: 16) {
@@ -35,7 +36,7 @@ struct WriteKudoActionRow: View {
                 .frame(height: 40)
                 .background(
                     RoundedRectangle(cornerRadius: 4)
-                        .fill(Self.gold.opacity(0.10))
+                        .fill(Self.navy)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
                                 .stroke(Self.border, lineWidth: 1)
