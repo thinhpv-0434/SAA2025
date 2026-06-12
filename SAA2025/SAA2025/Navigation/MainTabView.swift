@@ -26,7 +26,7 @@ struct MainTabView: View {
             }
 
             NavigationStack {
-                AwardsTabView()
+                AwardsTabViewContainer()
             }
             .tabItem {
                 Label("Awards", systemImage: "trophy.fill")

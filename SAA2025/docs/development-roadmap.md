@@ -105,6 +105,22 @@
 - Image attachment is mock-only (cycles a fixed asset pool); real photo picker deferred
 - Format toolbar buttons (bold/italic/mention) are visual-only for v1
 
+## Phase 10 — Awards Top Project screen
+**Status: done**
+
+- MoMorph design `FQoJZLkG_d` implemented via `momorph-implement-design` skill
+- `AwardsTabView` "Coming soon" stub replaced with full Award_Top screen
+- Layout: Kudos banner → Award Highlight Block (dropdown selector) → Award Information Block
+- `AwardHighlightBlock` — key-visual card with award image, title, badge; dropdown (`AwardDropdownPicker`) switches between 3 awards
+- `AwardInformationBlock` — description, quantity, award value fields
+- `Award` model extended: `longDescription`, `quantity`, `awardValue` fields (default empty for backward compat)
+- `FakeAwardsService.loadAwards()` drives all 3 award records
+- 11 Swift files touched; build verified clean
+
+**Deferred follow-ups**
+- Real `AwardsService` API call (replace Fake)
+- `AwardDetailView` typed navigation (award parameter still unused from Phase 5 backlog)
+
 ## Phase 6 — XCTest unit test target
 **Status: not started**
 

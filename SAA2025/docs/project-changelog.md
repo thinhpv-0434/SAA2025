@@ -1,5 +1,31 @@
 # Project Changelog
 
+## [0.7.0] — 2026-06-12
+
+### feat(awards): Awards Top Project screen implemented (`FQoJZLkG_d`)
+
+**Features added**
+- `AwardsTabView` — "Coming soon" stub replaced with full Award_Top screen; layout: Kudos banner → Award Highlight Block → Award Information Block
+- `AwardHighlightBlock` — key-visual card with award image, title, and badge; hosts `AwardDropdownPicker` for switching between awards
+- `AwardDropdownPicker` — dropdown selector cycling the 3 `Award` records loaded from `FakeAwardsService`
+- `AwardInformationBlock` — displays `longDescription`, `quantity`, and `awardValue` for the selected award
+
+**Model changes**
+- `Award` model extended with `longDescription: String`, `quantity: Int`, `awardValue: String` — all default to empty/zero for backward compatibility with Phase 5 callers
+
+**Service changes**
+- `FakeAwardsService.loadAwards()` updated to populate the 3 new fields across all award records
+
+**Process**
+- 11 Swift files touched
+- Build verified clean: iPhone 17 / iOS 26.1 BUILD SUCCEEDED
+
+**Known limitations / deferred**
+- All service calls remain Fake — no real Awards API
+- `AwardDetailView` typed navigation still deferred (award parameter unused)
+
+---
+
 ## [0.6.0] — 2026-06-11
 
 ### feat(kudos): Write Kudo composer screen implemented
