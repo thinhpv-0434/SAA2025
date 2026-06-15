@@ -159,6 +159,8 @@ enum StringsJA {
         "notifications.mark_all_read": "すべて既読にする",
         "access_denied.title": "アクセス拒否",
         "access_denied.nav.title": "アクセス拒否",
-        "access_denied.btn.back_to_login": "ログインへ戻る"
+        "access_denied.subtitle": "このページにアクセスする権限がありません。",
+        "access_denied.btn.back_to_login": "ログインへ戻る",
+        "access_denied.btn.go_home": "ホームに戻る"
     ]
 }

@@ -159,6 +159,8 @@ enum StringsEN {
         "notifications.mark_all_read": "Mark all as read",
         "access_denied.title": "Access Denied",
         "access_denied.nav.title": "Access Denied",
-        "access_denied.btn.back_to_login": "Back to Login"
+        "access_denied.subtitle": "You don\u{2019}t have permission to access this resource.",
+        "access_denied.btn.back_to_login": "Back to Login",
+        "access_denied.btn.go_home": "Go back to Home"
     ]
 }

@@ -159,6 +159,8 @@ enum StringsVN {
         "notifications.mark_all_read": "Đánh dấu đọc tất cả",
         "access_denied.title": "Truy cập bị từ chối",
         "access_denied.nav.title": "Truy cập bị từ chối",
-        "access_denied.btn.back_to_login": "Quay lại đăng nhập"
+        "access_denied.subtitle": "Bạn không có quyền truy cập vào trang này.",
+        "access_denied.btn.back_to_login": "Quay lại đăng nhập",
+        "access_denied.btn.go_home": "Quay về Trang chủ"
     ]
 }
