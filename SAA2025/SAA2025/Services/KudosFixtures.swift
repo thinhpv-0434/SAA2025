@@ -94,7 +94,9 @@ enum KudosFixtures {
                 isHighlight: idx == 1,
                 isLiked: false,
                 isOwn: false,
-                departmentId: deptIds[idx]
+                departmentId: deptIds[idx],
+                // Mark the first sent-kudo as spam to mirror the Figma "Đã gửi" state.
+                isSpam: idx == 0
             )
         }
     }

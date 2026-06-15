@@ -144,6 +144,9 @@ enum StringsEN {
         "profile.filter.received": "Received",
         "profile.filter.sent": "Sent",
         "profile.kudos.status.spam": "Spam",
+        "profile.other.cta.send_prefix": "Send thanks and recognition to ",
+        "profile.other.received_kudos.prefix": "Received ",
+        "profile.other.received_kudos.suffix": " kudos",
 
         // Stub screens
         "search.title": "Search",

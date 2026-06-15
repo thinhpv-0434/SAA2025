@@ -20,6 +20,9 @@ struct KudosCard: View {
     let onDetail: () -> Void
     let onHashtagTap: (String) -> Void
     let onHeartTap: () -> Void
+    /// Optional — tapping a sunner block on the card navigates to their
+    /// profile. `nil` keeps the names non-interactive (current default).
+    var onUserTap: ((KudosUser) -> Void)? = nil
 
     private static let cardBg = Color(red: 0xF5 / 255.0, green: 0xF0 / 255.0, blue: 0xDC / 255.0)
     private static let textDark = Color(red: 0x1A / 255.0, green: 0x14 / 255.0, blue: 0x0A / 255.0)
@@ -28,29 +31,51 @@ struct KudosCard: View {
     private static let badgeLegend = Color(red: 0x8B / 255.0, green: 0x20 / 255.0, blue: 0x20 / 255.0)
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            // mm:6885:B.3 — sender ▶ receiver header row
-            headerRow
-                .padding(.horizontal, 12)
-                .padding(.top, 12)
-                .padding(.bottom, 10)
+        ZStack(alignment: .topTrailing) {
+            VStack(alignment: .leading, spacing: 0) {
+                // mm:6885:B.3 — sender ▶ receiver header row
+                headerRow
+                    .padding(.horizontal, 12)
+                    .padding(.top, 12)
+                    .padding(.bottom, 10)
 
-            Divider()
-                .background(Color.black.opacity(0.08))
+                Divider()
+                    .background(Color.black.opacity(0.08))
 
-            // mm:6885:B.4 — content: timestamp, category, message, hashtags, actions
-            contentArea
-                .padding(.horizontal, 12)
-                .padding(.vertical, 10)
+                // mm:6885:B.4 — content: timestamp, category, message, hashtags, actions
+                contentArea
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 10)
+            }
+            .background(Self.cardBg)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.black.opacity(0.08), lineWidth: 1)
+            )
+
+            if card.isSpam {
+                spamPill
+                    .padding(.top, 6)
+                    .padding(.trailing, 8)
+            }
         }
-        .background(Self.cardBg)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.black.opacity(0.08), lineWidth: 1)
-        )
         .frame(width: isCarouselVariant ? 300 : nil)
         .opacity(isCarouselVariant && !card.isHighlight ? 0.55 : 1.0)
+    }
+
+    // mm:6885:10393 — mms_D.3.1_Status (orange "Spam" pill, top-right corner)
+    private var spamPill: some View {
+        Text("Spam")
+            .font(.system(size: 11, weight: .black))
+            .foregroundColor(.white)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 4)
+            .background(
+                Capsule()
+                    .fill(Color(red: 0xF2 / 255.0, green: 0x7A / 255.0, blue: 0x1A / 255.0))
+            )
+            .accessibilityLabel(Text("Spam"))
     }
 
     // MARK: - Header Row
@@ -72,6 +97,18 @@ struct KudosCard: View {
     }
 
     private func userBlock(user: KudosUser, isSender: Bool) -> some View {
+        let content = userBlockContent(user: user, isSender: isSender)
+        if let onUserTap {
+            return AnyView(
+                Button(action: { onUserTap(user) }) { content }
+                    .buttonStyle(PlainButtonStyle())
+            )
+        } else {
+            return AnyView(content)
+        }
+    }
+
+    private func userBlockContent(user: KudosUser, isSender: Bool) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             // Avatar placeholder (SF Symbol circle)
             ZStack {

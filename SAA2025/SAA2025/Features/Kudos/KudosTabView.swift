@@ -22,7 +22,19 @@ struct KudosTabView: View {
     @StateObject private var viewModel: KudosViewModel = KudosViewModel()
     @State private var spotlightSearch: String = ""
     @State private var showCopiedToast: Bool = false
+    @State private var selectedProfileUser: ProfileUser?
     @EnvironmentObject private var localizer: Localizer
+
+    /// Maps the kudos-feature user model onto the profile model. Until the
+    /// directory API ships, the avatar falls back to a generic SF Symbol.
+    private func profile(from user: KudosUser) -> ProfileUser {
+        ProfileUser(
+            displayName: user.name,
+            employeeCode: user.employeeCode,
+            badgeLabel: user.badgeLabel ?? "",
+            badgeTier: user.badgeTier == .one ? .rising : .legend
+        )
+    }
 
     // MARK: - Copy Link helper
 
@@ -132,7 +144,8 @@ struct KudosTabView: View {
                                     Task { await viewModel.selectHashtag(tag) }
                                 }
                             },
-                            onHeartTap: { viewModel.toggleHeart(kudosId: card.id) }
+                            onHeartTap: { viewModel.toggleHeart(kudosId: card.id) },
+                            onUserTap: { user in selectedProfileUser = profile(from: user) }
                         )
                         .padding(.horizontal, 20)
                     }
@@ -199,6 +212,9 @@ struct KudosTabView: View {
         }
         .navigationDestination(isPresented: $viewModel.navigateToViewAll) {
             KudosOverviewViewContainer(onDetail: { card in viewModel.openDetail(for: card) })
+        }
+        .navigationDestination(item: $selectedProfileUser) { user in
+            OtherProfileView(user: user)
         }
         .sheet(isPresented: $viewModel.navigateToOpenSecretBox) {
             VStack(spacing: 12) {

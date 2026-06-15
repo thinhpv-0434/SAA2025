@@ -144,6 +144,9 @@ enum StringsJA {
         "profile.filter.received": "受信",
         "profile.filter.sent": "送信",
         "profile.kudos.status.spam": "Spam",
+        "profile.other.cta.send_prefix": "感謝と称賛を送る: ",
+        "profile.other.received_kudos.prefix": "受け取った ",
+        "profile.other.received_kudos.suffix": " kudos",
 
         // Stub screens
         "search.title": "検索",

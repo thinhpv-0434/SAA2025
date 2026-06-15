@@ -8,14 +8,15 @@ import SwiftUI
 // MARK: - ProfileUserCard
 
 /// Top member block on the Profile tab: circular avatar + display name +
-/// employee code with an earned-badge pill alongside.
+/// employee code with an earned-badge pill alongside. The avatar uses
+/// initials over a deterministic warm-gradient backdrop until a real
+/// photo URL is plumbed through `ProfileUser`.
 // mm:6885:10339 — mms_1.1_member
 struct ProfileUserCard: View {
 
     let user: ProfileUser
 
     private static let avatarSize: CGFloat = 96
-    private static let badgeRed = Color(red: 0x8B / 255.0, green: 0x20 / 255.0, blue: 0x20 / 255.0)
 
     var body: some View {
         VStack(spacing: 12) {
@@ -30,20 +31,46 @@ struct ProfileUserCard: View {
     private var avatar: some View {
         ZStack {
             Circle()
-                .fill(Color.white.opacity(0.18))
+                .fill(
+                    LinearGradient(
+                        gradient: Gradient(colors: gradientColors(for: user.employeeCode)),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
                 .frame(width: Self.avatarSize, height: Self.avatarSize)
 
-            Image(systemName: user.avatarSystemName)
-                .resizable()
-                .scaledToFit()
-                .foregroundColor(.white.opacity(0.85))
-                .frame(width: Self.avatarSize - 4, height: Self.avatarSize - 4)
-                .clipShape(Circle())
+            Text(user.initials)
+                .font(.system(size: 36, weight: .bold, design: .rounded))
+                .foregroundColor(.white)
         }
         .overlay(
             Circle()
                 .stroke(Color.white.opacity(0.9), lineWidth: 2)
         )
+    }
+
+    /// Picks one of three warm gradients deterministically so the same
+    /// sunner always reads with the same colors across the app.
+    private func gradientColors(for seed: String) -> [Color] {
+        let hash = abs(seed.hashValue)
+        switch hash % 3 {
+        case 0:
+            return [
+                Color(red: 0xE6 / 255.0, green: 0x7E / 255.0, blue: 0x2C / 255.0),
+                Color(red: 0x8B / 255.0, green: 0x20 / 255.0, blue: 0x20 / 255.0)
+            ]
+        case 1:
+            return [
+                Color(red: 0xC9 / 255.0, green: 0xA0 / 255.0, blue: 0x40 / 255.0),
+                Color(red: 0x6B / 255.0, green: 0x35 / 255.0, blue: 0x10 / 255.0)
+            ]
+        default:
+            return [
+                Color(red: 0xF0 / 255.0, green: 0xB0 / 255.0, blue: 0x60 / 255.0),
+                Color(red: 0x9A / 255.0, green: 0x30 / 255.0, blue: 0x18 / 255.0)
+            ]
+        }
     }
 
     // mm:6885:10341 — mms_A.2_Name
@@ -73,7 +100,7 @@ struct ProfileUserCard: View {
             .padding(.vertical, 3)
             .background(
                 Capsule()
-                    .fill(Self.badgeRed)
+                    .fill(user.badgeTier.pillColor)
             )
     }
 }

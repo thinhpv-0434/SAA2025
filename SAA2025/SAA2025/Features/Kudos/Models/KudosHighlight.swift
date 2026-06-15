@@ -49,6 +49,7 @@ struct KudosCardData: Identifiable, Hashable {
     let isLiked: Bool             // current user's like state (TC_FUN_007)
     let isOwn: Bool               // sender == current user → heart disabled (TC_FUN_008)
     let departmentId: String      // receiver department id (filter target)
+    var isSpam: Bool = false      // flagged as spam → renders mms_D.3.1 status pill
 }
 
 extension KudosCardData {
@@ -71,7 +72,8 @@ extension KudosCardData {
             isHighlight: isHighlight,
             isLiked: nowLiked,
             isOwn: isOwn,
-            departmentId: departmentId
+            departmentId: departmentId,
+            isSpam: isSpam
         )
     }
 }

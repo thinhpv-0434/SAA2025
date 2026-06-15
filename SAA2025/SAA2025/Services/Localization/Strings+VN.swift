@@ -144,6 +144,9 @@ enum StringsVN {
         "profile.filter.received": "Đã nhận",
         "profile.filter.sent": "Đã gửi",
         "profile.kudos.status.spam": "Spam",
+        "profile.other.cta.send_prefix": "Gửi lời cảm ơn và ghi nhận tới ",
+        "profile.other.received_kudos.prefix": "Đã nhận ",
+        "profile.other.received_kudos.suffix": " kudos",
 
         // Stub screens
         "search.title": "Tìm kiếm",

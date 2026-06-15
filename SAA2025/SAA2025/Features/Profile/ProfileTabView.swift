@@ -19,8 +19,18 @@ struct ProfileTabView: View {
 
     @State private var filter: ProfileKudosFilter = .sent
     @State private var showCopiedToast: Bool = false
+    @State private var selectedProfileUser: ProfileUser?
 
     @EnvironmentObject private var localizer: Localizer
+
+    private func profile(from user: KudosUser) -> ProfileUser {
+        ProfileUser(
+            displayName: user.name,
+            employeeCode: user.employeeCode,
+            badgeLabel: user.badgeLabel ?? "",
+            badgeTier: user.badgeTier == .one ? .rising : .legend
+        )
+    }
 
     private let user: ProfileUser = .mock
     private let stats: KudosStats = KudosStats(
@@ -64,6 +74,9 @@ struct ProfileTabView: View {
         }
         .toolbar(.hidden, for: .navigationBar)
         .kudosCopiedToast(isVisible: showCopiedToast)
+        .navigationDestination(item: $selectedProfileUser) { user in
+            OtherProfileView(user: user)
+        }
     }
 
     // MARK: - Kudos Section
@@ -95,7 +108,8 @@ struct ProfileTabView: View {
                     },
                     onDetail: {},
                     onHashtagTap: { _ in },
-                    onHeartTap: {}
+                    onHeartTap: {},
+                    onUserTap: { user in selectedProfileUser = profile(from: user) }
                 )
                 .padding(.horizontal, 20)
             }
@@ -106,8 +120,8 @@ struct ProfileTabView: View {
     /// Real filtering arrives once the kudos service exposes a per-user query.
     private func visibleCards(for filter: ProfileKudosFilter) -> [KudosCardData] {
         switch filter {
-        case .received: return Array(cards.prefix(5))
-        case .sent:     return Array(cards.prefix(3))
+        case .received: return cards
+        case .sent:     return cards
         }
     }
 }
