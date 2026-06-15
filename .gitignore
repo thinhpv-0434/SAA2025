@@ -1,0 +1,25 @@
+# Xcode — per-user state
+**/xcuserdata/
+**/*.xcuserstate
+**/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+
+# Build output
+build/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Packages/
+Package.pins
+Package.resolved
+
+# CocoaPods (not used today, but cheap to guard)
+Pods/
+
+# macOS noise
+.DS_Store
