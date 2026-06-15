@@ -134,9 +134,18 @@ enum StringsJA {
         "awards.highlight.title": "アワード制度\nSAA 2025",
         "award.badge.accessibility_label": "アワードバッジ",
 
-        // Stub screens
+        // Profile
         "profile.title": "プロフィール",
         "profile.nav.title": "プロフィール",
+        "profile.badge.legend_hero": "Legend Hero",
+        "profile.icon_collection.title": "マイアイコンコレクション",
+        "profile.kudos.section.subtitle": "Sun* Annual Awards 2025",
+        "profile.kudos.section.title": "KUDOS",
+        "profile.filter.received": "受信",
+        "profile.filter.sent": "送信",
+        "profile.kudos.status.spam": "Spam",
+
+        // Stub screens
         "search.title": "検索",
         "search.nav.title": "検索",
         "notifications.title": "通知",

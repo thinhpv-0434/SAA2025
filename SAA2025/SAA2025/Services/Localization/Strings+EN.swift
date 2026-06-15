@@ -134,9 +134,18 @@ enum StringsEN {
         "awards.highlight.title": "Award system\nSAA 2025",
         "award.badge.accessibility_label": "Award badge",
 
-        // Stub screens
+        // Profile
         "profile.title": "Profile",
         "profile.nav.title": "Profile",
+        "profile.badge.legend_hero": "Legend Hero",
+        "profile.icon_collection.title": "My icon collection",
+        "profile.kudos.section.subtitle": "Sun* Annual Awards 2025",
+        "profile.kudos.section.title": "KUDOS",
+        "profile.filter.received": "Received",
+        "profile.filter.sent": "Sent",
+        "profile.kudos.status.spam": "Spam",
+
+        // Stub screens
         "search.title": "Search",
         "search.nav.title": "Search",
         "notifications.title": "Notifications",

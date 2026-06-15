@@ -134,9 +134,18 @@ enum StringsVN {
         "awards.highlight.title": "Hệ thống giải thưởng\nSAA 2025",
         "award.badge.accessibility_label": "Huy hiệu giải thưởng",
 
-        // Stub screens
+        // Profile
         "profile.title": "Hồ sơ cá nhân",
         "profile.nav.title": "Cá nhân",
+        "profile.badge.legend_hero": "Legend Hero",
+        "profile.icon_collection.title": "Bộ sưu tập icon của tôi",
+        "profile.kudos.section.subtitle": "Sun* Annual Awards 2025",
+        "profile.kudos.section.title": "KUDOS",
+        "profile.filter.received": "Đã nhận",
+        "profile.filter.sent": "Đã gửi",
+        "profile.kudos.status.spam": "Spam",
+
+        // Stub screens
         "search.title": "Tìm kiếm",
         "search.nav.title": "Tìm kiếm",
         "notifications.title": "Thông báo",

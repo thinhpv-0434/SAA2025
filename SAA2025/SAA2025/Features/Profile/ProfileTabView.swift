@@ -2,28 +2,118 @@
 //  ProfileTabView.swift
 //  SAA2025
 //
-//  Created by pham.van.thinh on 9/6/26.
+//  Screen: [iOS] Profile bản thân — hSH7L8doXB
+//  Design: https://momorph.ai/files/9ypp4enmFmdK3YAFJLIu6C/screens/hSH7L8doXB
 //
 
 import SwiftUI
 
+// MARK: - ProfileTabView
+
+/// Root view for the Profile tab. Composes the member card, icon collection,
+/// stats block, and a filtered kudos feed over the shared Awards background.
+/// Backend wiring (real `/me`, kudos counts, filtering) lands in a follow-up;
+/// this layer renders fixture data so the layout reviews end-to-end.
+// mm:6885:10333 — [iOS] Profile bản thân
 struct ProfileTabView: View {
+
+    @State private var filter: ProfileKudosFilter = .sent
+    @State private var showCopiedToast: Bool = false
 
     @EnvironmentObject private var localizer: Localizer
 
+    private let user: ProfileUser = .mock
+    private let stats: KudosStats = KudosStats(
+        kudosReceived: 5,
+        kudosSent: 25,
+        heartsReceived: 25,
+        secretBoxOpened: 25,
+        secretBoxUnopened: 25
+    )
+    private let cards: [KudosCardData] = KudosFixtures.cards
+
     var body: some View {
-        VStack(spacing: 12) {
-            Text(localizer.t("profile.title"))
-                .font(.title2.bold())
-            Text(localizer.t("stub.coming_soon"))
-                .foregroundStyle(.secondary)
+        ZStack(alignment: .top) {
+            AwardsBackground()
+
+            VStack(spacing: 0) {
+                AwardsScreenHeader(
+                    unreadCount: 0,
+                    onSearch: {},
+                    onBell: {}
+                )
+
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 20) {
+                        ProfileUserCard(user: user)
+                            .padding(.top, 8)
+
+                        ProfileIconCollection()
+
+                        ProfileStatsBlock(
+                            stats: stats,
+                            onOpenSecretBox: {}
+                        )
+
+                        kudosSection
+                            .padding(.top, 12)
+                            .padding(.bottom, 32)
+                    }
+                }
+            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .navigationTitle(localizer.t("profile.nav.title"))
+        .toolbar(.hidden, for: .navigationBar)
+        .kudosCopiedToast(isVisible: showCopiedToast)
+    }
+
+    // MARK: - Kudos Section
+
+    private var kudosSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            ProfileKudosSectionHeader()
+
+            ProfileKudosFilterPicker(
+                selection: $filter,
+                receivedCount: visibleCards(for: .received).count,
+                sentCount: visibleCards(for: .sent).count
+            )
+            .padding(.horizontal, 20)
+
+            kudosList
+        }
+    }
+
+    private var kudosList: some View {
+        VStack(spacing: 16) {
+            ForEach(visibleCards(for: filter)) { card in
+                KudosCard(
+                    card: card,
+                    isCarouselVariant: false,
+                    onCopyLink: {
+                        KudosClipboard.copy(kudoId: card.id)
+                        KudosCopiedToastController.show($showCopiedToast)
+                    },
+                    onDetail: {},
+                    onHashtagTap: { _ in },
+                    onHeartTap: {}
+                )
+                .padding(.horizontal, 20)
+            }
+        }
+    }
+
+    /// Profile filter mocks "Đã nhận" vs "Đã gửi" by slicing the fixture pool.
+    /// Real filtering arrives once the kudos service exposes a per-user query.
+    private func visibleCards(for filter: ProfileKudosFilter) -> [KudosCardData] {
+        switch filter {
+        case .received: return Array(cards.prefix(5))
+        case .sent:     return Array(cards.prefix(3))
+        }
     }
 }
 
 #Preview {
     NavigationStack { ProfileTabView() }
         .environmentObject(Localizer())
+        .environmentObject(TokenStore())
 }
