@@ -153,6 +153,7 @@ enum StringsJA {
         "search.nav.title": "検索",
         "notifications.title": "通知",
         "notifications.nav.title": "通知",
+        "notifications.mark_all_read": "すべて既読にする",
         "access_denied.title": "アクセス拒否",
         "access_denied.nav.title": "アクセス拒否",
         "access_denied.btn.back_to_login": "ログインへ戻る"

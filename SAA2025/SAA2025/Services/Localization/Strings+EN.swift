@@ -153,6 +153,7 @@ enum StringsEN {
         "search.nav.title": "Search",
         "notifications.title": "Notifications",
         "notifications.nav.title": "Notifications",
+        "notifications.mark_all_read": "Mark all as read",
         "access_denied.title": "Access Denied",
         "access_denied.nav.title": "Access Denied",
         "access_denied.btn.back_to_login": "Back to Login"

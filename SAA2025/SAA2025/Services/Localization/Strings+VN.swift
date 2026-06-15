@@ -153,6 +153,7 @@ enum StringsVN {
         "search.nav.title": "Tìm kiếm",
         "notifications.title": "Thông báo",
         "notifications.nav.title": "Thông báo",
+        "notifications.mark_all_read": "Đánh dấu đọc tất cả",
         "access_denied.title": "Truy cập bị từ chối",
         "access_denied.nav.title": "Truy cập bị từ chối",
         "access_denied.btn.back_to_login": "Quay lại đăng nhập"
