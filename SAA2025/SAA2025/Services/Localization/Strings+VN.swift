@@ -151,6 +151,9 @@ enum StringsVN {
         // Stub screens
         "search.title": "Tìm kiếm",
         "search.nav.title": "Tìm kiếm",
+        "search.input.placeholder": "Tìm Sunner",
+        "search.recent.title": "Gần đây",
+        "search.recent.view_all": "Xem tất cả",
         "notifications.title": "Thông báo",
         "notifications.nav.title": "Thông báo",
         "notifications.mark_all_read": "Đánh dấu đọc tất cả",

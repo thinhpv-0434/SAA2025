@@ -151,6 +151,9 @@ enum StringsEN {
         // Stub screens
         "search.title": "Search",
         "search.nav.title": "Search",
+        "search.input.placeholder": "Search Sunner",
+        "search.recent.title": "Recent",
+        "search.recent.view_all": "View all",
         "notifications.title": "Notifications",
         "notifications.nav.title": "Notifications",
         "notifications.mark_all_read": "Mark all as read",

@@ -151,6 +151,9 @@ enum StringsJA {
         // Stub screens
         "search.title": "検索",
         "search.nav.title": "検索",
+        "search.input.placeholder": "Sunnerを検索",
+        "search.recent.title": "最近",
+        "search.recent.view_all": "すべて表示",
         "notifications.title": "通知",
         "notifications.nav.title": "通知",
         "notifications.mark_all_read": "すべて既読にする",
