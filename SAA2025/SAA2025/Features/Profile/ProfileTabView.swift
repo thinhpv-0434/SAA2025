@@ -20,6 +20,7 @@ struct ProfileTabView: View {
     @State private var filter: ProfileKudosFilter = .sent
     @State private var showCopiedToast: Bool = false
     @State private var selectedProfileUser: ProfileUser?
+    @State private var navigateToSearch: Bool = false
 
     @EnvironmentObject private var localizer: Localizer
 
@@ -49,7 +50,7 @@ struct ProfileTabView: View {
             VStack(spacing: 0) {
                 AwardsScreenHeader(
                     unreadCount: 0,
-                    onSearch: {},
+                    onSearch: { navigateToSearch = true },
                     onBell: {}
                 )
 
@@ -76,6 +77,9 @@ struct ProfileTabView: View {
         .kudosCopiedToast(isVisible: showCopiedToast)
         .navigationDestination(item: $selectedProfileUser) { user in
             OtherProfileView(user: user)
+        }
+        .navigationDestination(isPresented: $navigateToSearch) {
+            SearchView()
         }
     }
 

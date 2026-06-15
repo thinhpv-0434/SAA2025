@@ -28,6 +28,7 @@ struct AwardsTabViewContainer: View {
 struct AwardsTabView: View {
 
     @StateObject private var viewModel: AwardsTopViewModel
+    @State private var navigateToSearch: Bool = false
     @EnvironmentObject private var localizer: Localizer
 
     init(tokenStore: TokenStore) {
@@ -43,7 +44,7 @@ struct AwardsTabView: View {
             VStack(spacing: 0) {
                 AwardsScreenHeader(
                     unreadCount: 0,
-                    onSearch: {},
+                    onSearch: { navigateToSearch = true },
                     onBell: {}
                 )
 
@@ -59,6 +60,9 @@ struct AwardsTabView: View {
         }
         .navigationDestination(isPresented: $viewModel.navigateToAccessDenied) {
             AccessDeniedView()
+        }
+        .navigationDestination(isPresented: $navigateToSearch) {
+            SearchView()
         }
     }
 

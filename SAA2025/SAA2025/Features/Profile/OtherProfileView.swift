@@ -27,6 +27,7 @@ struct OtherProfileView: View {
 
     @Environment(\.dismiss) private var dismiss
     @State private var showCopiedToast: Bool = false
+    @State private var navigateToSearch: Bool = false
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -35,7 +36,7 @@ struct OtherProfileView: View {
             VStack(spacing: 0) {
                 AwardsScreenHeader(
                     unreadCount: 0,
-                    onSearch: {},
+                    onSearch: { navigateToSearch = true },
                     onBell: {}
                 )
 
@@ -64,6 +65,9 @@ struct OtherProfileView: View {
         }
         .toolbar(.hidden, for: .navigationBar)
         .kudosCopiedToast(isVisible: showCopiedToast)
+        .navigationDestination(isPresented: $navigateToSearch) {
+            SearchView()
+        }
     }
 
     @EnvironmentObject private var localizer: Localizer
