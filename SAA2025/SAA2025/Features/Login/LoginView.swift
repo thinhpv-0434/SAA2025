@@ -13,7 +13,7 @@ import SwiftUI
 struct LoginView: View {
 
     @StateObject private var viewModel: LoginViewModel
-    @State private var selectedLang: Lang = .vn
+    @EnvironmentObject private var localizer: Localizer
 
     init(tokenStore: TokenStore) {
         _viewModel = StateObject(wrappedValue: LoginViewModel(tokenStore: tokenStore))
@@ -46,12 +46,12 @@ struct LoginView: View {
             }
         }
         .alert(
-            "Đăng nhập thất bại",
+            localizer.t("login.error.title"),
             isPresented: $viewModel.showError
         ) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("Vui lòng thử lại.")
+            Text(localizer.t("login.error.message"))
         }
     }
 
@@ -77,7 +77,7 @@ struct LoginView: View {
             Spacer()
 
             // mm:6885:8976
-            LanguagePicker(selectedLang: $selectedLang)
+            LanguagePicker()
         }
         .padding(.horizontal, 20)
         .padding(.top, 8)
@@ -99,7 +99,7 @@ struct LoginView: View {
     private var taglineText: some View {
         // mm:6885:8968
         HStack {
-            Text("Bắt đầu hành trình của bạn cùng SAA 2025.\nĐăng nhập để khám phá!")
+            Text(localizer.t("login.tagline"))
                 .font(.system(size: 15, weight: .regular))
                 .foregroundColor(.white)
                 .lineSpacing(4)
@@ -119,7 +119,7 @@ struct LoginView: View {
 
     private var footer: some View {
         // mm:6885:8970 / mm:6885:8971
-        Text("Bản quyền thuộc về Sun* © 2025")
+        Text(localizer.t("login.copyright"))
             .font(.system(size: 12, weight: .regular))
             .foregroundColor(.white.opacity(0.7))
             .padding(.bottom, 24)
@@ -128,4 +128,5 @@ struct LoginView: View {
 
 #Preview {
     LoginView(tokenStore: TokenStore())
+        .environmentObject(Localizer())
 }

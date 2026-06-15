@@ -12,6 +12,8 @@ struct PersonalStatsBlock: View {
 
     let stats: KudosStats
 
+    @EnvironmentObject private var localizer: Localizer
+
     private static let bg = Color(red: 0x0E / 255.0, green: 0x16 / 255.0, blue: 0x22 / 255.0)
     private static let divider = Color.white.opacity(0.08)
     private static let valueGold = Color("saaGold")
@@ -20,7 +22,7 @@ struct PersonalStatsBlock: View {
         VStack(spacing: 0) {
             // mm:6885:D.1.2 — kudos received
             statRow(
-                label: "Số Kudos bạn nhận được:",
+                label: localizer.t("kudos.stats.received"),
                 value: "\(stats.kudosReceived)",
                 badge: nil
             )
@@ -28,7 +30,7 @@ struct PersonalStatsBlock: View {
 
             // mm:6885:D.1.3 — kudos sent
             statRow(
-                label: "Số Kudos bạn đã gửi:",
+                label: localizer.t("kudos.stats.sent"),
                 value: "\(stats.kudosSent)",
                 badge: nil
             )
@@ -36,7 +38,7 @@ struct PersonalStatsBlock: View {
 
             // mm:6885:D.1.4 — hearts received (with x2 fire badge)
             statRow(
-                label: "Số tim bạn nhận được:",
+                label: localizer.t("kudos.stats.hearts"),
                 value: "\(stats.heartsReceived)",
                 badge: "x2"
             )
@@ -49,7 +51,7 @@ struct PersonalStatsBlock: View {
 
             // mm:6885:D.1.6 — secret boxes opened
             statRow(
-                label: "Số Secret Box bạn đã mở:",
+                label: localizer.t("kudos.stats.secret_box_opened"),
                 value: "\(stats.secretBoxOpened)",
                 badge: nil
             )
@@ -57,7 +59,7 @@ struct PersonalStatsBlock: View {
 
             // mm:6885:D.1.7 — secret boxes unopened
             statRow(
-                label: "Số Secret Box chưa mở:",
+                label: localizer.t("kudos.stats.secret_box_unopened"),
                 value: "\(stats.secretBoxUnopened)",
                 badge: nil
             )
@@ -130,5 +132,6 @@ struct PersonalStatsBlock: View {
             secretBoxUnopened: 25
         ))
         .padding(.vertical, 16)
+        .environmentObject(Localizer())
     }
 }

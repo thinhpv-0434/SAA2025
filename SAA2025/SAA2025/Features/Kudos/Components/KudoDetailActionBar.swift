@@ -25,6 +25,8 @@ struct KudoDetailActionBar: View {
     let onCopyLink: () -> Void
     var onDetail: () -> Void = {}
 
+    @EnvironmentObject private var localizer: Localizer
+
     private static let textDark = Color(red: 0x00 / 255.0, green: 0x10 / 255.0, blue: 0x1A / 255.0)
     private static let textMid  = Color(red: 0x4A / 255.0, green: 0x3E / 255.0, blue: 0x28 / 255.0)
     private static let heartRed = Color(red: 0xE6 / 255.0, green: 0x4A / 255.0, blue: 0x2C / 255.0)
@@ -61,7 +63,7 @@ struct KudoDetailActionBar: View {
                 // mm:6885:10185 — mm_media_IC (link icon)
                 Button(action: onCopyLink) {
                     HStack(spacing: 4) {
-                        Text("Copy Link")
+                        Text(localizer.t("kudos.action.copy_link"))
                             .font(.custom("Montserrat", size: 10))
                             .fontWeight(.medium)
                         Image(systemName: "link")
@@ -77,7 +79,7 @@ struct KudoDetailActionBar: View {
                 if showsDetailButton {
                     Button(action: onDetail) {
                         HStack(spacing: 4) {
-                            Text("Xem chi tiết")
+                            Text(localizer.t("kudos.action.view_detail"))
                                 .font(.custom("Montserrat", size: 10))
                                 .fontWeight(.medium)
                             Image(systemName: "arrow.up.right")
@@ -107,5 +109,6 @@ struct KudoDetailActionBar: View {
             onCopyLink: {}
         )
         .padding(12)
+        .environmentObject(Localizer())
     }
 }

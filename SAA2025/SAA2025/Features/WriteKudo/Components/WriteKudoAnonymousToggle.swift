@@ -14,6 +14,8 @@ struct WriteKudoAnonymousToggle: View {
 
     @Binding var isAnonymous: Bool
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         Button(action: { isAnonymous.toggle() }) {
             HStack(spacing: 10) {
@@ -33,7 +35,7 @@ struct WriteKudoAnonymousToggle: View {
                     }
                 }
 
-                Text("Gửi lời cám ơn và ghi nhận ẩn danh")
+                Text(localizer.t("writkudo.field.anonymous.label"))
                     .font(.system(size: 13, weight: .regular))
                     .foregroundColor(WriteKudoFieldStyle.helperColor)
 
@@ -51,4 +53,5 @@ struct WriteKudoAnonymousToggle: View {
     }
     .padding()
     .background(Color(red: 0xFF / 255.0, green: 0xF8 / 255.0, blue: 0xE1 / 255.0))
+    .environmentObject(Localizer())
 }

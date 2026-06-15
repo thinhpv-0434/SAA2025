@@ -15,6 +15,8 @@ struct HeroSection: View {
     let onAboutAward: () -> Void
     let onAboutKudos: () -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             // mm:6885:8984
@@ -26,7 +28,7 @@ struct HeroSection: View {
             // mm:6885:8985
             VStack(alignment: .leading, spacing: 12) {
                 if !isEventEnded {
-                    Text("Coming soon")
+                    Text(localizer.t("hero.event.coming_soon"))
                         .font(.system(size: 13, weight: .medium))
                         .foregroundColor(.white.opacity(0.7))
                         .kerning(1.5)
@@ -39,7 +41,7 @@ struct HeroSection: View {
                         minutes: remaining.minutes
                     )
                 } else {
-                    Text("Sự kiện đã diễn ra")
+                    Text(localizer.t("hero.event.ended"))
                         .font(.system(size: 13, weight: .medium))
                         .foregroundColor(.white.opacity(0.7))
                 }
@@ -52,13 +54,13 @@ struct HeroSection: View {
             HStack(spacing: 12) {
                 // mm:6885:9026
                 actionButton(
-                    label: "ABOUT AWARD",
+                    label: localizer.t("hero.btn.about_award"),
                     style: .filled,
                     action: onAboutAward
                 )
                 // mm:6885:9027
                 actionButton(
-                    label: "ABOUT KUDOS",
+                    label: localizer.t("hero.btn.about_kudos"),
                     style: .outlined,
                     action: onAboutKudos
                 )
@@ -113,6 +115,7 @@ struct HeroSection: View {
                 onAboutAward: {},
                 onAboutKudos: {}
             )
+            .environmentObject(Localizer())
         }
     }
 }

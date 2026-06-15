@@ -136,7 +136,7 @@ final class WriteKudoViewModel: ObservableObject {
         do {
             let ok = try await service.submitKudo(draft)
             if ok { return true }
-            submitError = "Không gửi được Kudos. Vui lòng thử lại."
+            submitError = StringsVN.table["writkudo.error.submit"] ?? "Could not send your Kudo. Please try again."
             return false
         } catch {
             submitError = error.localizedDescription

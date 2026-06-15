@@ -10,14 +10,16 @@ import SwiftUI
 // mm:6885:9016
 struct EventInfoCard: View {
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             // mm:6885:9017
-            infoRow(text: "Thời gian: \(Self.formattedEventDate)")
+            infoRow(text: "\(localizer.t("event.info.time.label"))\(Self.formattedEventDate)")
             // mm:6885:9020
-            infoRow(text: "Địa điểm: Âu Cơ Art Center")
+            infoRow(text: localizer.t("event.info.location"))
             // mm:6885:9023
-            infoRow(text: "Tường thuật trực tiếp tại Group Facebook Sun* Family")
+            infoRow(text: localizer.t("event.info.livestream"))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -44,5 +46,6 @@ struct EventInfoCard: View {
         Color.black.ignoresSafeArea()
         EventInfoCard()
             .padding()
+            .environmentObject(Localizer())
     }
 }

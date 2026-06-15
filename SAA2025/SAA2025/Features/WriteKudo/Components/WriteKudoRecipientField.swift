@@ -14,16 +14,18 @@ struct WriteKudoRecipientField: View {
     let recipient: KudosUser?
     let onTap: () -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
-            // mm:6885:9294 — "Người nhận *"
-            requiredLabel(text: "Người nhận")
+            // mm:6885:9294
+            requiredLabel(text: localizer.t("writkudo.field.recipient.label"))
                 .frame(width: 96, alignment: .leading)
 
             // mm:6885:9297 — dropdown row
             Button(action: onTap) {
                 HStack(spacing: 8) {
-                    Text(recipient?.name ?? "Tìm kiếm")
+                    Text(recipient?.name ?? localizer.t("writkudo.field.recipient.placeholder"))
                         .font(.system(size: 14, weight: .regular))
                         .foregroundColor(recipient == nil
                                          ? WriteKudoFieldStyle.helperColor
@@ -55,7 +57,7 @@ struct WriteKudoRecipientField: View {
         (Text(text)
             .font(.system(size: 14, weight: .medium))
             .foregroundColor(WriteKudoFieldStyle.labelColor)
-         + Text(" *")
+         + Text(localizer.t("form.required"))
             .font(.system(size: 14, weight: .medium))
             .foregroundColor(.red))
     }
@@ -71,4 +73,5 @@ struct WriteKudoRecipientField: View {
     }
     .padding()
     .background(Color(red: 0xFF / 255.0, green: 0xF8 / 255.0, blue: 0xE1 / 255.0))
+    .environmentObject(Localizer())
 }

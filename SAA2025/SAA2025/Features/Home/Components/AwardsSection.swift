@@ -14,6 +14,8 @@ struct AwardsSection: View {
     let onCardTap: (Award) -> Void
     let onRetry: () -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             // mm:6885:9031
@@ -30,12 +32,12 @@ struct AwardsSection: View {
     private var sectionHeader: some View {
         VStack(alignment: .leading, spacing: 4) {
             // mm:I6885:9031;75:1884
-            Text("Sun* Annual Awards 2025")
+            Text(localizer.t("home.awards.subtitle"))
                 .font(.system(size: 11, weight: .semibold))
                 .foregroundColor(Color("saaGold"))
                 .kerning(1.2)
                 .textCase(.uppercase)
-            Text("Hệ thống giải thưởng")
+            Text(localizer.t("home.awards.title"))
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(.white)
         }
@@ -66,7 +68,7 @@ struct AwardsSection: View {
             }
 
         case .empty:
-            Text("Chưa có giải thưởng")
+            Text(localizer.t("home.awards.empty"))
                 .font(.system(size: 14))
                 .foregroundColor(.white.opacity(0.6))
                 .padding(.horizontal, 20)
@@ -77,7 +79,7 @@ struct AwardsSection: View {
                     .font(.system(size: 13))
                     .foregroundColor(.white.opacity(0.6))
                 Button(action: onRetry) {
-                    Text("Thử lại")
+                    Text(localizer.t("btn.retry"))
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundColor(Color("saaGold"))
                 }
@@ -98,5 +100,6 @@ struct AwardsSection: View {
             onCardTap: { _ in },
             onRetry: {}
         )
+        .environmentObject(Localizer())
     }
 }

@@ -28,7 +28,7 @@ struct AwardsTabViewContainer: View {
 struct AwardsTabView: View {
 
     @StateObject private var viewModel: AwardsTopViewModel
-    @State private var selectedLang: Lang = .vn
+    @EnvironmentObject private var localizer: Localizer
 
     init(tokenStore: TokenStore) {
         _viewModel = StateObject(
@@ -42,7 +42,6 @@ struct AwardsTabView: View {
 
             VStack(spacing: 0) {
                 AwardsScreenHeader(
-                    selectedLang: $selectedLang,
                     unreadCount: 0,
                     onSearch: {},
                     onBell: {}
@@ -83,7 +82,7 @@ struct AwardsTabView: View {
         VStack(spacing: 16) {
             ProgressView()
                 .tint(Color("saaGold"))
-            Text("Đang tải...")
+            Text(localizer.t("awards.loading.message"))
                 .font(.system(size: 13))
                 .foregroundColor(.white.opacity(0.7))
         }
@@ -104,7 +103,7 @@ struct AwardsTabView: View {
                 if let award = viewModel.selectedAward {
                     AwardInfoBlock(award: award)
                 } else {
-                    Text("Vui lòng chọn một giải thưởng.")
+                    Text(localizer.t("awards.select.prompt"))
                         .font(.system(size: 14))
                         .foregroundColor(.white.opacity(0.7))
                         .padding(.vertical, 32)
@@ -118,7 +117,7 @@ struct AwardsTabView: View {
 
     private var emptyView: some View {
         VStack(spacing: 8) {
-            Text("Chưa có giải thưởng nào.")
+            Text(localizer.t("awards.empty.message"))
                 .font(.system(size: 15))
                 .foregroundColor(.white.opacity(0.85))
         }
@@ -127,12 +126,12 @@ struct AwardsTabView: View {
 
     private var errorView: some View {
         VStack(spacing: 12) {
-            Text("Không thể tải danh sách giải thưởng.")
+            Text(localizer.t("awards.error.message"))
                 .font(.system(size: 15, weight: .semibold))
                 .foregroundColor(.white)
 
             Button(action: { viewModel.retry() }) {
-                Text("Thử lại")
+                Text(localizer.t("btn.retry"))
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(Color("saaGold"))
                     .padding(.horizontal, 16)
@@ -150,4 +149,5 @@ struct AwardsTabView: View {
 #Preview {
     NavigationStack { AwardsTabView(tokenStore: TokenStore()) }
         .environmentObject(TokenStore())
+        .environmentObject(Localizer())
 }

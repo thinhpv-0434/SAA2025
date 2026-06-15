@@ -14,13 +14,15 @@ struct WriteKudoSentToast: View {
 
     let isVisible: Bool
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         if isVisible {
             HStack(spacing: 6) {
                 Image(systemName: "checkmark.circle.fill")
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(.green)
-                Text("Đã gửi Kudos")
+                Text(localizer.t("toast.kudo_sent"))
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(.white)
             }

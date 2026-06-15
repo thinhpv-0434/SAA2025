@@ -14,6 +14,8 @@ struct WriteKudoMessageEditor: View {
     @Binding var message: String
     let onAwardsInfoTap: () -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
 
@@ -24,7 +26,7 @@ struct WriteKudoMessageEditor: View {
                 // mm:6885:9322 — message text area
                 ZStack(alignment: .topLeading) {
                     if message.isEmpty {
-                        Text("Hãy gửi gắm lời cám ơn và ghi nhận đến đồng đội tại đây nhé!")
+                        Text(localizer.t("writkudo.field.message.placeholder"))
                             .font(.system(size: 13, weight: .regular))
                             .foregroundColor(WriteKudoFieldStyle.helperColor)
                             .padding(.horizontal, 12)
@@ -63,16 +65,15 @@ struct WriteKudoMessageEditor: View {
         }
     }
 
-    /// Renders "Bạn có thể "@ + tên" để nhắc tới đồng nghiệp khác" with the
-    /// inner literal slightly emphasised.
+    /// Renders the mention hint with the inner "@ + name" literal emphasised.
     private var mentionHintAttributed: AttributedString {
-        var leading = AttributedString("Bạn có thể ")
+        var leading = AttributedString(localizer.t("writkudo.hint.mention.prefix"))
         leading.foregroundColor = WriteKudoFieldStyle.helperColor
 
-        var mention = AttributedString("\"@ + tên\"")
+        var mention = AttributedString(localizer.t("writkudo.hint.mention.syntax"))
         mention.foregroundColor = WriteKudoFieldStyle.labelColor
 
-        var trailing = AttributedString(" để nhắc tới đồng nghiệp khác")
+        var trailing = AttributedString(localizer.t("writkudo.hint.mention.suffix"))
         trailing.foregroundColor = WriteKudoFieldStyle.helperColor
 
         return leading + mention + trailing
@@ -83,4 +84,5 @@ struct WriteKudoMessageEditor: View {
     WriteKudoMessageEditor(message: .constant(""), onAwardsInfoTap: {})
         .padding()
         .background(Color(red: 0xFF / 255.0, green: 0xF8 / 255.0, blue: 0xE1 / 255.0))
+        .environmentObject(Localizer())
 }

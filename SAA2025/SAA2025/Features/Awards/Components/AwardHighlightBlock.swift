@@ -18,6 +18,8 @@ struct AwardHighlightBlock: View {
     let selectedID: Award.ID?
     let onSelect: (Award.ID) -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     /// Title shown in the dropdown trigger, derived from the currently
     /// selected award. Falls back to a generic placeholder when nothing
     /// is selected yet (e.g. mid-load).
@@ -29,13 +31,13 @@ struct AwardHighlightBlock: View {
         // mm:6885:10454 — mms_B.1_header (container — child node IDs not in spec)
         VStack(spacing: 16) {
             // mm:6885:10454 (subtitle)
-            Text("Sun* Annual Awards 2025")
+            Text(localizer.t("awards.highlight.subtitle"))
                 .font(.system(size: 12, weight: .regular))
                 .foregroundColor(.white.opacity(0.85))
                 .multilineTextAlignment(.center)
 
             // mm:6885:10454 (title — two lines)
-            Text("Hệ thống giải thưởng\nSAA 2025")
+            Text(localizer.t("awards.highlight.title"))
                 .font(.system(size: 22, weight: .medium))
                 .foregroundColor(Color("saaGold"))
                 .multilineTextAlignment(.center)
@@ -79,6 +81,7 @@ private struct AwardHighlightBlockPreview: View {
                 onSelect: { _ in }
             )
         }
+        .environmentObject(Localizer())
     }
 }
 

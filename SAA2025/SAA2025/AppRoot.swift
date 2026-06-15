@@ -14,6 +14,7 @@ import SwiftUI
 struct AppRoot: View {
 
     @StateObject private var tokenStore = TokenStore()
+    @StateObject private var localizer = Localizer()
 
     var body: some View {
         Group {
@@ -24,6 +25,7 @@ struct AppRoot: View {
                 LoginView(tokenStore: tokenStore)
             }
         }
+        .environmentObject(localizer)
         .animation(.easeInOut(duration: 0.3), value: tokenStore.token)
     }
 }

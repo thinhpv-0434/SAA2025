@@ -18,6 +18,7 @@ struct HashtagPickerSheet: View {
     let onDismiss: () -> Void
 
     @State private var freeText: String = ""
+    @EnvironmentObject private var localizer: Localizer
 
     private var availableCount: Int {
         max(0, KudoDraftLimits.hashtagMax - selectedHashtags.count)
@@ -34,7 +35,7 @@ struct HashtagPickerSheet: View {
                     freeTextRow
                         .padding(.horizontal, 16)
 
-                    Text("Hashtag có sẵn")
+                    Text(localizer.t("writkudo.hashtag.available.label"))
                         .font(.system(size: 12, weight: .medium))
                         .foregroundColor(.secondary)
                         .padding(.horizontal, 16)
@@ -44,11 +45,11 @@ struct HashtagPickerSheet: View {
                 }
                 .padding(.vertical, 16)
             }
-            .navigationTitle("Hashtag")
+            .navigationTitle(localizer.t("writkudo.hashtag.nav.title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Xong") { onDismiss() }
+                    Button(localizer.t("btn.done")) { onDismiss() }
                         .fontWeight(.semibold)
                 }
             }
@@ -59,14 +60,14 @@ struct HashtagPickerSheet: View {
     // MARK: - Sub-views
 
     private var headerCounter: some View {
-        Text("Đã chọn \(selectedHashtags.count) / \(KudoDraftLimits.hashtagMax)")
+        Text("\(localizer.t("writkudo.hashtag.counter.prefix"))\(selectedHashtags.count)\(localizer.t("writkudo.hashtag.counter.sep"))\(KudoDraftLimits.hashtagMax)")
             .font(.system(size: 13, weight: .medium))
             .foregroundColor(.secondary)
     }
 
     private var freeTextRow: some View {
         HStack(spacing: 8) {
-            TextField("Thêm hashtag mới…", text: $freeText)
+            TextField(localizer.t("writkudo.hashtag.input.placeholder"), text: $freeText)
                 .font(.system(size: 14))
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
@@ -125,5 +126,6 @@ struct HashtagPickerSheet: View {
                 onAddFreeText: { _ in },
                 onDismiss: {}
             )
+            .environmentObject(Localizer())
         }
 }

@@ -13,12 +13,14 @@ struct OpenSecretBoxButton: View {
     let unopenedCount: Int
     let onTap: () -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     var isDisabled: Bool { unopenedCount == 0 }
 
     var body: some View {
         Button(action: onTap) {
             HStack(spacing: 10) {
-                Text("Mở Secret Box")
+                Text(localizer.t("kudos.btn.open_secret_box"))
                     .font(.system(size: 15, weight: .bold))
                     .foregroundColor(isDisabled
                         ? Color(red: 0x1A / 255.0, green: 0x14 / 255.0, blue: 0x0A / 255.0).opacity(0.4)
@@ -51,5 +53,6 @@ struct OpenSecretBoxButton: View {
             OpenSecretBoxButton(unopenedCount: 5, onTap: {})
             OpenSecretBoxButton(unopenedCount: 0, onTap: {})
         }
+        .environmentObject(Localizer())
     }
 }

@@ -13,6 +13,8 @@ struct KudosSection: View {
     let info: KudosInfo
     let onDetailsTap: () -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         content(info)
     }
@@ -40,13 +42,13 @@ struct KudosSection: View {
     private var sectionHeader: some View {
         VStack(alignment: .leading, spacing: 4) {
             // mm:I6885:9040;75:1884
-            Text("Phong trào ghi nhận")
+            Text(localizer.t("home.kudos.subtitle"))
                 .font(.system(size: 11, weight: .semibold))
                 .foregroundColor(Color("saaGold"))
                 .kerning(1.2)
                 .textCase(.uppercase)
             // mm:I6885:9040;75:1886
-            Text("Sun* Kudos")
+            Text(localizer.t("home.kudos.title"))
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(.white)
         }
@@ -73,7 +75,7 @@ struct KudosSection: View {
         Button(action: onDetailsTap) {
             HStack(spacing: 6) {
                 // mm:I6885:9055;28:1998
-                Text("Chi tiết")
+                Text(localizer.t("home.kudos.btn.details"))
                     .font(.system(size: 14, weight: .semibold))
                 // mm:I6885:9055;28:1997
                 Image(systemName: "arrow.up.right")
@@ -102,6 +104,7 @@ struct KudosSection: View {
                 ),
                 onDetailsTap: {}
             )
+            .environmentObject(Localizer())
         }
     }
 }

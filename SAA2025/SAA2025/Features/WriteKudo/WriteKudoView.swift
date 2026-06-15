@@ -33,6 +33,8 @@ struct WriteKudoView: View {
     let onCancel: () -> Void
     let onSubmit: () -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         ZStack(alignment: .top) {
             // mm:6885:9271 — reused key-visual background
@@ -65,7 +67,7 @@ struct WriteKudoView: View {
     private var formCard: some View {
         WriteKudoCard {
             // mm:6885:9292 — A. header
-            Text("Gửi lời cám ơn và ghi nhận đến đồng đội")
+            Text(localizer.t("writkudo.form.header"))
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundColor(WriteKudoFieldStyle.labelColor)
                 .multilineTextAlignment(.center)
@@ -149,6 +151,7 @@ struct WriteKudoView: View {
                     onSubmit: {}
                 )
             }
+            .environmentObject(Localizer())
         }
     }
     return PreviewWrapper()

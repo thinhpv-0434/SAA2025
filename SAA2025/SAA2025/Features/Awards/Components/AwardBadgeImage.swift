@@ -14,12 +14,14 @@ struct AwardBadgeImage: View {
 
     let assetName: String
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         Image(assetName)
             .resizable()
             .scaledToFit()
             .frame(width: 160, height: 160)
-            .accessibilityLabel(Text("Huy hiệu giải thưởng"))
+            .accessibilityLabel(Text(localizer.t("award.badge.accessibility_label")))
     }
 }
 
@@ -29,4 +31,5 @@ struct AwardBadgeImage: View {
             .ignoresSafeArea()
         AwardBadgeImage(assetName: "TopProjectBadge")
     }
+    .environmentObject(Localizer())
 }

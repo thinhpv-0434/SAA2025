@@ -17,6 +17,7 @@ struct WriteKudoContainer: View {
 
     @StateObject private var viewModel: WriteKudoViewModel = WriteKudoViewModel()
     @State private var showSuccessToast: Bool = false
+    @EnvironmentObject private var localizer: Localizer
 
     var body: some View {
         WriteKudoView(
@@ -64,22 +65,22 @@ struct WriteKudoContainer: View {
         .sheet(isPresented: $viewModel.showAwardsInfo) {
             AwardsInfoSheet(onDismiss: { viewModel.showAwardsInfo = false })
         }
-        .alert("Bỏ Kudos này?", isPresented: $viewModel.showCancelConfirm) {
-            Button("Hủy bỏ", role: .destructive) {
+        .alert(localizer.t("writkudo.cancel.title"), isPresented: $viewModel.showCancelConfirm) {
+            Button(localizer.t("writkudo.cancel.btn.discard"), role: .destructive) {
                 viewModel.showCancelConfirm = false
                 onDismiss()
             }
-            Button("Tiếp tục viết", role: .cancel) {
+            Button(localizer.t("writkudo.cancel.btn.continue"), role: .cancel) {
                 viewModel.showCancelConfirm = false
             }
         } message: {
-            Text("Nội dung Kudo của bạn sẽ không được lưu lại.")
+            Text(localizer.t("writkudo.cancel.message"))
         }
-        .alert("Đã xảy ra lỗi", isPresented: Binding(
+        .alert(localizer.t("writkudo.error.title"), isPresented: Binding(
             get: { viewModel.submitError != nil },
             set: { if !$0 { viewModel.submitError = nil } }
         )) {
-            Button("Đóng", role: .cancel) {}
+            Button(localizer.t("btn.close"), role: .cancel) {}
         } message: {
             Text(viewModel.submitError ?? "")
         }
@@ -108,4 +109,5 @@ struct WriteKudoContainer: View {
     NavigationStack {
         WriteKudoContainer(onDismiss: {})
     }
+    .environmentObject(Localizer())
 }

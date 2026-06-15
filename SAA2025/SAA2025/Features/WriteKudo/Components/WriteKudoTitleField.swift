@@ -13,21 +13,23 @@ struct WriteKudoTitleField: View {
 
     @Binding var title: String
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
 
             HStack(alignment: .center, spacing: 10) {
-                // mm:6885:9299 — "Danh hiệu *"
-                (Text("Danh hiệu")
+                // mm:6885:9299
+                (Text(localizer.t("writkudo.field.title.label"))
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(WriteKudoFieldStyle.labelColor)
-                 + Text(" *")
+                 + Text(localizer.t("form.required"))
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(.red))
                     .frame(width: 96, alignment: .leading)
 
                 // mm:6885:9302 — title text input
-                TextField("Dành tặng một danh hiệu cho...", text: $title)
+                TextField(localizer.t("writkudo.field.title.placeholder"), text: $title)
                     .font(.system(size: 14, weight: .regular))
                     .foregroundColor(WriteKudoFieldStyle.labelColor)
                     .textInputAutocapitalization(.sentences)
@@ -45,10 +47,10 @@ struct WriteKudoTitleField: View {
 
             // Helper text — Figma shows full-width, left-aligned to card content
             VStack(alignment: .leading, spacing: 2) {
-                Text("Ví dụ: Người truyền động lực cho tôi.")
+                Text(localizer.t("writkudo.field.title.example"))
                     .font(.system(size: 12, weight: .regular))
                     .foregroundColor(WriteKudoFieldStyle.helperColor)
-                Text("Danh hiệu sẽ hiển thị làm tiêu đề Kudos của bạn.")
+                Text(localizer.t("writkudo.field.title.helper"))
                     .font(.system(size: 12, weight: .regular))
                     .foregroundColor(WriteKudoFieldStyle.helperColor)
             }
@@ -62,10 +64,12 @@ struct WriteKudoCommunityStandardsLink: View {
 
     let onTap: () -> Void
 
-    // mm:6885:9303 — "Tiêu chuẩn cộng đồng" text link
+    @EnvironmentObject private var localizer: Localizer
+
+    // mm:6885:9303
     var body: some View {
         Button(action: onTap) {
-            Text("Tiêu chuẩn cộng đồng")
+            Text(localizer.t("writkudo.link.community_standards"))
                 .font(.system(size: 12, weight: .medium))
                 .foregroundColor(Color(red: 0xD4 / 255.0, green: 0x27 / 255.0, blue: 0x1D / 255.0))
                 .underline()
@@ -81,4 +85,5 @@ struct WriteKudoCommunityStandardsLink: View {
     }
     .padding()
     .background(Color(red: 0xFF / 255.0, green: 0xF8 / 255.0, blue: 0xE1 / 255.0))
+    .environmentObject(Localizer())
 }

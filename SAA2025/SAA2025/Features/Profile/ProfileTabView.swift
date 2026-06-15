@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct ProfileTabView: View {
+
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         VStack(spacing: 12) {
-            Text("Profile Tab")
+            Text(localizer.t("profile.title"))
                 .font(.title2.bold())
-            Text("Coming soon (stub)")
+            Text(localizer.t("stub.coming_soon"))
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .navigationTitle("Profile")
+        .navigationTitle(localizer.t("profile.nav.title"))
     }
 }
 
 #Preview {
     NavigationStack { ProfileTabView() }
+        .environmentObject(Localizer())
 }

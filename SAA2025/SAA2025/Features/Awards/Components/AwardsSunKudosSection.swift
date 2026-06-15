@@ -18,6 +18,8 @@ struct AwardsSunKudosSection: View {
 
     let onCTATap: () -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     private static let dividerColor = Color(red: 0x2E/255.0, green: 0x39/255.0, blue: 0x40/255.0)
 
     var body: some View {
@@ -37,7 +39,7 @@ struct AwardsSunKudosSection: View {
     // mm:6885:10486 — header (subtitle + divider + title)
     private var header: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("Phong trào ghi nhận")
+            Text(localizer.t("home.kudos.subtitle"))
                 .font(.system(size: 12, weight: .regular))
                 .foregroundColor(.white)
 
@@ -45,7 +47,7 @@ struct AwardsSunKudosSection: View {
                 .fill(Self.dividerColor)
                 .frame(height: 1)
 
-            Text("Sun* Kudos")
+            Text(localizer.t("home.kudos.title"))
                 .font(.system(size: 22, weight: .medium))
                 .foregroundColor(Color("saaGold"))
                 .padding(.top, 8)
@@ -73,7 +75,7 @@ struct AwardsSunKudosSection: View {
                 HStack(spacing: 4) {
                     Image(systemName: "flame.fill")
                         .foregroundColor(Color(red: 0xFF/255.0, green: 0x6A/255.0, blue: 0x1A/255.0))
-                    Text("KUDOS")
+                    Text(localizer.t("kudos.hero.title"))
                         .font(.system(size: 22, weight: .bold))
                         .foregroundColor(Color(red: 0xDB/255.0, green: 0xD1/255.0, blue: 0xC1/255.0))
                         .kerning(-2)
@@ -85,7 +87,7 @@ struct AwardsSunKudosSection: View {
 
     // mm:6885:10499 — note copy
     private var note: some View {
-        Text("ĐIỂM MỚI CỦA SAA 2025\nHoạt động ghi nhận và cảm ơn đồng nghiệp - lần đầu tiên được diễn ra dành cho tất cả Sunner. Hoạt động sẽ được triển khai vào tháng 11/2025, khuyến khích người Sun* chia sẻ những lời ghi nhận, cảm ơn đồng nghiệp trên hệ thống do BTC công bố. Đây sẽ là chất liệu để Hội đồng Heads tham khảo trong quá trình lựa chọn người đạt giải.")
+        Text(localizer.t("awards.kudos.note"))
             .font(.system(size: 14, weight: .light))
             .foregroundColor(.white)
             .lineSpacing(4)
@@ -96,7 +98,7 @@ struct AwardsSunKudosSection: View {
     private var ctaButton: some View {
         Button(action: onCTATap) {
             HStack(spacing: 8) {
-                Text("Chi tiết")
+                Text(localizer.t("home.kudos.btn.details"))
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(Color(red: 0x00/255.0, green: 0x10/255.0, blue: 0x1A/255.0))
 
@@ -121,4 +123,5 @@ struct AwardsSunKudosSection: View {
             .ignoresSafeArea()
         ScrollView { AwardsSunKudosSection(onCTATap: {}) }
     }
+    .environmentObject(Localizer())
 }

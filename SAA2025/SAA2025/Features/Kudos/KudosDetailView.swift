@@ -21,6 +21,7 @@ struct KudosDetailView: View {
 
     @State private var kudo: KudoDetail
     @State private var showCopiedToast: Bool = false
+    @EnvironmentObject private var localizer: Localizer
 
     init(detail: KudoDetail, onBack: @escaping () -> Void = {}) {
         self.onBack = onBack
@@ -37,7 +38,7 @@ struct KudosDetailView: View {
     var body: some View {
         VStack(spacing: 0) {
             // mm:6885:10133 — shared header bar (format matches KudosOverviewView)
-            KudosScreenHeaderBar(title: "Kudo", onBack: onBack)
+            KudosScreenHeaderBar(title: localizer.t("kudos.detail.header.title"), onBack: onBack)
 
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
@@ -179,5 +180,6 @@ struct KudosDetailView: View {
 #Preview {
     NavigationStack {
         KudosDetailView(detail: KudoDetailFixtures.sampleDetail)
+            .environmentObject(Localizer())
     }
 }

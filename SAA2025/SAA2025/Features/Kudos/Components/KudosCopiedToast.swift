@@ -14,9 +14,11 @@ struct KudosCopiedToast: View {
 
     let isVisible: Bool
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         if isVisible {
-            Text("Đã sao chép")
+            Text(localizer.t("toast.copied"))
                 .font(.system(size: 13, weight: .semibold))
                 .foregroundColor(.white)
                 .padding(.horizontal, 16)

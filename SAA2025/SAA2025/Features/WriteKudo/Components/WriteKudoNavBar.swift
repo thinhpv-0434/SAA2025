@@ -14,6 +14,8 @@ struct WriteKudoNavBar: View {
 
     let onBack: () -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         ZStack {
             HStack {
@@ -27,7 +29,7 @@ struct WriteKudoNavBar: View {
                 Spacer()
             }
 
-            Text("New Kudo")
+            Text(localizer.t("writkudo.nav.title"))
                 .font(.system(size: 17, weight: .semibold))
                 .foregroundColor(.white)
         }
@@ -42,5 +44,6 @@ struct WriteKudoNavBar: View {
             WriteKudoNavBar(onBack: {})
             Spacer()
         }
+        .environmentObject(Localizer())
     }
 }

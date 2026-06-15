@@ -16,6 +16,8 @@ struct WriteKudoActionRow: View {
     let onCancel: () -> Void
     let onSubmit: () -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     private static let gold = Color(red: 0xFF / 255.0, green: 0xEA / 255.0, blue: 0x9E / 255.0)
     private static let border = Color(red: 0x99 / 255.0, green: 0x8C / 255.0, blue: 0x5F / 255.0)
     private static let navy = Color(red: 0x00 / 255.0, green: 0x10 / 255.0, blue: 0x1A / 255.0)
@@ -25,7 +27,7 @@ struct WriteKudoActionRow: View {
             // mm:6891:16834 — Cancel
             Button(action: onCancel) {
                 HStack(spacing: 6) {
-                    Text("Huỷ")
+                    Text(localizer.t("writkudo.action.cancel"))
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.white)
                     Image(systemName: "xmark")
@@ -55,7 +57,7 @@ struct WriteKudoActionRow: View {
                             .tint(Color(red: 0x00 / 255.0, green: 0x10 / 255.0, blue: 0x1A / 255.0))
                             .scaleEffect(0.8)
                     } else {
-                        Text("Gửi đi")
+                        Text(localizer.t("writkudo.action.send"))
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(Color(red: 0x00 / 255.0, green: 0x10 / 255.0, blue: 0x1A / 255.0))
                         Image(systemName: "paperplane.fill")
@@ -89,5 +91,6 @@ struct WriteKudoActionRow: View {
             WriteKudoActionRow(isSubmitting: true, canSubmit: true, onCancel: {}, onSubmit: {})
         }
         .padding()
+        .environmentObject(Localizer())
     }
 }

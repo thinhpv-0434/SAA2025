@@ -25,7 +25,6 @@ struct HomeViewContainer: View {
 struct HomeView: View {
 
     @StateObject private var viewModel: HomeViewModel
-    @State private var selectedLang: Lang = .vn
 
     init(tokenStore: TokenStore) {
         _viewModel = StateObject(
@@ -38,7 +37,6 @@ struct HomeView: View {
             VStack(spacing: 0) {
                 // mm:6885:9057
                 HomeHeader(
-                    selectedLang: $selectedLang,
                     unreadCount: viewModel.unreadCount,
                     onSearch: { viewModel.navigateToSearch = true },
                     onBell: { viewModel.navigateToBell = true }

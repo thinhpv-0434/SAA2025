@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct AwardsOverviewView: View {
+
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         VStack(spacing: 12) {
-            Text("Awards Overview")
+            Text(localizer.t("awards.overview.nav.title"))
                 .font(.title2.bold())
-            Text("Coming soon (stub)")
+            Text(localizer.t("stub.coming_soon"))
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .navigationTitle("Awards")
+        .navigationTitle(localizer.t("awards.overview.nav.title"))
     }
 }
 
 #Preview {
     NavigationStack { AwardsOverviewView() }
+        .environmentObject(Localizer())
 }

@@ -15,6 +15,8 @@ struct AwardInfoBlock: View {
 
     let award: Award
 
+    @EnvironmentObject private var localizer: Localizer
+
     private static let divider = Color(red: 0x2E/255.0, green: 0x39/255.0, blue: 0x40/255.0)
 
     var body: some View {
@@ -49,7 +51,7 @@ struct AwardInfoBlock: View {
                 // mm:6885:10473 (label) / mm:6885:10475 (value) — quantity
                 AwardStatRow(
                     iconSystemName: "diamond.fill",
-                    label: "Số lượng giải thưởng",
+                    label: localizer.t("award.stat.quantity.label"),
                     primaryValue: award.quantity.isEmpty ? "—" : award.quantity
                 )
 
@@ -60,9 +62,9 @@ struct AwardInfoBlock: View {
                 // mm:6885:10476 (label) / mm:6885:10481 (value) — value
                 AwardStatRow(
                     iconSystemName: "flag.fill",
-                    label: "Giá trị giải thưởng",
+                    label: localizer.t("award.stat.value.label"),
                     primaryValue: award.awardValue.isEmpty ? "—" : award.awardValue,
-                    secondaryValue: award.awardValue.isEmpty ? nil : "cho mỗi giải thưởng"
+                    secondaryValue: award.awardValue.isEmpty ? nil : localizer.t("award.stat.value.suffix")
                 )
             }
             .padding(.top, 4)
@@ -89,4 +91,5 @@ struct AwardInfoBlock: View {
             ))
         }
     }
+    .environmentObject(Localizer())
 }

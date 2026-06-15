@@ -22,6 +22,7 @@ struct KudosTabView: View {
     @StateObject private var viewModel: KudosViewModel = KudosViewModel()
     @State private var spotlightSearch: String = ""
     @State private var showCopiedToast: Bool = false
+    @EnvironmentObject private var localizer: Localizer
 
     // MARK: - Copy Link helper
 
@@ -47,8 +48,8 @@ struct KudosTabView: View {
                 // MARK: B — Highlight Section
 
                 SectionHeader(
-                    subtitle: "Sun* Annual Awards 2025",
-                    title: "HIGHLIGHT KUDOS"
+                    subtitle: localizer.t("kudos.section.subtitle"),
+                    title: localizer.t("kudos.section.highlight.title")
                 )
                 .padding(.bottom, 12)
 
@@ -84,8 +85,8 @@ struct KudosTabView: View {
                 // MARK: B.6/B.7 — Spotlight Board
 
                 SectionHeader(
-                    subtitle: "Sun* Annual Awards 2025",
-                    title: "SPOTLIGHT BOARD"
+                    subtitle: localizer.t("kudos.section.subtitle"),
+                    title: localizer.t("kudos.section.spotlight.title")
                 )
                 .padding(.bottom, 12)
 
@@ -98,8 +99,8 @@ struct KudosTabView: View {
                 // MARK: C.1 — All Kudos Header
 
                 SectionHeader(
-                    subtitle: "Sun* Annual Awards 2025",
-                    title: "ALL KUDOS"
+                    subtitle: localizer.t("kudos.section.subtitle"),
+                    title: localizer.t("kudos.section.all.title")
                 )
                 .padding(.bottom, 16)
 
@@ -144,7 +145,7 @@ struct KudosTabView: View {
                     viewModel.navigateToViewAll = true
                 } label: {
                     HStack(spacing: 6) {
-                        Text("View all Kudos")
+                        Text(localizer.t("kudos.btn.view_all"))
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(Color("saaGold"))
                         Image(systemName: "arrow.up.right")
@@ -176,14 +177,14 @@ struct KudosTabView: View {
             }
         }
         .alert(
-            "Đã xảy ra lỗi",
+            localizer.t("kudos.error.title"),
             isPresented: Binding(
                 get: { viewModel.state.error != nil },
                 set: { if !$0 { Task { await viewModel.load() } } }
             )
         ) {
-            Button("Đóng", role: .cancel) {}
-            Button("Thử lại") { Task { await viewModel.load() } }
+            Button(localizer.t("btn.close"), role: .cancel) {}
+            Button(localizer.t("btn.retry")) { Task { await viewModel.load() } }
         } message: {
             Text(viewModel.state.error?.localizedDescription ?? "")
         }
@@ -201,9 +202,9 @@ struct KudosTabView: View {
         }
         .sheet(isPresented: $viewModel.navigateToOpenSecretBox) {
             VStack(spacing: 12) {
-                Text("Secret Box")
+                Text(localizer.t("secret_box.title"))
                     .font(.title2.bold())
-                Text("Coming soon")
+                Text(localizer.t("secret_box.status.coming_soon"))
                     .foregroundStyle(.secondary)
             }
             .padding()
@@ -214,4 +215,5 @@ struct KudosTabView: View {
 
 #Preview {
     NavigationStack { KudosTabView() }
+        .environmentObject(Localizer())
 }

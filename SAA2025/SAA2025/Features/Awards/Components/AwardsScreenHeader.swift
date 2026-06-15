@@ -16,7 +16,6 @@ import SwiftUI
 // mm:6885:10434 — header
 struct AwardsScreenHeader: View {
 
-    @Binding var selectedLang: Lang
     let unreadCount: Int
     let onSearch: () -> Void
     let onBell: () -> Void
@@ -32,7 +31,7 @@ struct AwardsScreenHeader: View {
             Spacer()
 
             // mm:I6885:10434;88:1829 — language picker (VN flag + chevron)
-            LanguagePicker(selectedLang: $selectedLang)
+            LanguagePicker()
 
             // mm:I6885:10434;88:1869 — search
             Button(action: onSearch) {
@@ -69,10 +68,10 @@ struct AwardsScreenHeader: View {
         Color(red: 0x00/255.0, green: 0x10/255.0, blue: 0x1A/255.0)
             .ignoresSafeArea()
         AwardsScreenHeader(
-            selectedLang: .constant(.vn),
             unreadCount: 1,
             onSearch: {},
             onBell: {}
         )
+        .environmentObject(Localizer())
     }
 }

@@ -15,13 +15,15 @@ struct WriteKudoHashtagSection: View {
     let onAddTap: () -> Void
     let onRemove: (String) -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
-            // mm:6885:9325 — "Hashtag *"
-            (Text("Hashtag")
+            // mm:6885:9325
+            (Text(localizer.t("writkudo.hashtag.label"))
                 .font(.system(size: 14, weight: .medium))
                 .foregroundColor(WriteKudoFieldStyle.labelColor)
-             + Text(" *")
+             + Text(localizer.t("form.required"))
                 .font(.system(size: 14, weight: .medium))
                 .foregroundColor(.red))
                 .frame(width: 96, alignment: .leading)
@@ -47,10 +49,10 @@ struct WriteKudoHashtagSection: View {
                 Image(systemName: "plus")
                     .font(.system(size: 10, weight: .semibold))
                     .foregroundColor(WriteKudoFieldStyle.labelColor)
-                Text("Hashtag")
+                Text(localizer.t("writkudo.hashtag.label"))
                     .font(.system(size: 12, weight: .medium))
                     .foregroundColor(WriteKudoFieldStyle.labelColor)
-                Text("(Tối đa 5)")
+                Text(localizer.t("writkudo.max_5_hint"))
                     .font(.system(size: 11, weight: .regular))
                     .foregroundColor(WriteKudoFieldStyle.helperColor)
             }
@@ -104,4 +106,5 @@ private struct HashtagPill: View {
     }
     .padding()
     .background(Color(red: 0xFF / 255.0, green: 0xF8 / 255.0, blue: 0xE1 / 255.0))
+    .environmentObject(Localizer())
 }

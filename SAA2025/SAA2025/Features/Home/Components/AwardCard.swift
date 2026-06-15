@@ -13,6 +13,8 @@ struct AwardCard: View {
     let award: Award
     let onTap: () -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         Button(action: onTap) {
             VStack(alignment: .leading, spacing: 0) {
@@ -61,7 +63,7 @@ struct AwardCard: View {
                 .foregroundColor(.white.opacity(0.7))
                 .lineLimit(2)
             HStack(spacing: 4) {
-                Text("Chi tiết")
+                Text(localizer.t("card.award.btn.details"))
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundColor(Color("saaGold"))
                 Image(systemName: "arrow.up.right")
@@ -87,5 +89,6 @@ struct AwardCard: View {
             onTap: {}
         )
         .padding()
+        .environmentObject(Localizer())
     }
 }

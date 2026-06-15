@@ -10,7 +10,6 @@ import SwiftUI
 // mm:6885:9057
 struct HomeHeader: View {
 
-    @Binding var selectedLang: Lang
     let unreadCount: Int
     let onSearch: () -> Void
     let onBell: () -> Void
@@ -26,7 +25,7 @@ struct HomeHeader: View {
             Spacer()
 
             // mm:I6885:9057;88:1829
-            LanguagePicker(selectedLang: $selectedLang)
+            LanguagePicker()
 
             // mm:I6885:9057;88:1869
             Button(action: onSearch) {
@@ -62,10 +61,10 @@ struct HomeHeader: View {
     ZStack {
         Color.black.ignoresSafeArea()
         HomeHeader(
-            selectedLang: .constant(.vn),
             unreadCount: 3,
             onSearch: {},
             onBell: {}
         )
+        .environmentObject(Localizer())
     }
 }

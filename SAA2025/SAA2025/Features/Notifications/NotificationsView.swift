@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct NotificationsView: View {
+
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         VStack(spacing: 12) {
-            Text("Notifications")
+            Text(localizer.t("notifications.title"))
                 .font(.title2.bold())
-            Text("Coming soon (stub)")
+            Text(localizer.t("stub.coming_soon"))
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .navigationTitle("Notifications")
+        .navigationTitle(localizer.t("notifications.nav.title"))
     }
 }
 
 #Preview {
     NavigationStack { NotificationsView() }
+        .environmentObject(Localizer())
 }

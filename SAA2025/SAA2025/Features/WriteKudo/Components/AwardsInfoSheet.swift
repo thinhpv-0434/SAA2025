@@ -13,29 +13,31 @@ struct AwardsInfoSheet: View {
 
     let onDismiss: () -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    Text("Tiêu chuẩn cộng đồng")
+                    Text(localizer.t("writkudo.awards_info.title"))
                         .font(.system(size: 20, weight: .bold))
                         .padding(.bottom, 4)
 
-                    Text("Sun*Kudos được trao tặng dựa trên các giá trị cộng đồng SAA 2025. Bạn nên dùng danh hiệu mô tả cụ thể đóng góp của đồng nghiệp và tránh các nội dung công kích cá nhân.")
+                    Text(localizer.t("writkudo.awards_info.description"))
                         .font(.system(size: 14, weight: .regular))
                         .foregroundColor(.primary)
                         .lineSpacing(4)
 
-                    Text("Một số ví dụ danh hiệu được khuyến khích:")
+                    Text(localizer.t("writkudo.awards_info.examples.label"))
                         .font(.system(size: 14, weight: .medium))
 
                     VStack(alignment: .leading, spacing: 8) {
-                        bulletRow("Người truyền cảm hứng cho tôi")
-                        bulletRow("Đồng đội luôn sẵn sàng giúp đỡ")
-                        bulletRow("Người hùng thầm lặng của dự án")
+                        bulletRow(localizer.t("writkudo.awards_info.example.1"))
+                        bulletRow(localizer.t("writkudo.awards_info.example.2"))
+                        bulletRow(localizer.t("writkudo.awards_info.example.3"))
                     }
 
-                    Text("Nội dung chi tiết sẽ được BTC cập nhật sớm.")
+                    Text(localizer.t("writkudo.awards_info.note"))
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(.secondary)
                         .padding(.top, 12)
@@ -45,7 +47,7 @@ struct AwardsInfoSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Đóng") { onDismiss() }
+                    Button(localizer.t("btn.close")) { onDismiss() }
                 }
             }
         }
@@ -68,5 +70,6 @@ struct AwardsInfoSheet: View {
     Color.clear
         .sheet(isPresented: .constant(true)) {
             AwardsInfoSheet(onDismiss: {})
+                .environmentObject(Localizer())
         }
 }

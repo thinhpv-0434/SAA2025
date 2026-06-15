@@ -11,12 +11,14 @@ import SwiftUI
 // mm:6885:9059 / mm:6885:9065
 struct KudosHeroSection: View {
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             Spacer(minLength: 40)
 
-            // mm:I6885:9064;75:2055 — tagline: "Hệ thống ghi nhận và cảm ơn"
-            Text("Hệ thống ghi nhận và cảm ơn")
+            // mm:I6885:9064;75:2055 — tagline
+            Text(localizer.t("kudos.hero.tagline"))
                 .font(.system(size: 14, weight: .regular))
                 .foregroundColor(.white)
 
@@ -27,8 +29,8 @@ struct KudosHeroSection: View {
                     .fill(Color(red: 0xE6 / 255.0, green: 0x4A / 255.0, blue: 0x2C / 255.0))
                     .frame(width: 32, height: 30)
 
-                // mm:I6885:9064;75:2064 — "KUDOS" text
-                Text("KUDOS")
+                // mm:I6885:9064;75:2064
+                Text(localizer.t("kudos.hero.title"))
                     .font(.system(size: 52, weight: .black))
                     .foregroundColor(.white)
                     .kerning(2)
@@ -68,5 +70,6 @@ struct KudosHeroSection: View {
             KudosHeroSection()
             Spacer()
         }
+        .environmentObject(Localizer())
     }
 }

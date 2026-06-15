@@ -13,16 +13,18 @@ struct AwardDetailView: View {
 
     let award: Award
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         VStack(spacing: 12) {
             Text(award.title)
                 .font(.title2.bold())
-            Text(award.shortDescription + " (stub)")
+            Text(award.shortDescription)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .navigationTitle("Award Detail")
+        .navigationTitle(localizer.t("award.detail.nav.title"))
     }
 }
 
@@ -35,4 +37,5 @@ struct AwardDetailView: View {
             imageName: "TopTalentBadge"
         ))
     }
+    .environmentObject(Localizer())
 }

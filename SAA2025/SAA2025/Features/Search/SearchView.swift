@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct SearchView: View {
+
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         VStack(spacing: 12) {
-            Text("Search")
+            Text(localizer.t("search.title"))
                 .font(.title2.bold())
-            Text("Coming soon (stub)")
+            Text(localizer.t("stub.coming_soon"))
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .navigationTitle("Search")
+        .navigationTitle(localizer.t("search.nav.title"))
     }
 }
 
 #Preview {
     NavigationStack { SearchView() }
+        .environmentObject(Localizer())
 }

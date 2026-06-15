@@ -61,6 +61,7 @@ struct KudosOverviewView: View {
 
     @Environment(\.dismiss) private var dismiss
     @State private var showErrorAlert: Bool = false
+    @EnvironmentObject private var localizer: Localizer
 
     private static let background = Color(red: 0x00 / 255.0, green: 0x10 / 255.0, blue: 0x1A / 255.0)
 
@@ -93,9 +94,9 @@ struct KudosOverviewView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
-        .alert("Đã xảy ra lỗi", isPresented: $showErrorAlert) {
-            Button("Đóng", role: .cancel) {}
-            Button("Thử lại") { onRetry() }
+        .alert(localizer.t("kudos.error.title"), isPresented: $showErrorAlert) {
+            Button(localizer.t("btn.close"), role: .cancel) {}
+            Button(localizer.t("btn.retry")) { onRetry() }
         } message: {
             Text(errorMessage ?? "")
         }
@@ -110,7 +111,7 @@ struct KudosOverviewView: View {
     private var sectionHeader: some View {
         VStack(alignment: .leading, spacing: 6) {
             VStack(alignment: .leading, spacing: 4) {
-                Text("Sun* Annual Awards 2025")
+                Text(localizer.t("kudos.overview.subtitle"))
                     .font(.system(size: 11, weight: .regular))
                     .foregroundColor(.white.opacity(0.85))
                     .kerning(0.5)
@@ -119,7 +120,7 @@ struct KudosOverviewView: View {
                     .frame(height: 0.5)
             }
 
-            Text("ALL KUDOS")
+            Text(localizer.t("kudos.overview.title"))
                 .font(.system(size: 26, weight: .black))
                 .foregroundColor(Color("saaGold"))
                 .kerning(1.2)
@@ -132,7 +133,7 @@ struct KudosOverviewView: View {
 
     // mm:6891:15996 — back chevron + "All Kudos" title (shared with KudosDetailView)
     private var headerBar: some View {
-        KudosScreenHeaderBar(title: "All Kudos", onBack: { dismiss() })
+        KudosScreenHeaderBar(title: localizer.t("kudos.overview.header.title"), onBack: { dismiss() })
     }
 
     // MARK: - Feed
@@ -167,5 +168,6 @@ struct KudosOverviewView: View {
             onHashtagTap: { _ in },
             onHeartTap: { _ in }
         )
+        .environmentObject(Localizer())
     }
 }

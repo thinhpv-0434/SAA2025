@@ -12,6 +12,8 @@ struct SendKudosButton: View {
 
     let onTap: () -> Void
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         Button(action: onTap) {
             HStack(spacing: 10) {
@@ -21,7 +23,7 @@ struct SendKudosButton: View {
                     .foregroundColor(.white)
 
                 // mm:I6885:9065;88:1827 — placeholder text
-                Text("Hôm nay, bạn muốn gửi kudos đến ai?")
+                Text(localizer.t("kudos.btn.send.placeholder"))
                     .font(.system(size: 14, weight: .regular))
                     .foregroundColor(.white.opacity(0.75))
 
@@ -48,5 +50,6 @@ struct SendKudosButton: View {
         Color(red: 0x00 / 255.0, green: 0x10 / 255.0, blue: 0x1A / 255.0).ignoresSafeArea()
         SendKudosButton(onTap: {})
             .padding(.vertical, 8)
+            .environmentObject(Localizer())
     }
 }

@@ -15,10 +15,12 @@ import SwiftUI
 // mm:6885:10436 — mms_A_KV Kudos
 struct AwardsKudosBanner: View {
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         VStack(spacing: 6) {
-            // Subtext "Hệ thống ghi nhận và cảm ơn"
-            Text("Hệ thống ghi nhận và cảm ơn")
+            // Subtext
+            Text(localizer.t("kudos.hero.tagline"))
                 .font(.system(size: 14, weight: .medium))
                 .foregroundColor(Color("saaGold"))
                 .multilineTextAlignment(.center)
@@ -29,7 +31,7 @@ struct AwardsKudosBanner: View {
                     .font(.system(size: 22, weight: .bold))
                     .foregroundColor(Color(red: 0xFF/255.0, green: 0x6A/255.0, blue: 0x1A/255.0))
 
-                Text("KUDOS")
+                Text(localizer.t("kudos.hero.title"))
                     .font(.system(size: 28, weight: .heavy))
                     .foregroundColor(Color("saaGold"))
                     .kerning(2)
@@ -46,4 +48,5 @@ struct AwardsKudosBanner: View {
             .ignoresSafeArea()
         AwardsKudosBanner()
     }
+    .environmentObject(Localizer())
 }

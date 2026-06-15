@@ -10,6 +10,8 @@ import SwiftUI
 // mm:6885:9041
 struct KudosBanner: View {
 
+    @EnvironmentObject private var localizer: Localizer
+
     var body: some View {
         // mm:6885:9043
         Group {
@@ -33,10 +35,10 @@ struct KudosBanner: View {
                 .fill(Color(red: 0.06, green: 0.06, blue: 0.12))
             VStack(spacing: 8) {
                 // mm:6885:9045
-                Text("Sun* Kudos")
+                Text(localizer.t("home.banner.kudos.title"))
                     .font(.system(size: 22, weight: .bold))
                     .foregroundColor(.white)
-                Text("KUDOS")
+                Text(localizer.t("home.banner.kudos.subtitle"))
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(.white.opacity(0.6))
                     .kerning(3)
@@ -52,5 +54,6 @@ struct KudosBanner: View {
         Color.black.ignoresSafeArea()
         KudosBanner()
             .padding()
+            .environmentObject(Localizer())
     }
 }

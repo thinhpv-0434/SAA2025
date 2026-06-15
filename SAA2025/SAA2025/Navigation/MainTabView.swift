@@ -15,6 +15,7 @@ import SwiftUI
 struct MainTabView: View {
 
     @EnvironmentObject private var tokenStore: TokenStore
+    @EnvironmentObject private var localizer: Localizer
 
     var body: some View {
         TabView {
@@ -22,28 +23,28 @@ struct MainTabView: View {
                 HomeViewContainer()
             }
             .tabItem {
-                Label("SAA 2025", systemImage: "house.fill")
+                Label(localizer.t("tab.saa2025"), systemImage: "house.fill")
             }
 
             NavigationStack {
                 AwardsTabViewContainer()
             }
             .tabItem {
-                Label("Awards", systemImage: "trophy.fill")
+                Label(localizer.t("tab.awards"), systemImage: "trophy.fill")
             }
 
             NavigationStack {
                 KudosTabViewContainer()
             }
             .tabItem {
-                Label("Kudos", systemImage: "heart.fill")
+                Label(localizer.t("tab.kudos"), systemImage: "heart.fill")
             }
 
             NavigationStack {
                 ProfileTabView()
             }
             .tabItem {
-                Label("Profile", systemImage: "person.fill")
+                Label(localizer.t("tab.profile"), systemImage: "person.fill")
             }
         }
         .tint(Color("saaGold"))
@@ -53,4 +54,5 @@ struct MainTabView: View {
 #Preview {
     MainTabView()
         .environmentObject(TokenStore())
+        .environmentObject(Localizer())
 }

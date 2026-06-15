@@ -12,13 +12,13 @@ import SwiftUI
 // mm:6885:8976
 struct LanguagePicker: View {
 
-    @Binding var selectedLang: Lang
+    @EnvironmentObject private var localizer: Localizer
 
     var body: some View {
         Menu {
             ForEach(Lang.allCases) { lang in
                 Button {
-                    selectedLang = lang
+                    localizer.lang = lang
                 } label: {
                     Text("\(lang.flag) \(lang.rawValue)")
                 }
@@ -32,9 +32,9 @@ struct LanguagePicker: View {
 
     private var pillLabel: some View {
         HStack(spacing: 4) {
-            Text(selectedLang.flag)
+            Text(localizer.lang.flag)
                 .font(.system(size: 14))
-            Text(selectedLang.rawValue)
+            Text(localizer.lang.rawValue)
                 .font(.system(size: 13, weight: .medium))
                 .foregroundColor(.white)
             Image(systemName: "chevron.down")
@@ -53,6 +53,7 @@ struct LanguagePicker: View {
 #Preview {
     ZStack {
         Color.black.ignoresSafeArea()
-        LanguagePicker(selectedLang: .constant(.vn))
+        LanguagePicker()
+            .environmentObject(Localizer())
     }
 }

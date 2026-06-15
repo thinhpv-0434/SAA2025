@@ -12,12 +12,14 @@ struct TopRecipientsBlock: View {
 
     let recipients: [GiftRecipient]
 
+    @EnvironmentObject private var localizer: Localizer
+
     private static let bg = Color(red: 0x0E / 255.0, green: 0x16 / 255.0, blue: 0x22 / 255.0)
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // mm:6885:D.3.1 — section title inside box
-            Text("10 SUNNER NHẬN QUÀ MỚI NHẤT")
+            Text(localizer.t("kudos.recipients.title"))
                 .font(.system(size: 13, weight: .black))
                 .foregroundColor(.white)
                 .kerning(0.5)
@@ -93,5 +95,6 @@ struct TopRecipientsBlock: View {
             GiftRecipient(id: UUID(), name: "Huỳnh Dương Xuân", department: "SA", rewardDescription: "Nhận được 1 áo phỏng SAA")
         ])
         .padding(.vertical, 16)
+        .environmentObject(Localizer())
     }
 }

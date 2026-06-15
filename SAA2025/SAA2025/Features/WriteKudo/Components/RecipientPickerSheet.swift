@@ -16,6 +16,7 @@ struct RecipientPickerSheet: View {
     let onDismiss: () -> Void
 
     @State private var search: String = ""
+    @EnvironmentObject private var localizer: Localizer
 
     private var filtered: [KudosUser] {
         let q = search.trimmingCharacters(in: .whitespaces).lowercased()
@@ -50,11 +51,11 @@ struct RecipientPickerSheet: View {
                 }
                 .listStyle(.plain)
             }
-            .navigationTitle("Chọn người nhận")
+            .navigationTitle(localizer.t("writkudo.recipient_picker.nav.title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Đóng") { onDismiss() }
+                    Button(localizer.t("btn.close")) { onDismiss() }
                 }
             }
         }
@@ -66,7 +67,7 @@ struct RecipientPickerSheet: View {
             Image(systemName: "magnifyingglass")
                 .font(.system(size: 13, weight: .medium))
                 .foregroundColor(.secondary)
-            TextField("Tìm theo tên hoặc phòng ban", text: $search)
+            TextField(localizer.t("writkudo.recipient_picker.search.placeholder"), text: $search)
                 .font(.system(size: 14))
             if !search.isEmpty {
                 Button(action: { search = "" }) {
@@ -92,5 +93,6 @@ struct RecipientPickerSheet: View {
                 onSelect: { _ in },
                 onDismiss: {}
             )
+            .environmentObject(Localizer())
         }
 }
