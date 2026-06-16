@@ -95,7 +95,10 @@ struct HomeView: View {
             viewModel.stopCountdown()
         }
         .navigationDestination(isPresented: $viewModel.navigateToAboutAward) {
-            AwardsOverviewView()
+            // mm:6885:9026 — About Award navigates to the Awards overview screen
+            // (same content as the Awards bottom-nav tab, with an in-header back
+            // chevron so the user can return to Home).
+            AwardsTabViewContainer(showBackButton: true)
         }
         .navigationDestination(isPresented: $viewModel.navigateToAboutKudos) {
             KudosOverviewViewContainer()

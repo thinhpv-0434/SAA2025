@@ -12,9 +12,12 @@ import SwiftUI
 /// is available. Mirrors `HomeViewContainer` / `KudosTabViewContainer`.
 struct AwardsTabViewContainer: View {
     @EnvironmentObject private var tokenStore: TokenStore
+    /// When true the screen is shown as a pushed destination (e.g. Home's
+    /// "About Award" button) and an in-header back chevron is rendered.
+    var showBackButton: Bool = false
 
     var body: some View {
-        AwardsTabView(tokenStore: tokenStore)
+        AwardsTabView(tokenStore: tokenStore, showBackButton: showBackButton)
     }
 }
 
@@ -32,11 +35,14 @@ struct AwardsTabView: View {
     @State private var navigateToRules: Bool = false
     @State private var navigateToNotifications: Bool = false
     @EnvironmentObject private var localizer: Localizer
+    @Environment(\.dismiss) private var dismiss
+    private let showBackButton: Bool
 
-    init(tokenStore: TokenStore) {
+    init(tokenStore: TokenStore, showBackButton: Bool = false) {
         _viewModel = StateObject(
             wrappedValue: AwardsTopViewModel(tokenStore: tokenStore)
         )
+        self.showBackButton = showBackButton
     }
 
     var body: some View {
@@ -47,7 +53,8 @@ struct AwardsTabView: View {
                 AwardsScreenHeader(
                     unreadCount: 0,
                     onSearch: { navigateToSearch = true },
-                    onBell: { navigateToNotifications = true }
+                    onBell: { navigateToNotifications = true },
+                    onBack: showBackButton ? { dismiss() } : nil
                 )
 
                 content

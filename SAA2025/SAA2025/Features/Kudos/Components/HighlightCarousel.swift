@@ -7,7 +7,7 @@ import SwiftUI
 
 // MARK: - HighlightCarousel
 
-// mm:6885:9083 — B.2/B.3: horizontal paged carousel of highlight kudos cards
+// mm:6885:9084 — B: highlight carousel (cards + side fade chevrons + page indicator)
 struct HighlightCarousel: View {
 
     let cards: [KudosCardData]
@@ -19,12 +19,22 @@ struct HighlightCarousel: View {
     let onPrevious: () -> Void
     let onNext: () -> Void
 
+    // mm:6885:9092 — card width 273 / spacing 12 (Figma).
+    private static let cardWidth: CGFloat = 273
+    private static let cardSpacing: CGFloat = 12
+    private static let cardAreaHeight: CGFloat = 260
+
+    // Background navy used by the side fade gradient (screen background).
+    private static let bgNavy = Color(red: 0x00 / 255.0,
+                                      green: 0x10 / 255.0,
+                                      blue:  0x1A / 255.0)
+
     var body: some View {
         VStack(spacing: 12) {
-            // mm:6885:9083 — card scroll area
+            // mm:6885:9090 + 9094/9096 — cards + left/right fade chevrons
             cardScrollArea
 
-            // mm:6885:9097 — B.5: pagination row (chevron < | 2/5 | chevron >)
+            // mm:6885:9098 — B.5: pagination row "< 2/5 >"
             paginationRow
         }
     }
@@ -33,60 +43,99 @@ struct HighlightCarousel: View {
 
     private var cardScrollArea: some View {
         ScrollViewReader { proxy in
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    ForEach(Array(cards.enumerated()), id: \.element.id) { index, card in
-                        KudosCard(
-                            card: card,
-                            isCarouselVariant: true,
-                            onCopyLink: { onCopyLink(card) },
-                            onDetail: { onDetail(card) },
-                            onHashtagTap: onHashtagTap,
-                            onHeartTap: { onHeartTap(card) }
-                        )
-                        .id(index)
+            GeometryReader { geo in
+                let inset = max(0, (geo.size.width - Self.cardWidth) / 2)
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: Self.cardSpacing) {
+                        ForEach(Array(cards.enumerated()), id: \.element.id) { index, card in
+                            KudosCard(
+                                card: card,
+                                isCarouselVariant: true,
+                                onCopyLink: { onCopyLink(card) },
+                                onDetail: { onDetail(card) },
+                                onHashtagTap: onHashtagTap,
+                                onHeartTap: { onHeartTap(card) }
+                            )
+                            .id(index)
+                        }
+                    }
+                    .padding(.horizontal, inset)
+                    .padding(.vertical, 4)
+                }
+                .onChange(of: currentIndex) { _, newIndex in
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        proxy.scrollTo(newIndex, anchor: .center)
                     }
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 4)
             }
-            .onChange(of: currentIndex) { _, newIndex in
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    proxy.scrollTo(newIndex, anchor: .center)
-                }
-            }
+            .frame(height: Self.cardAreaHeight)
+            // mm:6885:9096 — left fade overlay + chevron tap target
+            .overlay(alignment: .leading)  { sideOverlay(isLeading: true) }
+            // mm:6885:9094 — right fade overlay + chevron tap target
+            .overlay(alignment: .trailing) { sideOverlay(isLeading: false) }
         }
+        .frame(height: Self.cardAreaHeight)
+    }
+
+    // mm:6885:9094 / 9096 — fade gradient (navy → transparent) with chevron icon.
+    // The gradient hides adjacent-card peek so focus stays on the active card.
+    private func sideOverlay(isLeading: Bool) -> some View {
+        let canMove = isLeading ? currentIndex > 0 : currentIndex < cards.count - 1
+        return Button(action: isLeading ? onPrevious : onNext) {
+            ZStack {
+                LinearGradient(
+                    stops: [
+                        .init(color: Self.bgNavy,              location: 0.05),
+                        .init(color: Self.bgNavy.opacity(0.5), location: 0.45),
+                        .init(color: Self.bgNavy.opacity(0.0), location: 1.0),
+                    ],
+                    startPoint: isLeading ? .leading : .trailing,
+                    endPoint:   isLeading ? .trailing : .leading
+                )
+                Image(systemName: isLeading ? "chevron.left" : "chevron.right")
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(.white.opacity(canMove ? 1.0 : 0.35))
+                    .frame(maxWidth: .infinity, alignment: isLeading ? .leading : .trailing)
+                    .padding(.horizontal, 12)
+            }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PlainButtonStyle())
+        .frame(width: 56)
+        .disabled(!canMove)
+        .allowsHitTesting(canMove)
     }
 
     // MARK: - Pagination Row
 
-    // mm:6885:9095 — B.5: < 2/5 >
+    // mm:6885:9098 — B.5: < 2/5 >  (gap 32, plain chevrons, no circle pill)
     private var paginationRow: some View {
-        HStack(spacing: 16) {
-            // mm:6885:9095 — B.5.1 left chevron
+        HStack(spacing: 32) {
+            // mm:6885:9098;93:2085 — left chevron IC
             Button(action: onPrevious) {
                 Image(systemName: "chevron.left")
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(currentIndex > 0 ? .white : .white.opacity(0.3))
-                    .frame(width: 32, height: 32)
-                    .background(Circle().fill(Color.white.opacity(0.10)))
+                    .frame(width: 24, height: 24)
+                    .contentShape(Rectangle())
             }
             .buttonStyle(PlainButtonStyle())
             .disabled(currentIndex == 0)
 
-            // mm:6885:B.5.2 — page indicator text "2/5"
+            // mm:6885:9098;93:2086 — page indicator "2/5" (Montserrat 14 / 700)
             Text("\(currentIndex + 1)/\(cards.count)")
-                .font(.system(size: 13, weight: .semibold))
-                .foregroundColor(.white.opacity(0.85))
+                .font(.system(size: 14, weight: .bold))
+                .foregroundColor(.white)
                 .monospacedDigit()
 
-            // mm:6885:9097 — B.5.3 right chevron
+            // mm:6885:9098;93:2087 — right chevron IC
             Button(action: onNext) {
                 Image(systemName: "chevron.right")
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(currentIndex < cards.count - 1 ? .white : .white.opacity(0.3))
-                    .frame(width: 32, height: 32)
-                    .background(Circle().fill(Color.white.opacity(0.10)))
+                    .frame(width: 24, height: 24)
+                    .contentShape(Rectangle())
             }
             .buttonStyle(PlainButtonStyle())
             .disabled(currentIndex == cards.count - 1)

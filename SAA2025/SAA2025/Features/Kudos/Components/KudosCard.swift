@@ -60,7 +60,7 @@ struct KudosCard: View {
                     .padding(.trailing, 8)
             }
         }
-        .frame(width: isCarouselVariant ? 300 : nil)
+        .frame(width: isCarouselVariant ? 273 : nil)
         .opacity(isCarouselVariant && !card.isHighlight ? 0.55 : 1.0)
     }
 

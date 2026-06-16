@@ -19,9 +19,24 @@ struct AwardsScreenHeader: View {
     let unreadCount: Int
     let onSearch: () -> Void
     let onBell: () -> Void
+    /// Only set when the Awards screen is pushed (e.g. from Home's
+    /// "About Award" button). When `nil` the header matches the tab-root
+    /// design exactly. When non-nil, a back chevron is shown in front of the
+    /// SAA logo so the user can return to the previous screen — without this
+    /// the header hides the nav bar and would otherwise leave the user stuck.
+    var onBack: (() -> Void)? = nil
 
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
+            if let onBack {
+                Button(action: onBack) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.white)
+                }
+                .frame(width: 32, height: 32)
+            }
+
             // mm:I6885:10434;88:1827 — SAA red star logo
             Image("SunAALogo")
                 .resizable()
