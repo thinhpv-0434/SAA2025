@@ -30,6 +30,7 @@ struct AwardsTabView: View {
     @StateObject private var viewModel: AwardsTopViewModel
     @State private var navigateToSearch: Bool = false
     @State private var navigateToRules: Bool = false
+    @State private var navigateToNotifications: Bool = false
     @EnvironmentObject private var localizer: Localizer
 
     init(tokenStore: TokenStore) {
@@ -46,7 +47,7 @@ struct AwardsTabView: View {
                 AwardsScreenHeader(
                     unreadCount: 0,
                     onSearch: { navigateToSearch = true },
-                    onBell: {}
+                    onBell: { navigateToNotifications = true }
                 )
 
                 content
@@ -67,6 +68,9 @@ struct AwardsTabView: View {
         }
         .navigationDestination(isPresented: $navigateToRules) {
             RulesView()
+        }
+        .navigationDestination(isPresented: $navigateToNotifications) {
+            NotificationsView()
         }
     }
 

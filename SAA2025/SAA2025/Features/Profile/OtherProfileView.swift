@@ -28,6 +28,7 @@ struct OtherProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showCopiedToast: Bool = false
     @State private var navigateToSearch: Bool = false
+    @State private var navigateToNotifications: Bool = false
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -37,7 +38,7 @@ struct OtherProfileView: View {
                 AwardsScreenHeader(
                     unreadCount: 0,
                     onSearch: { navigateToSearch = true },
-                    onBell: {}
+                    onBell: { navigateToNotifications = true }
                 )
 
                 ScrollView(showsIndicators: false) {
@@ -67,6 +68,9 @@ struct OtherProfileView: View {
         .kudosCopiedToast(isVisible: showCopiedToast)
         .navigationDestination(isPresented: $navigateToSearch) {
             SearchView()
+        }
+        .navigationDestination(isPresented: $navigateToNotifications) {
+            NotificationsView()
         }
     }
 

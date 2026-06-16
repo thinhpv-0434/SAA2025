@@ -22,6 +22,7 @@ struct ProfileTabView: View {
     @State private var selectedProfileUser: ProfileUser?
     @State private var navigateToSearch: Bool = false
     @State private var navigateToSecretBox: Bool = false
+    @State private var navigateToNotifications: Bool = false
 
     @EnvironmentObject private var localizer: Localizer
 
@@ -52,7 +53,7 @@ struct ProfileTabView: View {
                 AwardsScreenHeader(
                     unreadCount: 0,
                     onSearch: { navigateToSearch = true },
-                    onBell: {}
+                    onBell: { navigateToNotifications = true }
                 )
 
                 ScrollView(showsIndicators: false) {
@@ -84,6 +85,9 @@ struct ProfileTabView: View {
         }
         .navigationDestination(isPresented: $navigateToSecretBox) {
             SecretBoxView(unopenedCount: stats.secretBoxUnopened)
+        }
+        .navigationDestination(isPresented: $navigateToNotifications) {
+            NotificationsView()
         }
     }
 
