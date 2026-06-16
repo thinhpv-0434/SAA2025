@@ -15,12 +15,14 @@ struct AppRoot: View {
 
     @StateObject private var tokenStore = TokenStore()
     @StateObject private var localizer = Localizer()
+    @StateObject private var coordinator = AppCoordinator()
 
     var body: some View {
         Group {
             if tokenStore.token != nil {
                 MainTabView()
                     .environmentObject(tokenStore)
+                    .environmentObject(coordinator)
             } else {
                 LoginView(tokenStore: tokenStore)
             }

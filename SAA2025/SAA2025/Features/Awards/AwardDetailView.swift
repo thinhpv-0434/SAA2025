@@ -34,7 +34,7 @@ struct AwardDetailView: View {
             id: UUID(),
             title: "Top Talent",
             shortDescription: "Recognising outstanding individual contribution",
-            imageName: "TopTalentBadge"
+            imageName: "AwardBadgeBG"
         ))
     }
     .environmentObject(Localizer())

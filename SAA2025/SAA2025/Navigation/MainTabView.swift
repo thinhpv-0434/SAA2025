@@ -16,12 +16,14 @@ struct MainTabView: View {
 
     @EnvironmentObject private var tokenStore: TokenStore
     @EnvironmentObject private var localizer: Localizer
+    @EnvironmentObject private var coordinator: AppCoordinator
 
     var body: some View {
-        TabView {
+        TabView(selection: $coordinator.selectedTab) {
             NavigationStack {
                 HomeViewContainer()
             }
+            .tag(AppCoordinator.Tab.home)
             .tabItem {
                 Label(localizer.t("tab.saa2025"), systemImage: "house.fill")
             }
@@ -29,6 +31,7 @@ struct MainTabView: View {
             NavigationStack {
                 AwardsTabViewContainer()
             }
+            .tag(AppCoordinator.Tab.awards)
             .tabItem {
                 Label(localizer.t("tab.awards"), systemImage: "trophy.fill")
             }
@@ -36,6 +39,7 @@ struct MainTabView: View {
             NavigationStack {
                 KudosTabViewContainer()
             }
+            .tag(AppCoordinator.Tab.kudos)
             .tabItem {
                 Label(localizer.t("tab.kudos"), systemImage: "heart.fill")
             }
@@ -43,6 +47,7 @@ struct MainTabView: View {
             NavigationStack {
                 ProfileTabView()
             }
+            .tag(AppCoordinator.Tab.profile)
             .tabItem {
                 Label(localizer.t("tab.profile"), systemImage: "person.fill")
             }

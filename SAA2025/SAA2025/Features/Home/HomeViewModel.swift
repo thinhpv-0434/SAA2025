@@ -21,7 +21,6 @@ final class HomeViewModel: ObservableObject {
 
     // MARK: - Navigation Intents (Phase 6 binds these)
 
-    @Published var navigateToAboutAward: Bool = false
     @Published var navigateToAboutKudos: Bool = false
     @Published var navigateToSearch: Bool = false
     @Published var navigateToBell: Bool = false

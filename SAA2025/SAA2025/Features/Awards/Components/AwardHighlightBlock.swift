@@ -67,9 +67,9 @@ struct AwardHighlightBlock: View {
 
 private struct AwardHighlightBlockPreview: View {
     private let awards = [
-        Award(id: UUID(), title: "Top Talent",     shortDescription: "", imageName: "TopTalentBadge"),
-        Award(id: UUID(), title: "Top Project",    shortDescription: "", imageName: "TopProjectBadge"),
-        Award(id: UUID(), title: "Top Innovation", shortDescription: "", imageName: "TopInnovationBadge")
+        Award(id: UUID(), title: "Top Talent",     shortDescription: "", imageName: "AwardBadgeBG"),
+        Award(id: UUID(), title: "Top Project",    shortDescription: "", imageName: "AwardBadgeBG"),
+        Award(id: UUID(), title: "Top Innovation", shortDescription: "", imageName: "AwardBadgeBG")
     ]
     var body: some View {
         ZStack {

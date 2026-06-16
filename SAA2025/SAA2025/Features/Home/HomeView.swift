@@ -25,6 +25,7 @@ struct HomeViewContainer: View {
 struct HomeView: View {
 
     @StateObject private var viewModel: HomeViewModel
+    @EnvironmentObject private var coordinator: AppCoordinator
 
     init(tokenStore: TokenStore) {
         _viewModel = StateObject(
@@ -46,7 +47,7 @@ struct HomeView: View {
                 HeroSection(
                     remaining: viewModel.remaining,
                     isEventEnded: viewModel.isEventEnded,
-                    onAboutAward: { viewModel.navigateToAboutAward = true },
+                    onAboutAward: { coordinator.openAwardsTab() },
                     onAboutKudos: { viewModel.navigateToAboutKudos = true }
                 )
 
@@ -56,7 +57,9 @@ struct HomeView: View {
                 // mm:6885:9030
                 AwardsSection(
                     state: viewModel.awardsState,
-                    onCardTap: { _ in viewModel.navigateToAboutAward = true },
+                    onCardTap: { award in
+                        coordinator.openAwardsTab(withTitle: award.title)
+                    },
                     onRetry: { viewModel.retryAwards() }
                 )
 
@@ -94,12 +97,10 @@ struct HomeView: View {
         .onDisappear {
             viewModel.stopCountdown()
         }
-        .navigationDestination(isPresented: $viewModel.navigateToAboutAward) {
-            // mm:6885:9026 — About Award navigates to the Awards overview screen
-            // (same content as the Awards bottom-nav tab, with an in-header back
-            // chevron so the user can return to Home).
-            AwardsTabViewContainer(showBackButton: true)
-        }
+        // mm:6885:9026 — Tapping an award card OR the "About Award" button
+        // switches the bottom tab bar to the Awards tab via AppCoordinator
+        // (see HeroSection / AwardsSection callbacks above) instead of pushing
+        // a new screen onto Home's NavigationStack.
         .navigationDestination(isPresented: $viewModel.navigateToAboutKudos) {
             KudosOverviewViewContainer()
         }

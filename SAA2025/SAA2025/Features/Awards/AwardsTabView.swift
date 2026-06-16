@@ -12,8 +12,9 @@ import SwiftUI
 /// is available. Mirrors `HomeViewContainer` / `KudosTabViewContainer`.
 struct AwardsTabViewContainer: View {
     @EnvironmentObject private var tokenStore: TokenStore
-    /// When true the screen is shown as a pushed destination (e.g. Home's
-    /// "About Award" button) and an in-header back chevron is rendered.
+    /// When true the screen is shown as a pushed destination (e.g. legacy
+    /// callers that still want a back chevron). Tab-based navigation from
+    /// Home does NOT set this — it switches tabs via `AppCoordinator`.
     var showBackButton: Bool = false
 
     var body: some View {
@@ -35,6 +36,7 @@ struct AwardsTabView: View {
     @State private var navigateToRules: Bool = false
     @State private var navigateToNotifications: Bool = false
     @EnvironmentObject private var localizer: Localizer
+    @EnvironmentObject private var coordinator: AppCoordinator
     @Environment(\.dismiss) private var dismiss
     private let showBackButton: Bool
 
@@ -66,6 +68,12 @@ struct AwardsTabView: View {
             if case .idle = viewModel.awardsState {
                 await viewModel.load()
             }
+            consumePendingAwardTitle()
+        }
+        // Switching tabs to Awards (after first load) won't re-run `.task`,
+        // so also react when the coordinator publishes a new pending title.
+        .onChange(of: coordinator.pendingAwardTitle) { _, _ in
+            consumePendingAwardTitle()
         }
         .navigationDestination(isPresented: $viewModel.navigateToAccessDenied) {
             AccessDeniedView()
@@ -79,6 +87,17 @@ struct AwardsTabView: View {
         .navigationDestination(isPresented: $navigateToNotifications) {
             NotificationsView()
         }
+    }
+
+    // MARK: - Coordinator hand-off
+
+    /// If `AppCoordinator` has a pending award title (set by Home tapping a
+    /// card), forward it to the view model and clear the coordinator state
+    /// so subsequent direct tab taps don't reapply it.
+    private func consumePendingAwardTitle() {
+        guard let title = coordinator.pendingAwardTitle else { return }
+        viewModel.selectAward(byTitle: title)
+        coordinator.pendingAwardTitle = nil
     }
 
     // MARK: - Branches

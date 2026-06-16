@@ -30,5 +30,5 @@ enum WriteKudoFixtures {
     /// Mock image asset names that the "+ Image" button cycles through.
     /// Reuses existing assets in `Assets.xcassets` so previews render something visible.
     /// v1 mock — replace with PHPicker output when real upload lands.
-    static let mockImageAssetCycle: [String] = ["KudosBanner", "TopTalentBadge", "TopProjectBadge"]
+    static let mockImageAssetCycle: [String] = ["AwardBadgeBG", "AwardBadgeBG", "AwardBadgeBG"]
 }

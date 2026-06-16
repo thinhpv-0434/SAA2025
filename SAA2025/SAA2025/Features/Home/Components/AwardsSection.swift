@@ -100,8 +100,8 @@ struct AwardsSection: View {
         Color.black.ignoresSafeArea()
         AwardsSection(
             state: .loaded([
-                Award(id: UUID(), title: "Top Talent", shortDescription: "Giải thưởng Top Talent vinh danh những cá nhân xuất ...", imageName: "TopTalentBadge"),
-                Award(id: UUID(), title: "Top Project", shortDescription: "Giải thưởng Top Project vinh danh các tập thể dự án xuất...", imageName: "TopProjectBadge")
+                Award(id: UUID(), title: "Top Talent", shortDescription: "Giải thưởng Top Talent vinh danh những cá nhân xuất ...", imageName: "AwardBadgeBG"),
+                Award(id: UUID(), title: "Top Project", shortDescription: "Giải thưởng Top Project vinh danh các tập thể dự án xuất...", imageName: "AwardBadgeBG")
             ]),
             onCardTap: { _ in },
             onRetry: {}

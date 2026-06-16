@@ -60,6 +60,7 @@ final class AwardsTopViewModel: ObservableObject {
             } else {
                 awardsState = .loaded(awards)
                 // Default selection: prefer "Top Project" per spec, else first.
+                // Cross-tab requests from Home override this via `selectAward(byTitle:)`.
                 selectedAwardID = awards.first(where: { $0.title == "Top Project" })?.id
                     ?? awards.first?.id
             }
@@ -75,6 +76,16 @@ final class AwardsTopViewModel: ObservableObject {
     func selectAward(_ id: Award.ID) {
         guard awardsState.value?.contains(where: { $0.id == id }) == true else { return }
         selectedAwardID = id
+    }
+
+    /// Look up an award by title and select it. No-op if the awards list
+    /// hasn't loaded yet or no title matches. Used by `AwardsTabView` to
+    /// react to cross-tab selection requests from `AppCoordinator`.
+    func selectAward(byTitle title: String) {
+        guard let awards = awardsState.value,
+              let match = awards.first(where: { $0.title == title })
+        else { return }
+        selectedAwardID = match.id
     }
 
     func retry() {

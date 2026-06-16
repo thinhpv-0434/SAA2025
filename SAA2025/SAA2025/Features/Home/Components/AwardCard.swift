@@ -40,6 +40,20 @@ struct AwardCard: View {
             .scaledToFill()
             .frame(width: Self.cardWidth, height: Self.cardWidth)
             .clipShape(RoundedRectangle(cornerRadius: 11.43))
+            .overlay {
+                // Render the title over the generic award BG (no text baked in).
+                // Awards using a per-title baked-text asset opt out.
+                if award.imageName == Self.sharedBadgeBG {
+                    Text(award.title.uppercased())
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(Self.gold)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.7)
+                        .shadow(color: .black.opacity(0.6), radius: 2, x: 0, y: 1)
+                        .padding(.horizontal, 28)
+                }
+            }
             .overlay(
                 RoundedRectangle(cornerRadius: 11.43)
                     .stroke(Self.gold, lineWidth: 0.5)
@@ -81,6 +95,8 @@ struct AwardCard: View {
     // #FFEA9E — design token "Details / Text Primary 1"
     private static let gold = Color(red: 0xFF / 255.0, green: 0xEA / 255.0, blue: 0x9E / 255.0)
     private static let cardWidth: CGFloat = 160
+    // Asset name of the shared MM_MEDIA_Award BG (no text baked in)
+    static let sharedBadgeBG = "AwardBadgeBG"
 }
 
 #Preview {
@@ -91,7 +107,7 @@ struct AwardCard: View {
                 id: UUID(),
                 title: "Top Talent",
                 shortDescription: "Giải thưởng Top Talent vinh danh những cá nhân xuất ...",
-                imageName: "TopTalentBadge"
+                imageName: AwardCard.sharedBadgeBG
             ),
             onTap: {}
         )

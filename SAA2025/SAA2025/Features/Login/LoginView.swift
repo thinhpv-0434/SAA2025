@@ -21,8 +21,13 @@ struct LoginView: View {
 
     var body: some View {
         ZStack {
-            // mm:6885:8964 / mm:6885:8965
-            background
+            // mm:6885:8964 / mm:6885:8965 — keyvisual bleeds under safe areas (matches HomeView pattern)
+            Image("KeyvisualBG")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .clipped()
+                .ignoresSafeArea()
 
             VStack(spacing: 0) {
                 // mm:6885:8972
@@ -57,14 +62,6 @@ struct LoginView: View {
 
     // MARK: - Subviews
 
-    private var background: some View {
-        // mm:6885:8965
-        Image("KeyvisualBG")
-            .resizable()
-            .scaledToFill()
-            .ignoresSafeArea()
-    }
-
     private var header: some View {
         // mm:6885:8972
         HStack(alignment: .center) {
@@ -80,7 +77,7 @@ struct LoginView: View {
             LanguagePicker()
         }
         .padding(.horizontal, 20)
-        .padding(.top, 8)
+        .padding(.top, 32)
     }
 
     private var logoSection: some View {

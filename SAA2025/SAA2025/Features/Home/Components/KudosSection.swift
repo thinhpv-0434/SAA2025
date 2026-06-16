@@ -72,23 +72,34 @@ struct KudosSection: View {
     }
 
     private var detailsButton: some View {
+        // Match the "Chi tiết" CTA on the Awards screen
+        // (AwardsSunKudosSection.ctaButton): gold fill + dark navy text + arrow,
+        // 4pt corner radius, 16/10 padding.
         Button(action: onDetailsTap) {
-            HStack(spacing: 6) {
+            HStack(spacing: 8) {
                 // mm:I6885:9055;28:1998
                 Text(localizer.t("home.kudos.btn.details"))
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(Self.darkNavy)
                 // mm:I6885:9055;28:1997
                 Image(systemName: "arrow.up.right")
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(Self.darkNavy)
             }
-            .foregroundColor(Color(red: 0.13, green: 0.13, blue: 0.13))
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 16)
             .padding(.vertical, 10)
-            .background(Capsule().fill(Color("saaGold")))
+            .frame(minWidth: 160)
+            .background(
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color("saaGold"))
+            )
         }
         .buttonStyle(PlainButtonStyle())
         .padding(.horizontal, 20)
     }
+
+    // #00101A — matches the "Chi tiết" CTA foreground on the Awards screen
+    private static let darkNavy = Color(red: 0x00 / 255.0, green: 0x10 / 255.0, blue: 0x1A / 255.0)
 }
 
 #Preview {

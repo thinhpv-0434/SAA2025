@@ -85,7 +85,7 @@ struct AwardInfoBlock: View {
                 id: UUID(),
                 title: "Top Project",
                 shortDescription: "",
-                imageName: "TopProjectBadge",
+                imageName: "AwardBadgeBG",
                 longDescription: "Giải thưởng Top Project vinh danh các tập thể dự án xuất sắc với kết quả kinh doanh vượt kỳ vọng; hiệu quả vận hành tối ưu và tinh thần làm việc tận tâm...",
                 quantity: "02 Tập thể",
                 awardValue: "15.000.000 VNĐ"

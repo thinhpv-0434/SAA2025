@@ -21,9 +21,11 @@ struct FloatingActionButton: View {
             // mm:I6885:9058;75:2163 — pen + "/" separator (write kudo target)
             Button(action: guardedWriteKudo) {
                 HStack(spacing: 8) {
-                    // mm:I6885:9058;75:2164 — MM_MEDIA_Pen (compose-style SF symbol)
-                    Image(systemName: "square.and.pencil")
-                        .font(.system(size: 18, weight: .medium))
+                    // mm:I6885:9058;75:2164 — MM_MEDIA_Pen asset
+                    Image("Pen")
+                        .resizable()
+                        .renderingMode(.template)
+                        .scaledToFit()
                         .foregroundColor(Self.iconNavy)
                         .frame(width: 24, height: 24)
                     // mm:I6885:9058;75:2165 — slash separator
@@ -34,11 +36,11 @@ struct FloatingActionButton: View {
             }
             .buttonStyle(PlainButtonStyle())
 
-            // mm:I6885:9058;75:2166 — Sun* Kudos S brand mark (vector Shape, crisp at any scale)
+            // mm:I6885:9058;75:2166 — MM_MEDIA_IC_Kudos Logo asset (Sun* Kudos S brand)
             Button(action: onKudosFeed) {
-                SunBrandSShape()
-                    .fill(Self.kudosRed)
-                    .frame(width: 20, height: 18)
+                Image("KudosLogo")
+                    .resizable()
+                    .scaledToFit()
                     .frame(width: 24, height: 24)
             }
             .buttonStyle(PlainButtonStyle())
