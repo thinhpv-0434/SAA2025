@@ -75,6 +75,12 @@ enum StringsVN {
         "kudos.stats.secret_box_unopened": "Số Secret Box chưa mở:",
         "secret_box.title": "Secret Box",
         "secret_box.status.coming_soon": "Sắp ra mắt",
+        "secret_box.nav.title": "Secret Box",
+        "secret_box.headline.discover": "KHÁM PHÁ SECRET BOX CỦA BẠN",
+        "secret_box.headline.tap_hint": "Click vào box để mở",
+        "secret_box.headline.congrats": "Chúc mừng bạn đã nhận được phần quà từ BTC SAA 2025",
+        "secret_box.footer.unopened_label": "Secret box chưa mở",
+        "secret_box.btn.open_another": "Mở thêm Secret Box",
 
         // Write Kudo
         "writkudo.nav.title": "Kudo mới",

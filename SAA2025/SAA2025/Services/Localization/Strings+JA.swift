@@ -75,6 +75,12 @@ enum StringsJA {
         "kudos.stats.secret_box_unopened": "未開封のSecret Box数:",
         "secret_box.title": "Secret Box",
         "secret_box.status.coming_soon": "近日公開",
+        "secret_box.nav.title": "Secret Box",
+        "secret_box.headline.discover": "あなたのSecret Boxを開く",
+        "secret_box.headline.tap_hint": "ボックスをタップして開けてください",
+        "secret_box.headline.congrats": "おめでとうございます！SAA 2025から贈り物が届きました！",
+        "secret_box.footer.unopened_label": "未開封のSecret Box",
+        "secret_box.btn.open_another": "もう一つ開ける",
 
         // Write Kudo
         "writkudo.nav.title": "新規Kudo",

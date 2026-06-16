@@ -75,6 +75,12 @@ enum StringsEN {
         "kudos.stats.secret_box_unopened": "Unopened Secret Boxes:",
         "secret_box.title": "Secret Box",
         "secret_box.status.coming_soon": "Coming soon",
+        "secret_box.nav.title": "Secret Box",
+        "secret_box.headline.discover": "DISCOVER YOUR SECRET BOX",
+        "secret_box.headline.tap_hint": "Tap the box to open",
+        "secret_box.headline.congrats": "Congratulations! You\u{2019}ve received a gift from SAA 2025!",
+        "secret_box.footer.unopened_label": "Secret boxes left",
+        "secret_box.btn.open_another": "Open another Secret Box",
 
         // Write Kudo
         "writkudo.nav.title": "New Kudo",

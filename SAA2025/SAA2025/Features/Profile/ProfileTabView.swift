@@ -21,6 +21,7 @@ struct ProfileTabView: View {
     @State private var showCopiedToast: Bool = false
     @State private var selectedProfileUser: ProfileUser?
     @State private var navigateToSearch: Bool = false
+    @State private var navigateToSecretBox: Bool = false
 
     @EnvironmentObject private var localizer: Localizer
 
@@ -63,7 +64,7 @@ struct ProfileTabView: View {
 
                         ProfileStatsBlock(
                             stats: stats,
-                            onOpenSecretBox: {}
+                            onOpenSecretBox: { navigateToSecretBox = true }
                         )
 
                         kudosSection
@@ -80,6 +81,9 @@ struct ProfileTabView: View {
         }
         .navigationDestination(isPresented: $navigateToSearch) {
             SearchView()
+        }
+        .navigationDestination(isPresented: $navigateToSecretBox) {
+            SecretBoxView(unopenedCount: stats.secretBoxUnopened)
         }
     }
 

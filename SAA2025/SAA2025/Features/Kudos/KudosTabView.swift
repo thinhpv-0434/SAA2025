@@ -216,15 +216,8 @@ struct KudosTabView: View {
         .navigationDestination(item: $selectedProfileUser) { user in
             OtherProfileView(user: user)
         }
-        .sheet(isPresented: $viewModel.navigateToOpenSecretBox) {
-            VStack(spacing: 12) {
-                Text(localizer.t("secret_box.title"))
-                    .font(.title2.bold())
-                Text(localizer.t("secret_box.status.coming_soon"))
-                    .foregroundStyle(.secondary)
-            }
-            .padding()
-            .presentationDetents([.medium])
+        .navigationDestination(isPresented: $viewModel.navigateToOpenSecretBox) {
+            SecretBoxView(unopenedCount: viewModel.stats.secretBoxUnopened)
         }
     }
 }
