@@ -17,7 +17,7 @@ struct AwardsSection: View {
     @EnvironmentObject private var localizer: Localizer
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 24) {
             // mm:6885:9031
             sectionHeader
 
@@ -33,13 +33,16 @@ struct AwardsSection: View {
         VStack(alignment: .leading, spacing: 4) {
             // mm:I6885:9031;75:1884
             Text(localizer.t("home.awards.subtitle"))
-                .font(.system(size: 11, weight: .semibold))
-                .foregroundColor(Color("saaGold"))
-                .kerning(1.2)
-                .textCase(.uppercase)
-            Text(localizer.t("home.awards.title"))
-                .font(.system(size: 20, weight: .bold))
+                .font(.system(size: 12, weight: .regular))
                 .foregroundColor(.white)
+            // mm:I6885:9031;75:1885 — 1px separator
+            Rectangle()
+                .fill(Color(red: 0x2E / 255.0, green: 0x39 / 255.0, blue: 0x40 / 255.0))
+                .frame(height: 1)
+            // mm:I6885:9031;75:1887
+            Text(localizer.t("home.awards.title"))
+                .font(.system(size: 22, weight: .medium))
+                .foregroundColor(Self.titleGold)
         }
         .padding(.horizontal, 20)
     }
@@ -58,7 +61,7 @@ struct AwardsSection: View {
 
         case .loaded(let awards):
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
+                HStack(alignment: .top, spacing: 16) {
                     ForEach(awards) { award in
                         AwardCard(award: award) { onCardTap(award) }
                     }
@@ -81,12 +84,15 @@ struct AwardsSection: View {
                 Button(action: onRetry) {
                     Text(localizer.t("btn.retry"))
                         .font(.system(size: 13, weight: .semibold))
-                        .foregroundColor(Color("saaGold"))
+                        .foregroundColor(Self.titleGold)
                 }
             }
             .padding(.horizontal, 20)
         }
     }
+
+    // #FFEA9E — design token "Details / Text Primary 1"
+    private static let titleGold = Color(red: 0xFF / 255.0, green: 0xEA / 255.0, blue: 0x9E / 255.0)
 }
 
 #Preview {
@@ -94,8 +100,8 @@ struct AwardsSection: View {
         Color.black.ignoresSafeArea()
         AwardsSection(
             state: .loaded([
-                Award(id: UUID(), title: "Top Talent", shortDescription: "Vinh danh cá nhân xuất sắc nhất.", imageName: "TopTalentBadge"),
-                Award(id: UUID(), title: "Top Project", shortDescription: "Vinh danh dự án dấu ấn nhất.", imageName: "TopProjectBadge")
+                Award(id: UUID(), title: "Top Talent", shortDescription: "Giải thưởng Top Talent vinh danh những cá nhân xuất ...", imageName: "TopTalentBadge"),
+                Award(id: UUID(), title: "Top Project", shortDescription: "Giải thưởng Top Project vinh danh các tập thể dự án xuất...", imageName: "TopProjectBadge")
             ]),
             onCardTap: { _ in },
             onRetry: {}
