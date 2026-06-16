@@ -24,31 +24,30 @@ struct NotificationRow: View {
     private static let dotColor = Color(red: 0xE6 / 255.0, green: 0x4A / 255.0, blue: 0x4A / 255.0)
 
     var body: some View {
-        Button(action: onTap) {
-            HStack(alignment: .top, spacing: 12) {
-                iconChip
-                content
-                Spacer(minLength: 4)
-                if item.isUnread {
-                    unreadDot
-                        .padding(.top, 4)
-                }
+        HStack(alignment: .top, spacing: 12) {
+            iconChip
+            content
+            Spacer(minLength: 4)
+            if item.isUnread {
+                unreadDot
+                    .padding(.top, 4)
             }
-            .padding(.horizontal, item.isUnread ? 12 : 4)
-            .padding(.vertical, item.isUnread ? 12 : 12)
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(item.isUnread ? Self.unreadBg : Color.clear)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(
-                        item.isUnread ? Self.unreadBorder : Color.clear,
-                        lineWidth: 1
-                    )
-            )
         }
-        .buttonStyle(PlainButtonStyle())
+        .padding(.horizontal, item.isUnread ? 12 : 4)
+        .padding(.vertical, item.isUnread ? 12 : 12)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(item.isUnread ? Self.unreadBg : Color.clear)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(
+                    item.isUnread ? Self.unreadBorder : Color.clear,
+                    lineWidth: 1
+                )
+        )
+        .contentShape(Rectangle())
+        .onTapGesture(perform: onTap)
     }
 
     private var iconChip: some View {

@@ -29,6 +29,7 @@ struct AwardsTabView: View {
 
     @StateObject private var viewModel: AwardsTopViewModel
     @State private var navigateToSearch: Bool = false
+    @State private var navigateToRules: Bool = false
     @EnvironmentObject private var localizer: Localizer
 
     init(tokenStore: TokenStore) {
@@ -63,6 +64,9 @@ struct AwardsTabView: View {
         }
         .navigationDestination(isPresented: $navigateToSearch) {
             SearchView()
+        }
+        .navigationDestination(isPresented: $navigateToRules) {
+            RulesView()
         }
     }
 
@@ -113,7 +117,7 @@ struct AwardsTabView: View {
                         .padding(.vertical, 32)
                 }
 
-                AwardsSunKudosSection(onCTATap: {})
+                AwardsSunKudosSection(onCTATap: { navigateToRules = true })
             }
             .padding(.top, 8)
         }

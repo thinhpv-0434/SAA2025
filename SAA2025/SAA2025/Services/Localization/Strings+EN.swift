@@ -161,6 +161,52 @@ enum StringsEN {
         "access_denied.nav.title": "Access Denied",
         "access_denied.subtitle": "You don\u{2019}t have permission to access this resource.",
         "access_denied.btn.back_to_login": "Back to Login",
-        "access_denied.btn.go_home": "Go back to Home"
+        "access_denied.btn.go_home": "Go back to Home",
+
+        // Not Found (404)
+        "not_found.title": "NOT FOUND",
+        "not_found.subtitle": "The resource you\u{2019}re looking for doesn\u{2019}t exist or has been removed.",
+
+        // Community Standards
+        "community.standards.nav.title": "Community standards",
+        "community.standards.h1": "Community standards",
+        "community.standards.intro": "The Community Standards are built to keep the Sun* Kudos recognition movement civil, safe, and energising for every member who joins.",
+        "community.standards.spam_lead": "Content flagged for any of the rules below will be marked as Spam and hidden by the system automatically:",
+        "community.standards.spam.1": "Uses profanity, slurs, or content meant to harm or shame others.",
+        "community.standards.spam.2": "Touches politics, religion, or any form of discrimination.",
+        "community.standards.spam.3": "Contains confidential numbers (revenue, contracts, KPIs, customers, project IDs, accounts…).",
+        "community.standards.spam.4": "Names partners, customers, or external organisations.",
+        "community.standards.spam.5": "Contains personal contact info (email, phone, address, family details).",
+        "community.standards.spam.6": "Repeats 3+ similar messages in a short window.",
+        "community.standards.spam.7": "Kudo body is too short (under 30 characters) with no context (\u{201C}Thanks\u{201D}, \u{201C}Thanks nhé\u{201D}, \u{201C}Good job!\u{201D}).",
+        "community.standards.spam.8": "Sent to too many people / groups in a short window (<3s/message).",
+        "community.standards.spam.9": "Spam-pattern characters (just \u{201C}.\u{201D}, \u{201C},\u{201D}, \u{201C}…\u{201D}) or empty content.",
+        "community.standards.spam.10": "Hearts spike abnormally vs typical engagement.",
+        "community.standards.privacy.h2": "Privacy",
+        "community.standards.privacy.intro": "Sunners commit to protecting information. Every member is responsible for handling shared content securely on the platform.",
+        "community.standards.privacy.bullet1": "Information privacy: All information Sunners share is kept private on the platform.",
+        "community.standards.privacy.bullet2": "Sharing scope: HR data and project details remain inside the Sun* network only.",
+        "community.standards.contact": "Need help? Contact the SAA organising team on Slack: duong.thi.thuy.an.",
+
+        // Rules (Thể lệ)
+        "rules.nav.title": "Rules",
+        "rules.h1": "Rules",
+        "rules.receiver.heading": "KUDOS RECEIVERS: HERO BADGES FOR POSITIVE INFLUENCE",
+        "rules.receiver.intro": "Based on how many teammates send you Kudos, you earn matching Hero badges displayed right next to your profile name.",
+        "rules.tier.new.headline": "1–4 teammates sent you Kudos",
+        "rules.tier.new.body": "The journey of spreading good has begun — your first thanks and recognition have started rolling in.",
+        "rules.tier.rising.headline": "5–9 teammates sent you Kudos",
+        "rules.tier.rising.body": "The journey of spreading good has begun — your first thanks and recognition have started rolling in.",
+        "rules.tier.super.headline": "10–20 teammates sent you Kudos",
+        "rules.tier.super.body": "You’ve become an icon people trust and admire — always ready to help and remembered by many teammates.",
+        "rules.tier.legend.headline": "More than 20 teammates sent you Kudos",
+        "rules.tier.legend.body": "You’ve become an icon people trust and admire — always ready to help and remembered by many teammates.",
+        "rules.sender.heading": "KUDOS SENDERS: COLLECT ALL 6 ICONS, UNLOCK A SURPRISE GIFT",
+        "rules.sender.intro": "Every Kudo you send is posted publicly and earns hearts ❤\u{FE0F} from the community. Every 5 hearts opens a Secret Box for a chance at one of six SAA exclusive icons.",
+        "rules.sender.outro": "Sunners who collect all 6 icons receive a surprise gift from SAA 2025.",
+        "rules.kudos_quoc_dan.title": "KUDOS QUỐC DÂN",
+        "rules.kudos_quoc_dan.body": "The 5 Kudos with the most hearts ❤\u{FE0F} across Sun* will be crowned Kudos Quốc Dân and receive a special gift from SAA 2025: Root Further.",
+        "rules.btn.close": "Close",
+        "rules.btn.write_kudo": "Write Kudos"
     ]
 }

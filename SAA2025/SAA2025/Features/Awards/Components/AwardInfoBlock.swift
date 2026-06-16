@@ -21,8 +21,9 @@ struct AwardInfoBlock: View {
 
     var body: some View {
         VStack(spacing: 18) {
-            // mm:6885:10483 — badge
-            AwardBadgeImage(assetName: award.imageName)
+            // mm:6885:10483 — badge (falls back to a synthesised gold-ring
+            // wordmark for awards whose PNG asset hasn't shipped yet)
+            AwardBadgeImage(assetName: award.imageName, fallbackTitle: award.title)
                 .padding(.top, 4)
 
             // mm:6885:10467 — title row (trophy icon + title)

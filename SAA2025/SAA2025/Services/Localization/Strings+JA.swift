@@ -161,6 +161,52 @@ enum StringsJA {
         "access_denied.nav.title": "アクセス拒否",
         "access_denied.subtitle": "このページにアクセスする権限がありません。",
         "access_denied.btn.back_to_login": "ログインへ戻る",
-        "access_denied.btn.go_home": "ホームに戻る"
+        "access_denied.btn.go_home": "ホームに戻る",
+
+        // Not Found (404)
+        "not_found.title": "見つかりません",
+        "not_found.subtitle": "お探しのページは存在しないか、削除されました。",
+
+        // Community Standards
+        "community.standards.nav.title": "コミュニティ規範",
+        "community.standards.h1": "コミュニティ規範",
+        "community.standards.intro": "コミュニティ規範は、Sun* Kudosの感謝活動に参加するすべてのメンバーが安全かつ前向きに過ごせる環境を保つために定められています。",
+        "community.standards.spam_lead": "以下のいずれかに該当するコンテンツはSpamとしてラベル付けされ、自動的に非表示となります。",
+        "community.standards.spam.1": "下品な言葉や攻撃的な内容、誹謗中傷を含む。",
+        "community.standards.spam.2": "政治、宗教、差別に関わる話題を含む。",
+        "community.standards.spam.3": "具体的な数値（売上、契約、KPI、顧客、プロジェクトコードなど）を含む。",
+        "community.standards.spam.4": "パートナーや顧客、外部組織の名称に言及する。",
+        "community.standards.spam.5": "個人情報（メール、電話番号、住所、家族情報）を含む。",
+        "community.standards.spam.6": "短時間に3件以上の同内容を繰り返し送信する。",
+        "community.standards.spam.7": "Kudos本文が短すぎる（30文字未満で文脈がない、\u{201C}Cảm ơn nhiều\u{201D}、\u{201C}Thanks\u{201D}、\u{201C}Good job!\u{201D}など）。",
+        "community.standards.spam.8": "短時間（1件3秒未満）に多人数へ送信する。",
+        "community.standards.spam.9": "スパム的な文字列（\u{201C}.\u{201D}、\u{201C},\u{201D}、\u{201C}…\u{201D}のみ、または無内容）。",
+        "community.standards.spam.10": "ハートが平均的な行動と比較して異常に急増する。",
+        "community.standards.privacy.h2": "プライバシー",
+        "community.standards.privacy.intro": "Sunnerは情報の保護を約束します。全員が共有するコンテンツを安全に取り扱う責任があります。",
+        "community.standards.privacy.bullet1": "情報の機密：Sunnerが共有するすべての情報はシステム上で保護されます。",
+        "community.standards.privacy.bullet2": "共有範囲：HR情報やプロジェクト情報はSun*ネットワーク内に限定されます。",
+        "community.standards.contact": "サポートが必要ですか？SAA運営チーム（Slack: duong.thi.thuy.an）までご連絡ください。",
+
+        // Rules (Thể lệ)
+        "rules.nav.title": "規約",
+        "rules.h1": "規約",
+        "rules.receiver.heading": "KUDOS受信者：影響力に応じたHEROバッジ",
+        "rules.receiver.intro": "同僚から受け取ったKudosの数に応じて、プロフィール名の横に表示されるHeroバッジを獲得できます。",
+        "rules.tier.new.headline": "1〜4人がKudosを送ってくれました",
+        "rules.tier.new.body": "良い行いを広める旅が始まりました。最初の感謝と認識が届きました。",
+        "rules.tier.rising.headline": "5〜9人がKudosを送ってくれました",
+        "rules.tier.rising.body": "良い行いを広める旅が始まりました。最初の感謝と認識が届きました。",
+        "rules.tier.super.headline": "10〜20人がKudosを送ってくれました",
+        "rules.tier.super.body": "あなたは信頼され、愛される象徴となり、いつでも助けを差し伸べる存在として多くの同僚に記憶されています。",
+        "rules.tier.legend.headline": "20人以上がKudosを送ってくれました",
+        "rules.tier.legend.body": "あなたは信頼され、愛される象徴となり、いつでも助けを差し伸べる存在として多くの同僚に記憶されています。",
+        "rules.sender.heading": "KUDOS送信者：6つのアイコンを集めて隠れた賞品を獲得",
+        "rules.sender.intro": "送信したKudosはシステムに掲載され、コミュニティからの❤\u{FE0F}を獲得します。❤\u{FE0F}5つごとにSecret Boxが開き、SAA限定アイコン6種のうち1つを獲得するチャンスがあります。",
+        "rules.sender.outro": "6つのアイコンをすべて集めたSunnerにはSAA 2025から特別な隠れた贈り物が届きます。",
+        "rules.kudos_quoc_dan.title": "KUDOS QUỐC DÂN",
+        "rules.kudos_quoc_dan.body": "Sun*全体で最も多くの❤\u{FE0F}を集めた5つのKudosはKudos Quốc Dânとなり、SAA 2025: Root Furtherから特別な贈り物が贈られます。",
+        "rules.btn.close": "閉じる",
+        "rules.btn.write_kudo": "Kudosを書く"
     ]
 }

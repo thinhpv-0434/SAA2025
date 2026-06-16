@@ -16,12 +16,54 @@ struct AwardBadgeImage: View {
 
     @EnvironmentObject private var localizer: Localizer
 
+    /// Optional award title — when no PNG matches `assetName`, the fallback
+    /// renders this title inside the gold ring instead.
+    let fallbackTitle: String?
+
+    init(assetName: String, fallbackTitle: String? = nil) {
+        self.assetName = assetName
+        self.fallbackTitle = fallbackTitle
+    }
+
     var body: some View {
-        Image(assetName)
-            .resizable()
-            .scaledToFit()
-            .frame(width: 160, height: 160)
-            .accessibilityLabel(Text(localizer.t("award.badge.accessibility_label")))
+        Group {
+            if UIImage(named: assetName) != nil {
+                Image(assetName)
+                    .resizable()
+                    .scaledToFit()
+            } else {
+                fallback
+            }
+        }
+        .frame(width: 160, height: 160)
+        .accessibilityLabel(Text(localizer.t("award.badge.accessibility_label")))
+    }
+
+    /// Gold ring + uppercase title — a synthesized stand-in until the real
+    /// badge asset ships for awards beyond Top Project/Talent/Innovation.
+    private var fallback: some View {
+        ZStack {
+            Circle()
+                .stroke(
+                    LinearGradient(
+                        gradient: Gradient(colors: [
+                            Color(red: 0xF4 / 255.0, green: 0xC2 / 255.0, blue: 0x42 / 255.0),
+                            Color(red: 0xB6 / 255.0, green: 0x82 / 255.0, blue: 0x10 / 255.0)
+                        ]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 4
+                )
+
+            Text((fallbackTitle ?? assetName).uppercased())
+                .font(.system(size: 18, weight: .heavy))
+                .foregroundColor(Color("saaGold"))
+                .multilineTextAlignment(.center)
+                .minimumScaleFactor(0.6)
+                .lineLimit(2)
+                .padding(.horizontal, 24)
+        }
     }
 }
 

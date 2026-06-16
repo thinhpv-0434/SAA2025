@@ -18,6 +18,7 @@ import SwiftUI
 struct NotificationsView: View {
 
     @StateObject private var viewModel = NotificationsViewModel()
+    @State private var navigateToStandards: Bool = false
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var localizer: Localizer
 
@@ -42,7 +43,7 @@ struct NotificationsView: View {
                             NotificationRow(
                                 item: item,
                                 onTap: {},
-                                onLinkTap: {}
+                                onLinkTap: { navigateToStandards = true }
                             )
                             .padding(.horizontal, 16)
                         }
@@ -56,6 +57,9 @@ struct NotificationsView: View {
             if case .idle = viewModel.state {
                 await viewModel.load()
             }
+        }
+        .navigationDestination(isPresented: $navigateToStandards) {
+            CommunityStandardsView()
         }
     }
 }

@@ -161,6 +161,52 @@ enum StringsVN {
         "access_denied.nav.title": "Truy cập bị từ chối",
         "access_denied.subtitle": "Bạn không có quyền truy cập vào trang này.",
         "access_denied.btn.back_to_login": "Quay lại đăng nhập",
-        "access_denied.btn.go_home": "Quay về Trang chủ"
+        "access_denied.btn.go_home": "Quay về Trang chủ",
+
+        // Not Found (404)
+        "not_found.title": "KHÔNG TÌM THẤY",
+        "not_found.subtitle": "Trang bạn đang tìm không tồn tại hoặc đã bị xoá.",
+
+        // Community Standards
+        "community.standards.nav.title": "Tiêu chuẩn chung",
+        "community.standards.h1": "Tiêu chuẩn cộng đồng",
+        "community.standards.intro": "Tiêu chuẩn Cộng đồng (Community Standards) được xây dựng nhằm đảm bảo một môi trường văn minh, an toàn và tích cực cho tất cả thành viên tham gia phong trào ghi nhận, cảm ơn Sun* Kudos.",
+        "community.standards.spam_lead": "Các nội dung phát hiện có một trong những tiêu chí vi phạm bên dưới sẽ được gắn nhãn Spam và được hệ thống chủ động ẩn.",
+        "community.standards.spam.1": "Sử dụng từ ngữ thô tục, chửi bậy, hay có nội dung xúc phạm, bôi nhọ.",
+        "community.standards.spam.2": "Đề cập đến các vấn đề chính trị, tôn giáo, phân biệt giới tính.",
+        "community.standards.spam.3": "Chứa số liệu cụ thể (doanh thu, hợp đồng, KPI, khách hàng, mã dự án, số tài khoản…).",
+        "community.standards.spam.4": "Đề cập tên đối tác, khách hàng, tổ chức bên ngoài.",
+        "community.standards.spam.5": "Chứa thông tin cá nhân (email, số điện thoại, địa chỉ, thông tin gia đình).",
+        "community.standards.spam.6": "Gửi lặp lại 3+ tin nhắn có nội dung tương tự nhau trong thời gian ngắn.",
+        "community.standards.spam.7": "Nội dung Kudos quá ngắn (dưới 30 kí tự), không có ngữ cảnh (\u{201C}Cảm ơn nhiều\u{201D}, \u{201C}Thanks nhé\u{201D}, \u{201C}Good job!\u{201D}).",
+        "community.standards.spam.8": "Gửi cho quá nhiều người/nhóm người trong thời gian ngắn (<3s/lời nhắn).",
+        "community.standards.spam.9": "Ngôn từ spam (chỉ chứa ký tự như \u{201C}.\u{201D}, \u{201C},\u{201D}, \u{201C}…\u{201D}, hay ký tự không có nội dung).",
+        "community.standards.spam.10": "Mức độ \u{201C}tim\u{201D} tăng đột biến bất thường (theo hành vi người dùng trung bình).",
+        "community.standards.privacy.h2": "Tiêu chuẩn bảo mật",
+        "community.standards.privacy.intro": "Sunner cam kết bảo vệ thông tin. Mọi thành viên có trách nhiệm bảo mật nội dung chia sẻ trên hệ thống.",
+        "community.standards.privacy.bullet1": "Bảo mật Thông tin: Toàn bộ thông tin Sunner chia sẻ sẽ được bảo mật trên hệ thống.",
+        "community.standards.privacy.bullet2": "Phạm vi Chia sẻ: Toàn bộ thông tin nhân sự và dự án trong hệ thống được bảo mật. Sunner vui lòng chỉ chia sẻ trong nội bộ Sun*.",
+        "community.standards.contact": "Liên hệ Hỗ trợ: Mọi thắc mắc, Sunner vui lòng liên hệ đại diện BTC SAA: Slack duong.thi.thuy.an để được hỗ trợ.",
+
+        // Rules (Thể lệ)
+        "rules.nav.title": "Thể lệ",
+        "rules.h1": "Thể lệ",
+        "rules.receiver.heading": "NGƯỜI NHẬN KUDOS: HUY HIỆU HERO CHO NHỮNG ẢNH HƯỞNG TÍCH CỰC",
+        "rules.receiver.intro": "Dựa trên số lượng đồng đội gửi trao Kudos, bạn sẽ sở hữu Huy hiệu Hero tương ứng, được hiển thị trực tiếp cạnh tên profile.",
+        "rules.tier.new.headline": "Có 1–4 người gửi Kudos cho bạn",
+        "rules.tier.new.body": "Hành trình lan tỏa điều tốt đẹp bắt đầu — những lời cảm ơn và ghi nhận đầu tiên đã tìm đến bạn.",
+        "rules.tier.rising.headline": "Có 5–9 người gửi Kudos cho bạn",
+        "rules.tier.rising.body": "Hành trình lan tỏa điều tốt đẹp bắt đầu — những lời cảm ơn và ghi nhận đầu tiên đã tìm đến bạn.",
+        "rules.tier.super.headline": "Có 10–20 người gửi Kudos cho bạn",
+        "rules.tier.super.body": "Bạn đã trở thành biểu tượng được tin tưởng và yêu quý, người luôn sẵn sàng hỗ trợ và được nhiều đồng đội nhớ đến.",
+        "rules.tier.legend.headline": "Có hơn 20 người gửi Kudos cho bạn",
+        "rules.tier.legend.body": "Bạn đã trở thành biểu tượng được tin tưởng và yêu quý, người luôn sẵn sàng hỗ trợ và được nhiều đồng đội nhớ đến.",
+        "rules.sender.heading": "NGƯỜI GỬI KUDOS: SƯU TẬP TRỌN BỘ 6 ICON, NHẬN NGAY PHẦN QUÀ BÍ ẨN",
+        "rules.sender.intro": "Mỗi lời Kudos bạn gửi sẽ được đăng tải trên hệ thống và nhận về những lượt ❤\u{FE0F} từ cộng đồng Sunner. Cứ mỗi 5 lượt ❤\u{FE0F}, bạn sẽ được mở 1 Secret Box, với cơ hội nhận về một trong 6 icon độc quyền của SAA.",
+        "rules.sender.outro": "Những Sunner thu thập trọn bộ 6 icon sẽ nhận về một phần quà bí ẩn từ SAA 2025.",
+        "rules.kudos_quoc_dan.title": "KUDOS QUỐC DÂN",
+        "rules.kudos_quoc_dan.body": "5 Kudos nhận về nhiều ❤\u{FE0F} nhất toàn Sun* sẽ chính thức trở thành Kudos Quốc Dân và được trao phần quà đặc biệt từ SAA 2025: Root Further.",
+        "rules.btn.close": "Đóng",
+        "rules.btn.write_kudo": "Viết Kudos"
     ]
 }
