@@ -20,6 +20,18 @@ final class WriteKudoViewModel: ObservableObject {
     @Published var hashtags: [String] = []
     @Published var images: [KudoImageAttachment] = []
     @Published var isAnonymous: Bool = false
+    @Published var anonymousNickname: String = ""
+    /// Toggled true when the user taps Send on an incomplete form; the view
+    /// renders the red "missing required" message until they fix it.
+    @Published private(set) var hasAttemptedSubmit: Bool = false
+
+    /// Visible error string is derived: only show once the user has tried to
+    /// submit, OR when they have opted into anonymous (the Figma "Lỗi chưa
+    /// điền hết" frame is the anonymous-with-blanks state).
+    var showValidationError: Bool {
+        guard !canSubmit else { return false }
+        return hasAttemptedSubmit || (isAnonymous && isDirty)
+    }
 
     // MARK: - Sheet visibility / dialog
     @Published var showRecipientPicker: Bool = false
@@ -122,7 +134,11 @@ final class WriteKudoViewModel: ObservableObject {
 
     /// Returns true on success — the container handles toast + dismiss.
     func submit() async -> Bool {
-        guard canSubmit, let recipient = recipient else { return false }
+        guard canSubmit, let recipient = recipient else {
+            hasAttemptedSubmit = true
+            return false
+        }
+        hasAttemptedSubmit = false
         let draft = KudoDraft(
             recipient: recipient,
             title: title,

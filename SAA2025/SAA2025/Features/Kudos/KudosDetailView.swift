@@ -93,8 +93,13 @@ struct KudosDetailView: View {
     // mm:6885:10148 — mms_B.3_KUDO - Highlight container
     private var kudoCard: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // mm:6885:10149 — sender ➜ receiver
-            KudoSenderReceiverHighlight(sender: kudo.sender, receiver: kudo.receiver)
+            // mm:6885:10149 — sender ➜ receiver (mm:6885:10194 anonymous variant
+            // swaps the sender block for a mask + chosen nickname)
+            KudoSenderReceiverHighlight(
+                sender: kudo.sender,
+                receiver: kudo.receiver,
+                anonymousNickname: kudo.isAnonymous ? kudo.anonymousNickname : nil
+            )
 
             // mm:6885:10154 — divider
             Rectangle()

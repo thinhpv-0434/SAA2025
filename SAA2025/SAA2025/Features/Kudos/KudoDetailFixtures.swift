@@ -44,6 +44,26 @@ enum KudoDetailFixtures {
         hashtags: ["#Dedicated", "#Inspiring", "#Dedicated", "#Inspiring", "#Dedicated"],
         heartCount: 10,
         isLiked: true,
-        isOwn: false
+        isOwn: false,
+        isAnonymous: false,
+        anonymousNickname: nil
+    )
+
+    // mm:6885:10194 — anonymous variant. Sender is hidden behind a chosen
+    // nickname; no employee code or badge pill renders.
+    static let anonymousSampleDetail = KudoDetail(
+        id: UUID(uuidString: "D4E5F6A7-0004-0004-0004-000000000004")!,
+        sender: senderUser,
+        receiver: receiverUser,
+        title: "NGƯỜI HÙNG CỦA LÒNG EM",
+        postedAt: "10:00 - 10/30/2025",
+        message: "Cảm ơn người em bình thường nhưng phi thường :D Cảm ơn sự chăm chỉ, cần mẫn của em đã tạo động lực rất nhiều cho team, để luôn nhắc mình luôn phải nỗ lực hơn nữa trong công việc. <3 và cuộc sống",
+        attachedImages: Array(repeating: "photo.fill", count: 5),
+        hashtags: ["#Dedicated", "#Inspiring", "#Dedicated", "#Inspiring", "#Dedicated"],
+        heartCount: 10,
+        isLiked: true,
+        isOwn: false,
+        isAnonymous: true,
+        anonymousNickname: "Anh Hùng Xạ Điêu"
     )
 }

@@ -21,6 +21,8 @@ struct KudoDetail: Identifiable, Hashable {
     let heartCount: Int
     let isLiked: Bool
     let isOwn: Bool             // TC_FUN_008: sender == current user → heart disabled
+    let isAnonymous: Bool       // mm:6885:10194 — anonymous sender view variant
+    let anonymousNickname: String?
 }
 
 // MARK: - Mapping from KudosCardData
@@ -41,6 +43,8 @@ extension KudoDetail {
         self.heartCount = card.heartCount
         self.isLiked = card.isLiked
         self.isOwn = card.isOwn
+        self.isAnonymous = false
+        self.anonymousNickname = nil
     }
 }
 
@@ -61,7 +65,9 @@ extension KudoDetail {
             hashtags: hashtags,
             heartCount: max(0, heartCount + delta),
             isLiked: nowLiked,
-            isOwn: isOwn
+            isOwn: isOwn,
+            isAnonymous: isAnonymous,
+            anonymousNickname: anonymousNickname
         )
     }
 }

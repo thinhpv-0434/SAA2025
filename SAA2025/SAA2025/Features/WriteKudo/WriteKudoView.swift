@@ -19,9 +19,11 @@ struct WriteKudoView: View {
     @Binding var hashtags: [String]
     @Binding var images: [KudoImageAttachment]
     @Binding var isAnonymous: Bool
+    @Binding var anonymousNickname: String
 
     let isSubmitting: Bool
     let canSubmit: Bool
+    let showValidationError: Bool
 
     let onBack: () -> Void
     let onRecipientTap: () -> Void
@@ -96,8 +98,20 @@ struct WriteKudoView: View {
                 onRemove: onRemoveImage
             )
 
-            // G. anonymous
+            // G. anonymous toggle + (when on) nickname input + (when invalid) error
             WriteKudoAnonymousToggle(isAnonymous: $isAnonymous)
+
+            if isAnonymous {
+                WriteKudoAnonymousNicknameField(nickname: $anonymousNickname)
+            }
+
+            if showValidationError {
+                Text(localizer.t("writkudo.validation.missing_required"))
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundColor(.red)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
         }
     }
 
@@ -127,7 +141,8 @@ struct WriteKudoView: View {
             KudoImageAttachment(assetName: "KudosBanner"),
             KudoImageAttachment(assetName: "KudosBanner")
         ]
-        @State var isAnonymous: Bool = false
+        @State var isAnonymous: Bool = true
+        @State var anonymousNickname: String = "Doraemon"
 
         var body: some View {
             NavigationStack {
@@ -138,8 +153,10 @@ struct WriteKudoView: View {
                     hashtags: $hashtags,
                     images: $images,
                     isAnonymous: $isAnonymous,
+                    anonymousNickname: $anonymousNickname,
                     isSubmitting: false,
                     canSubmit: false,
+                    showValidationError: true,
                     onBack: {},
                     onRecipientTap: {},
                     onAwardsInfoTap: {},
