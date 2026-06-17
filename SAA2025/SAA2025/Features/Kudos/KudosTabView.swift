@@ -23,6 +23,8 @@ struct KudosTabView: View {
     @State private var spotlightSearch: String = ""
     @State private var showCopiedToast: Bool = false
     @State private var selectedProfileUser: ProfileUser?
+    @State private var navigateToSearch: Bool = false
+    @State private var navigateToNotifications: Bool = false
     @EnvironmentObject private var localizer: Localizer
 
     /// Maps the kudos-feature user model onto the profile model. Until the
@@ -49,7 +51,10 @@ struct KudosTabView: View {
 
                 // MARK: A — Hero + Send Button
 
-                KudosHeroSection()
+                KudosHeroSection(
+                    onSearch: { navigateToSearch = true },
+                    onBell: { navigateToNotifications = true }
+                )
 
                 SendKudosButton {
                     viewModel.navigateToSendKudos = true
@@ -170,10 +175,10 @@ struct KudosTabView: View {
                 .padding(.bottom, 32)
             }
         }
-        .background(
-            Color(red: 0x00 / 255.0, green: 0x10 / 255.0, blue: 0x1A / 255.0)
-                .ignoresSafeArea()
-        )
+        // Screen-level keyvisual: navy base + KeyvisualBG bleeding from the top,
+        // fading into solid navy. Replaces the per-section keyvisual on the hero
+        // so the artwork extends past the hero through the Send Kudo button area.
+        .background(KudosKeyvisualBackground())
         .overlay {
             // mm: loading overlay — covers initial fetch (TC_FUN_011 Spotlight loading)
             if viewModel.state.isLoading && viewModel.highlightCards.isEmpty {
@@ -218,6 +223,12 @@ struct KudosTabView: View {
         }
         .navigationDestination(isPresented: $viewModel.navigateToOpenSecretBox) {
             SecretBoxView(unopenedCount: viewModel.stats.secretBoxUnopened)
+        }
+        .navigationDestination(isPresented: $navigateToSearch) {
+            SearchView()
+        }
+        .navigationDestination(isPresented: $navigateToNotifications) {
+            NotificationsView()
         }
     }
 }

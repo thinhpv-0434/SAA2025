@@ -31,7 +31,6 @@ struct SecretBoxView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            AwardsBackground()
 
             VStack(spacing: 0) {
                 topBar
@@ -53,6 +52,7 @@ struct SecretBoxView: View {
                 Spacer()
             }
         }
+        .background(Color.black)
         .toolbar(.hidden, for: .navigationBar)
     }
 
@@ -117,7 +117,6 @@ struct SecretBoxView: View {
                 .contentShape(Rectangle())
         }
         .buttonStyle(PlainButtonStyle())
-        .disabled(viewModel.state.revealedReward != nil)
     }
 
     // MARK: - Footer

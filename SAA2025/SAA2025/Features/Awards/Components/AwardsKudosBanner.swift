@@ -27,14 +27,12 @@ struct AwardsKudosBanner: View {
 
             // Logo row — fire icon + KUDOS wordmark
             HStack(spacing: 8) {
-                Image(systemName: "flame.fill")
-                    .font(.system(size: 22, weight: .bold))
-                    .foregroundColor(Color(red: 0xFF/255.0, green: 0x6A/255.0, blue: 0x1A/255.0))
-
-                Text(localizer.t("kudos.hero.title"))
-                    .font(.system(size: 28, weight: .heavy))
-                    .foregroundColor(Color("saaGold"))
-                    .kerning(2)
+                Image("KudosBannerLogo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 52)
+                    .accessibilityLabel(Text(localizer.t("kudos.hero.title")))
+                    .shadow(color: .black.opacity(0.6), radius: 4, x: 0, y: 2)
             }
         }
         .frame(maxWidth: .infinity)

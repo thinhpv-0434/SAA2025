@@ -7,59 +7,88 @@ import SwiftUI
 
 // MARK: - KudosHeroSection
 
-/// Hero section for the Sun*Kudos screen: keyvisual background + tagline + KUDOS wordmark.
+/// Hero section for the Sun*Kudos screen: keyvisual background + nav header +
+/// tagline + KUDOS wordmark.
 // mm:6885:9059 / mm:6885:9065
 struct KudosHeroSection: View {
+
+    var unreadCount: Int = 0
+    var onSearch: () -> Void = {}
+    var onBell: () -> Void = {}
 
     @EnvironmentObject private var localizer: Localizer
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Spacer(minLength: 40)
+        VStack(alignment: .leading, spacing: 0) {
+            // mm:6885:9060 — top nav (SAA logo + language picker + search + bell)
+            // Sits over the keyvisual so it scrolls with the hero per design.
+            headerRow
+
+            Spacer(minLength: 16)
 
             // mm:I6885:9064;75:2055 — tagline
             Text(localizer.t("kudos.hero.tagline"))
                 .font(.system(size: 14, weight: .regular))
                 .foregroundColor(.white)
+                .padding(.bottom, 6)
 
-            // mm:I6885:9064;75:2058 — KUDOS wordmark
-            HStack(alignment: .center, spacing: 10) {
-                // mm:I6885:9064;75:2061 — S-logo (Sun* brand mark in red)
-                SunBrandSShape()
-                    .fill(Color(red: 0xE6 / 255.0, green: 0x4A / 255.0, blue: 0x2C / 255.0))
-                    .frame(width: 32, height: 30)
-
-                // mm:I6885:9064;75:2064
-                Text(localizer.t("kudos.hero.title"))
-                    .font(.system(size: 52, weight: .black))
-                    .foregroundColor(.white)
-                    .kerning(2)
-                    .shadow(color: .black.opacity(0.6), radius: 4, x: 0, y: 2)
-            }
+            // mm:I6885:9064;75:2058 — KUDOS wordmark (single asset containing
+            // the red Sun* S-logo + KUDOS lettering; replaces the previous
+            // SunBrandSShape + Text composition).
+            Image("KudosBannerLogo")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 52)
+                .accessibilityLabel(Text(localizer.t("kudos.hero.title")))
+                .shadow(color: .black.opacity(0.6), radius: 4, x: 0, y: 2)
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 20)
-        .frame(maxWidth: .infinity, minHeight: 200, alignment: .bottomLeading)
-        .background(alignment: .topTrailing) {
-            // mm:6885:9061 — MM_MEDIA_Keyvisual BG (reuse Home KeyvisualBG asset)
-            Image("KeyvisualBG")
+        .frame(maxWidth: .infinity, minHeight: 220, alignment: .bottomLeading)
+        // No internal background — the parent KudosTabView paints the shared
+        // `KudosKeyvisualBackground` so the artwork extends past the hero.
+    }
+
+    // MARK: - Header row
+
+    /// SAA logo on the left, language picker + search + bell on the right.
+    /// Mirrors the AwardsScreenHeader layout (mm:6885:10434) so the two tabs
+    /// share a visual idiom.
+    private var headerRow: some View {
+        HStack(alignment: .center, spacing: 12) {
+            Image("SunAALogo")
                 .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .clipped()
-                .overlay(
-                    LinearGradient(
-                        gradient: Gradient(stops: [
-                            .init(color: Color(red: 0x00 / 255.0, green: 0x10 / 255.0, blue: 0x1A / 255.0), location: 0.0),
-                            .init(color: Color(red: 0x00 / 255.0, green: 0x10 / 255.0, blue: 0x1A / 255.0).opacity(0.0), location: 0.6)
-                        ]),
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
+                .scaledToFit()
+                .frame(width: 48, height: 44)
+
+            Spacer()
+
+            LanguagePicker()
+
+            Button(action: onSearch) {
+                Image(systemName: "magnifyingglass")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.white)
+            }
+            .frame(width: 32, height: 32)
+
+            ZStack(alignment: .topTrailing) {
+                Button(action: onBell) {
+                    Image(systemName: "bell.fill")
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(.white)
+                }
+                .frame(width: 32, height: 32)
+
+                if unreadCount > 0 {
+                    Circle()
+                        .fill(Color.red)
+                        .frame(width: 8, height: 8)
+                        .offset(x: 2, y: -2)
+                }
+            }
         }
-        .background(Color(red: 0x00 / 255.0, green: 0x10 / 255.0, blue: 0x1A / 255.0))
-        .clipped()
+        .padding(.top, 8)
     }
 }
 

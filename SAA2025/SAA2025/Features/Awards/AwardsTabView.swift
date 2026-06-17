@@ -129,7 +129,7 @@ struct AwardsTabView: View {
 
     private func successView(awards: [Award]) -> some View {
         ScrollView {
-            VStack(spacing: 20) {
+            VStack(alignment: .leading, spacing: 0) {
                 AwardsKudosBanner()
 
                 AwardHighlightBlock(
@@ -150,6 +150,7 @@ struct AwardsTabView: View {
                 AwardsSunKudosSection(onCTATap: { navigateToRules = true })
             }
             .padding(.top, 8)
+            .padding(.horizontal, 20)
         }
     }
 

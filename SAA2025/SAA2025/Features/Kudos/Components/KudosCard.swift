@@ -61,7 +61,9 @@ struct KudosCard: View {
             }
         }
         .frame(width: isCarouselVariant ? 273 : nil)
-        .opacity(isCarouselVariant && !card.isHighlight ? 0.55 : 1.0)
+        // All carousel cards render at full opacity so the cream background
+        // doesn't blend with the keyvisual bleeding through behind. Center
+        // focus is conveyed by carousel position (peek-of-next on the right).
     }
 
     // mm:6885:10393 — mms_D.3.1_Status (orange "Spam" pill, top-right corner)

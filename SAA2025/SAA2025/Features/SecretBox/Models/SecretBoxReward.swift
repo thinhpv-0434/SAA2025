@@ -46,16 +46,6 @@ enum PhysicalItemKind: Hashable {
 enum SecretBoxFixtures {
     static let pool: [SecretBoxReward] = [
         // Six SAA limited-edition icons, mirroring `ProfileEarnedBadge.showcase`
-        .icon(
-            name: "Touch of Light",
-            centerColor: Color(red: 0xF8 / 255.0, green: 0xE8 / 255.0, blue: 0xB2 / 255.0),
-            edgeColor: Color(red: 0xE5 / 255.0, green: 0xC2 / 255.0, blue: 0x70 / 255.0)
-        ),
-        .icon(
-            name: "Stay Gold",
-            centerColor: Color(red: 0xF4 / 255.0, green: 0xC2 / 255.0, blue: 0x42 / 255.0),
-            edgeColor: Color(red: 0xB6 / 255.0, green: 0x82 / 255.0, blue: 0x10 / 255.0)
-        ),
         .item(name: "Khăn Root Further", kind: .scarf),
         .item(name: "Cốc Root Further", kind: .mug),
         .item(name: "Bộ tem Root Further", kind: .stamps),

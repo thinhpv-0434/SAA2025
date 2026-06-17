@@ -22,7 +22,7 @@ struct HighlightCarousel: View {
     // mm:6885:9092 — card width 273 / spacing 12 (Figma).
     private static let cardWidth: CGFloat = 273
     private static let cardSpacing: CGFloat = 12
-    private static let cardAreaHeight: CGFloat = 260
+    private static let cardAreaHeight: CGFloat = 275
 
     // Background navy used by the side fade gradient (screen background).
     private static let bgNavy = Color(red: 0x00 / 255.0,
